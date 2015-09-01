@@ -1,0 +1,13 @@
+body
+{
+  background-image: url(../images/EVSU.jpg);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: contain;
+
+}
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
