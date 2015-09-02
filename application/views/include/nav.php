@@ -11,10 +11,16 @@
                 <a href="#">Home</a>
             </li>
             <li>
-                <a href="#">Faculty Registration</a>
+                <a href="/user_registration">User Registration</a>
             </li>
             <li>
-                <a href="#">ADD Common CCE</a>
+                <a href="/faculty_registration">Faculty Registration</a>
+            </li>
+            <li>
+                <a href="/add_criteria">ADD Common CCE</a>
+            </li>
+            <li>
+                <a href="/add_school">Add School</a>
             </li>
             <li>
                 <a href="#">QCE</a>

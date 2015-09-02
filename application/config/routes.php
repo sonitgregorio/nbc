@@ -54,4 +54,8 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 
-$route['login']         =   'main/verifylogin';
+$route['login']                 =   'main/verifylogin';
+$route['faculty_registration']  =   'main/fac_reg';
+$route['add_school']            =   'main/add_school';
+$route['user_registration']     =   'main/user_reg';
+$route['add_criteria']          =   'main/add_criteria';
