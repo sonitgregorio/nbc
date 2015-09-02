@@ -36,9 +36,26 @@ class Registration extends CI_Model
       }
       function delete_school($id)
       {
-        $this->db->delete('tbl_school', array('id' => $id));
-        $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'School Deleted.</div>');
-        redirect('/add_school');
+          $this->db->delete('tbl_school', array('id' => $id));
+          $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'School Deleted.</div>');
+          redirect('/add_school');
+      }
+      function insert_fac($data)
+      {
+          $this->db->insert('tbl_faculty', $data);
+          $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'Inserted New Data.</div>');
+          redirect('/faculty_registration');
+      }
+      function getallfaculty()
+      {
+        return $this->db->query("SELECT a.id AS fid, CONCAT(a.firstname, ' ', a.middlename, ' ', a.lastname)
+                                AS fullname, a.address, a.contact, CONCAT(b.sch_name, '-', b.sch_address)
+                                AS sch , b.id
+                                AS schid, c.description
+                                AS position, c.id
+                                AS pid
+                                FROM `tbl_faculty` a, tbl_school b, position c
+                                WHERE a.school = b.id AND c.id = a.position")->result_array();
       }
 
 }

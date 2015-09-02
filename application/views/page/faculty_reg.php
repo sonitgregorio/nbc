@@ -9,6 +9,9 @@
                           <h1 class="panel-title" style="color:white">Faculty Registration</h1>
                         </div>
                         <div class="panel-body">
+                          <?php
+                            echo $this->session->flashdata('message');
+                           ?>
                             <form class="form-horizontal" action="/insert_faculty" method="post">
                               <div class="col-md-5">
                                 <div class="form-group">
@@ -94,17 +97,21 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>Jessie R. Paragas</td>
-                                    <td>Instructor I</td>
-                                    <td>Eastern Visayas State University - Tacloban City</td>
-                                    <td>Villa Cesar, Diit</td>
-                                    <td>0909019090</td>
-                                    <td>
-                                      <a href="#" class="label label-info">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-pencil"></span></a>
-                                      <a href="#" class="label label-danger">Delete&nbsp;&nbsp;<span class="glyphicon glyphicon-trash"></span></a>
-                                    </td>
-                                  </tr>
+                                  <?php foreach ($this->registration->getallfaculty() as $key => $value):
+                                    extract($value);
+                                    ?>
+                                    <tr>
+                                      <td><?php echo $fullname; ?></td>
+                                      <td><?php echo $position; ?></td>
+                                      <td><?php echo $sch; ?></td>
+                                      <td><?php echo $address ?></td>
+                                      <td><?php echo $contact; ?></td>
+                                      <td>
+                                        <a href="#" class="label label-info">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-pencil"></span></a>
+                                        <a href="#" class="label label-danger">Delete&nbsp;&nbsp;<span class="glyphicon glyphicon-trash"></span></a>
+                                      </td>
+                                    </tr>
+                                  <?php endforeach; ?>
                                 </tbody>
                               </table>
                             </div>

@@ -48,5 +48,6 @@ class Common extends CI_Controller
                       'position' => $this->input->post('position'),
                       'school' => $this->input->post('school')
                     );
+        $this->registration->insert_fac($data);
     }
 }
