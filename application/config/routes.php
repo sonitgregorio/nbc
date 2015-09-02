@@ -59,3 +59,11 @@ $route['faculty_registration']  =   'main/fac_reg';
 $route['add_school']            =   'main/add_school';
 $route['user_registration']     =   'main/user_reg';
 $route['add_criteria']          =   'main/add_criteria';
+
+//Faculty Data Management Routes
+$route['insert_faculty']        =   'common/insert_faculty';
+
+//School Data Management Routes
+$route['save_school']           =   'common/save_school';
+$route['edit/(:any)']           =   'common/edit_school/$1';
+$route['delete/(:any)']         =   'common/delete_school/$1';

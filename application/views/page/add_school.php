@@ -1,6 +1,17 @@
 <div id="page-content-wrapper">
   <a href="#menu-toggle" id="menu-toggle" class="btn btn-info" style="margin-left:-30px;margin-top:-30px; height:40px;background: #B22222;">Menu</a>
     <div class="container-fluid">
+      <?php
+
+
+          if (!empty($sch_name)) {
+          }else{
+            $sch_name = "";
+            $sch_address = "";
+            $sch_contact = "";
+            $id = "";
+          }
+       ?>
         <div class="row">
             <div class="col-lg-12">
                   <div class="panel panel-default" style="box-shadow: 0px 0px 20px rgb(49, 49, 49)">
@@ -8,18 +19,22 @@
                     <h1 class="panel-title" style="color:white">Faculty Registration</h1>
                   </div>
                   <div class="panel-body">
-                      <form class="form-horizontal" action="index.html" method="post">
+                    <?php
+                        echo $this->session->flashdata('message');
+                     ?>
+                      <form class="form-horizontal" action="/save_school" method="post">
+                        <input type="hidden" name="shid" value="<?php echo $id ?>">
                         <div class="col-md-6">
                           <div class="form-group">
                             <label class="col-sm-3 control-label">School Name</label>
                             <div class="col-sm-9">
-                              <input type="text" name="name" value="" class="form-control" placeholder="First Name">
+                              <input type="text" name="sch_name" class="form-control" placeholder="School Name" value="<?php echo $sch_name ?>">
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="col-sm-3 control-label">School Address</label>
                             <div class="col-sm-9">
-                              <input type="text" name="name" value="" class="form-control" placeholder="Middle Name">
+                              <input type="text" name="sch_address" class="form-control" placeholder="School Address"  value="<?php echo $sch_address ?>">
                             </div>
                           </div>
                         </div>
@@ -27,7 +42,7 @@
                           <div class="form-group">
                             <label class="col-sm-3 control-label">School Contact</label>
                             <div class="col-sm-9">
-                              <input type="text" name="name" value="" class="form-control" placeholder="Middle Name">
+                              <input type="text" name="sch_contact" class="form-control" placeholder="School Contact"  value="<?php echo $sch_contact ?>">
                             </div>
                           </div>
                           <div class="form-goup">
@@ -49,19 +64,25 @@
                               <td>School</td>
                               <td>Address</td>
                               <td>Contact</td>
-                              <td>Action</td>
+                              <td width="150">Action</td>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td>Eastern Visayas State University - Tacloban City</td>
-                              <td>Quary District, Tacloban City</td>
-                              <td>0909019090</td>
-                              <td>
-                                <a href="#" class="label label-info">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-pencil"></span></a>
-                                <a href="#" class="label label-danger">Delete&nbsp;&nbsp;<span class="glyphicon glyphicon-trash"></span></a>
-                              </td>
-                            </tr>
+                            <?php
+                            foreach ($this->registration->schoolList() as $key => $value):
+                            extract($value);
+                            ?>
+                              <tr>
+                                <td><?php echo $sch_name; ?></td>
+                                <td><?php echo $sch_address ?></td>
+                                <td><?php echo $sch_contact; ?></td>
+                                <td>
+                                  <a href="/edit/<?php echo $id ?>" class="label label-info">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-pencil"></span></a>
+                                  <a href="/delete/<?php echo $id ?>" class="label label-danger" onclick="return confirm('Delete School?')">Delete&nbsp;&nbsp;<span class="glyphicon glyphicon-trash"></span></a>
+                                </td>
+                              </tr>
+                            <?php endforeach; ?>
+
                           </tbody>
                         </table>
                       </div>

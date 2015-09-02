@@ -25,6 +25,7 @@
       {
         $this->load->view('include/header');
         $this->load->view('include/nav');
+        $this->load->model('registration');
         $this->load->view('page/add_school');
         $this->load->view('include/footer');
       }
