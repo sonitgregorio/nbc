@@ -143,9 +143,14 @@ class Registration extends CI_Model
       }
       function update_cce($data, $id)
       {
-        $this->db->where('id', $id);
-        $this->db->update('tbl_cce', $data);
-        $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'Criteria Updated.</div>');
-        redirect('/add_criteria');
+          $this->db->where('id', $id);
+          $this->db->update('tbl_cce', $data);
+          $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'Criteria Updated.</div>');
+          redirect('/add_criteria');
+      }
+      function checkif($criteria)
+      {
+          $this->db->where('description', $criteria);
+          return $this->db->get('tbl_cce')->num_rows();
       }
 }

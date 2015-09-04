@@ -124,16 +124,28 @@ class Common extends CI_Controller
     }
     function insert_criteria()
     {
-      $data = array('description' => $this->input->post('criteria'),
-                    'point' =>  $this->input->post('points'));
-      if ($this->input->post('cid') == "")
+      $criteria = $this->input->post('criteria');
+
+      $checking = $this->registration->checkif($criteria);
+      if ($checking >= 1)
       {
-        $this->registration->insert_criteria($data);
+          $this->session->set_flashdata('message', $this->failedMessage() .  'Criteria Already Exist.</div>');
+          redirect('/add_criteria');
       }
       else
       {
-        $this->registration->update_cce($data, $this->input->post('cid'));
+          $data = array('description' => $criteria,
+                        'point' =>  $this->input->post('points'));
+          if ($this->input->post('cid') == "")
+          {
+            $this->registration->insert_criteria($data);
+          }
+          else
+          {
+            $this->registration->update_cce($data, $this->input->post('cid'));
+          }
       }
+
     }
     function delete_cce($id)
     {
