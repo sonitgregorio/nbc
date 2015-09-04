@@ -1,5 +1,13 @@
 <div id="page-content-wrapper">
   <a href="#menu-toggle" id="menu-toggle" class="btn btn-info">Menu</a>
+    <?php
+        if (empty($description)) {
+          $description = "";
+          $id = "";
+          $point = "";
+        }
+
+     ?>
     <div class="container-fluid padding_zero">
         <div class="row padding_zero">
             <div class="col-lg-12">
@@ -8,12 +16,16 @@
                     <h1 class="panel-title" style="color:white">Add CCE  Criteria</h1>
                   </div>
                   <div class="panel-body">
-                      <form class="form-horizontal" action="index.html" method="post">
+                    <?php
+                        echo $this->session->flashdata('message');
+                     ?>
+                      <form class="form-horizontal" action="/insert_criteria" method="post">
+                        <input type="hidden" name="cid" value="<?php echo $id ?>">
                         <div class="col-md-6">
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Criteria</label>
                             <div class="col-sm-9">
-                              <input type="text" name="name" value="" class="form-control" placeholder="First Name">
+                              <input type="text" name="criteria" value="<?php echo $description ?>" class="form-control" placeholder="Criteria">
                             </div>
                           </div>
                         </div>
@@ -21,12 +33,13 @@
                           <div class="form-group">
                             <label class="col-sm-3 control-label">Point</label>
                             <div class="col-sm-9">
-                              <input type="text" name="name" value="" class="form-control" placeholder="Middle Name">
+                              <input type="text" name="points" value="<?php echo $point ?>" class="form-control" placeholder="Points">
                             </div>
                           </div>
                           <div class="form-goup">
-                            <div class="col-sm-12">
-                                <button type="submit" class = "btn btn-success pull-right" name="button">Save</button>
+                            <div class="col-sm-12 padding_zero">
+                                <a href="/add_criteria" class="btn btn-info pull-right">Cancel</a>
+                                <button type="submit" class = "btn btn-success pull-right" name="button" style="margin-right:3px">Save</button>
                             </div>
                             <br /> <br />
                           </div>
@@ -46,27 +59,24 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td>Doctorate</td>
-                              <td>85</td>
-                              <td>
-                                <a href="#" class="label label-info">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-pencil"></span></a>
-                                <a href="#" class="label label-danger">Delete&nbsp;&nbsp;<span class="glyphicon glyphicon-trash"></span></a>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Masters</td>
-                              <td>60</td>
-                              <td>
-                                <a href="#" class="label label-info">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-pencil"></span></a>
-                                <a href="#" class="label label-danger">Delete&nbsp;&nbsp;<span class="glyphicon glyphicon-trash"></span></a>
-                              </td>
-                            </tr>
+
+                              <?php
+                                foreach ($this->registration->getAllcce() as $key => $value):
+                                extract($value);
+                              ?>
+                              <tr>
+                                <td><?php echo $description ?></td>
+                                <td><?php echo $point ?></td>
+                                <td>
+                                  <a href="/edit_cce/<?php echo $id ?>" class="label label-info">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-pencil"></span></a>
+                                  <a href="/delete_cce/<?php echo $id ?>" class="label label-danger" onclick="return confirm('Do you sure?')">Delete&nbsp;&nbsp;<span class="glyphicon glyphicon-trash"></span></a>
+                                </td>
+                              </tr>
+                              <?php endforeach; ?>
+
                           </tbody>
                         </table>
                       </div>
-
-
                   </div>
                 </div>
             </div>

@@ -122,5 +122,30 @@ class Common extends CI_Controller
     {
         $this->registration->delete_users($id);
     }
+    function insert_criteria()
+    {
+      $data = array('description' => $this->input->post('criteria'),
+                    'point' =>  $this->input->post('points'));
+      if ($this->input->post('cid') == "")
+      {
+        $this->registration->insert_criteria($data);
+      }
+      else
+      {
+        $this->registration->update_cce($data, $this->input->post('cid'));
+      }
+    }
+    function delete_cce($id)
+    {
+        $this->registration->delete_cce($id);
+    }
+    function edit_cce($id)
+    {
+        $data = $this->registration->edit_cce($id);
+        $this->load->view('include/header');
+        $this->load->view('include/nav');
+        $this->load->view('page/add_cce', $data);
+        $this->load->view('include/footer');
+    }
 
 }
