@@ -85,4 +85,38 @@ class Registration extends CI_Model
           $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'Faculty Updated  .</div>');
           redirect('/faculty_registration');
       }
+      function insert_user($data)
+      {
+          $this->db->insert('tbl_userreg', $data);
+          $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'User Added  .</div>');
+          redirect('/user_registration');
+      }
+      function getAlltype()
+      {
+          return $this->db->get('tbl_usertype')->result_array();
+      }
+      function getAllusers()
+      {
+          return $this->db->get('tbl_userreg')->result_array();
+      }
+      function getUser($id)
+      {
+          $this->db->where('id', $id);
+          return $this->db->get('tbl_userreg')->row_array();
+      }
+      function update_users($data, $id)
+      {
+          $this->db->where('id', $id);
+          $this->db->update('tbl_userreg', $data);
+          $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'User Updated  .</div>');
+          redirect('/user_registration');
+
+      }
+      function delete_users($id)
+      {
+          $this->db->where('id', $id);
+          $this->db->delete('tbl_userreg');
+          $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'Succesfully Deleted.</div>');
+          redirect('/user_registration');
+      }
 }

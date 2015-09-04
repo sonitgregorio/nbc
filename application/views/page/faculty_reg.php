@@ -94,17 +94,14 @@
                                         foreach ($this->registration->schoolList() as $key => $value):
                                         extract($value);
                                       ?>
-                                      <?php if ($id == $schid): ?>
-                                          <option value="<?php echo $id ?>" selected><?php echo $sch_name ." - ". $sch_address ?></option>
-                                      <?php else: ?>
-                                          <option value="<?php echo $id ?>"><?php echo $sch_name ." - ". $sch_address ?></option>
-                                      <?php endif; ?>
-
+                                        <?php if ($id == $schid): ?>
+                                            <option value="<?php echo $id ?>" selected><?php echo $sch_name ." - ". $sch_address ?></option>
+                                        <?php else: ?>
+                                            <option value="<?php echo $id ?>"><?php echo $sch_name ." - ". $sch_address ?></option>
+                                        <?php endif; ?>
                                       <?php endforeach; ?>
-
                                     </select>
                                   </div>
-
                                 </div>
                                 <div class="form-goup">
                                 <div class="col-sm-12" style="padding:0">

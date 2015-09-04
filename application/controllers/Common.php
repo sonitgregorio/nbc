@@ -25,6 +25,10 @@ class Common extends CI_Controller
           $this->registration->add_school($data);
         }
     }
+    function failedMessage()
+    {
+        return '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-label="Close" style="color:red"><span aria-hidden="true">&times;</span></button>';
+    }
     function edit_school($id)
     {
         $data = $this->registration->edit_sch($id);
@@ -64,10 +68,59 @@ class Common extends CI_Controller
     }
     function edit_faculty($id)
     {
-      $data = $this->registration->getFaculty($id);
-      $this->load->view('include/header');
-      $this->load->view('include/nav');
-      $this->load->view('page/faculty_reg', $data);
-      $this->load->view('include/footer');
+        $data = $this->registration->getFaculty($id);
+        $this->load->view('include/header');
+        $this->load->view('include/nav');
+        $this->load->view('page/faculty_reg', $data);
+        $this->load->view('include/footer');
     }
+    function user_reg()
+    {
+        $data = array('firstname'     => $this->input->post('firstname'),
+                      'middlename'    => $this->input->post('middlename'),
+                      'lastname'      => $this->input->post('lastname'),
+                      'emailaddress'  => $this->input->post('emailaddress'),
+                      'address'       => $this->input->post('address'),
+                      'contact'       => $this->input->post('contact'),
+                      'username'      => $this->input->post('username'),
+                      'password'      => $this->input->post('password'),
+                      'usertype'      => $this->input->post('usertype'),
+                    );
+          echo $this->input->post('uid');
+          if ($this->input->post('password') != $this->input->post('confirmpassword'))
+          {
+            $this->session->set_flashdata('data', $data);
+            $data2 =  array('uid' => $this->input->post('uid'));
+            $this->session->set_flashdata('ids', $data2);
+            $this->session->set_flashdata('message', $this->failedMessage() .  'Please Confirm Password.</div>');
+          }
+          else
+          {
+            if ($this->input->post('uid') == "")
+            {
+                $this->registration->insert_user($data);
+            }
+            else
+            {
+                    $this->registration->update_users($data, $this->input->post('uid'));
+            }
+
+          }
+              $this->session->set_flashdata('data', $data);
+              redirect('/user_registration');
+
+    }
+    function edit_users($id)
+    {
+        $data = $this->registration->getUser($id);
+        $this->load->view('include/header');
+        $this->load->view('include/nav');
+        $this->load->view('page/user_reg', $data);
+        $this->load->view('include/footer');
+    }
+    function delete_users($id)
+    {
+        $this->registration->delete_users($id);
+    }
+
 }

@@ -1,70 +1,127 @@
 <div id="page-content-wrapper">
   <a href="#menu-toggle" id="menu-toggle" class="btn btn-info" style="margin-left:-30px;margin-top:-30px; height:40px;background: #B22222;">Menu</a>
     <div class="col-md-12">
+      <?php
+          if (!empty($this->session->flashdata('data')))
+          {
+              extract($this->session->flashdata('data'));
+              extract($this->session->flashdata('ids'));
+              $id = $uid;
+              // echo $id = $this->session->flashdata('uid') . "st";
+          }
+          else
+          {
+            if (empty($firstname)) {
+              $firstname = "";
+              $lastname = "";
+              $middlename = "";
+              $emailaddress = "";
+              $address = "";
+              $contact = "";
+              $username = "";
+              $usertype = "";
+              $id = "";
+              $password = "";
+            }
+          }
+
+       ?>
           <div class="container-fluid">
               <div class="row">
                   <div class="col-lg-12">
                         <div class="panel panel-default" style="box-shadow: 0px 0px 20px rgb(49, 49, 49)">
                         <div class="panel-heading" style="background: rgb(157, 90, 71)" >
-                          <h1 class="panel-title" style="color:white">Faculty Registration</h1>
+                          <h1 class="panel-title" style="color:white">User Registration</h1>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" action="index.html" method="post">
+
+                          <?php
+                            echo $this->session->flashdata('message');
+                           ?>
+                            <form class="form-horizontal" action="/user_reg" method="post">
+                              <input type="hidden" name="uid" value="<?php echo $id ?>">
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="col-sm-3 control-label">First Name</label>
                                   <div class="col-sm-9">
-                                    <input type="text" name="name" value="" class="form-control" placeholder="First Name">
+                                    <input type="text" name="firstname" value="<?php echo $firstname ?>" class="form-control" placeholder="First Name" required>
                                   </div>
                                 </div>
                                 <div class="form-group">
                                   <label class="col-sm-3 control-label">Middle Name</label>
                                   <div class="col-sm-9">
-                                    <input type="text" name="name" value="" class="form-control" placeholder="Middle Name">
+                                    <input type="text" name="middlename" value="<?php echo $middlename ?>" class="form-control" placeholder="Middle Name" required>
                                   </div>
                                 </div>
                                 <div class="form-group">
                                   <label class="col-sm-3 control-label">Last Name</label>
                                   <div class="col-sm-9">
-                                    <input type="text" name="name" value="" class="form-control" placeholder="Last Name">
+                                    <input type="text" name="lastname" value="<?php echo $lastname ?>" class="form-control" placeholder="Last Name" required>
                                   </div>
                                 </div>
                                 <div class="form-group">
                                   <label class="col-sm-3 control-label">Email Address</label>
                                   <div class="col-sm-9">
-                                    <input type="text" name="name" value="" class="form-control" placeholder="Address">
+                                    <input type="text" name="emailaddress" value="<?php echo $emailaddress ?>" class="form-control" placeholder="Email Address" required>
                                   </div>
                                 </div>
+                                <div class="form-group">
+                                  <label class="col-sm-3 control-label">Address</label>
+                                  <div class="col-sm-9">
+                                    <input type="text" name="address" value="<?php echo $address ?>" class="form-control" placeholder="Address" required>
+                                  </div>
+                                </div>
+
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="col-sm-3 control-label">Address</label>
-                                  <div class="col-sm-9">
-                                    <input type="text" name="name" value="" class="form-control" placeholder="Address">
+                                  <label class="col-sm-4 control-label">Contact</label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="contact" value="<?php echo $contact ?>" class="form-control" placeholder="Contact" required>
                                   </div>
                                 </div>
                                 <div class="form-group">
-                                  <label class="col-sm-3 control-label">Contact</label>
-                                  <div class="col-sm-9">
-                                    <input type="text" name="name" value="" class="form-control" placeholder="Contact">
+                                  <label class="col-sm-4 control-label">Username</label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="username" value="<?php echo $username ?>" class="form-control" placeholder="Username" required>
                                   </div>
                                 </div>
                                 <div class="form-group">
-                                  <label class="col-sm-3 control-label">Position</label>
-                                  <div class="col-sm-9">
-                                    <select class="form-control" name="">
-                                      <option>Center Evaluator</option>
-                                      <option>Student</option>
-                                      <option>Teacher</option>
-                                      <option>Staff</option>
+                                  <label class="col-sm-4 control-label">Password</label>
+                                  <div class="col-sm-8">
+                                    <input type="password" name="password" value="<?php echo $password ?>" class="form-control" placeholder="Password" required>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="col-sm-4 control-label">Confirm Password</label>
+                                  <div class="col-sm-8">
+                                    <input type="password" name="confirmpassword" value="<?php echo $password; ?>" class="form-control" placeholder="Confirm Password" required>
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <label class="col-sm-4 control-label">Position</label>
+                                  <div class="col-sm-8">
+                                    <select class="form-control" name="usertype">
+                                        <?php
+                                          foreach ($this->registration->getAlltype() as $key => $value):
+                                          extract($value);
+                                        ?>
+                                        <?php if ($id == $usertype): ?>
+                                            <option value="<?php echo $id ?>" selected><?php echo $description ?></option>
+                                        <?php else: ?>
+                                              <option value="<?php echo $id ?>"><?php echo $description ?></option>
+                                        <?php endif; ?>
+                                      <?php endforeach; ?>
+
                                     </select>
                                   </div>
-
                                 </div>
                                 <div class="form-goup">
-                                <div class="col-sm-12">
-                                    <button type="submit" class = "btn btn-success pull-right" name="button">Save</button>
+                                <div class="col-sm-12" style="padding:0">
+                                    <a href="/user_registration" class="btn btn-info pull-right">Cancel</a>
+                                    <button type="submit" class = "btn btn-success pull-right" name="button" style="margin-right:3px">Save</button>
                                 </div>
                                 <br /> <br />
                                 </div>
@@ -87,16 +144,22 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>Jessie R. Paragas</td>
-                                    <td>alphaphidang@yahoo.com</td>
-                                    <td>0909019090</td>
-                                    <td>Villa Cesar, Diit</td>
-                                    <td>
-                                      <a href="#" class="label label-info">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-pencil"></span></a>
-                                      <a href="#" class="label label-danger">Delete&nbsp;&nbsp;<span class="glyphicon glyphicon-trash"></span></a>
-                                    </td>
-                                  </tr>
+                                  <?php
+                                    foreach ($this->registration->getAllusers() as $key => $values):
+                                    extract($values);
+                                  ?>
+                                      <tr>
+                                        <td><?php echo $firstname . " " . $middlename . " " . $lastname; ?></td>
+                                        <td><?php echo $emailaddress ?></td>
+                                        <td><?php echo $contact ?></td>
+                                        <td><?php echo $address ?></td>
+                                        <td>
+                                          <a href="/edit_users/<?php echo $id ?>" class="label label-info">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-pencil"></span></a>
+                                          <a href="/delete_users/<?php echo $id ?>" class="label label-danger" onclick="return confirm('Do you sure?')">Delete&nbsp;&nbsp;<span class="glyphicon glyphicon-trash"></span></a>
+                                        </td>
+                                      </tr>
+                                  <?php endforeach; ?>
+
                                 </tbody>
                               </table>
                             </div>

@@ -62,10 +62,15 @@ $route['add_criteria']          =   'main/add_criteria';
 
 //Faculty Data Management Routes
 $route['insert_faculty']        =   'common/insert_faculty';
+$route['delete_faculty/(:any)'] =   'common/delete_faculty/$1';
+$route['edit_faculty/(:any)']   =   'common/edit_faculty/$1';
 
 //School Data Management Routes
 $route['save_school']           =   'common/save_school';
 $route['edit/(:any)']           =   'common/edit_school/$1';
 $route['delete/(:any)']         =   'common/delete_school/$1';
-$route['delete_faculty/(:any)'] =   'common/delete_faculty/$1';
-$route['edit_faculty/(:any)']   =   'common/edit_faculty/$1';
+
+//User Registration
+$route['user_reg']              =   'common/user_reg';
+$route['edit_users/(:any)']     =   'common/edit_users/$1';
+$route['delete_users/(:any)']   =   'common/delete_users/$1';
