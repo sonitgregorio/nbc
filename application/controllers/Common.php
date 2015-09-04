@@ -48,6 +48,26 @@ class Common extends CI_Controller
                       'position' => $this->input->post('position'),
                       'school' => $this->input->post('school')
                     );
-        $this->registration->insert_fac($data);
+        if ($this->input->post('fid') != "")
+        {
+          $this->registration->update_fac($data, $this->input->post('fid'));
+        }
+        else
+        {
+          $this->registration->insert_fac($data);
+        }
+
+    }
+    function delete_faculty($id)
+    {
+        $this->registration->delete_faculty($id);
+    }
+    function edit_faculty($id)
+    {
+      $data = $this->registration->getFaculty($id);
+      $this->load->view('include/header');
+      $this->load->view('include/nav');
+      $this->load->view('page/faculty_reg', $data);
+      $this->load->view('include/footer');
     }
 }

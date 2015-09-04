@@ -1,11 +1,9 @@
 <div id="page-content-wrapper">
-  <a href="#menu-toggle" id="menu-toggle" class="btn btn-info" style="margin-left:-30px;margin-top:-30px; height:40px;background: #B22222;">Menu</a>
+  <a href="#menu-toggle" id="menu-toggle" class="btn btn-info" style="margin-left:-23px;margin-top:-25px; height:40px;background: #B22222;">Menu</a>
     <div class="container-fluid">
       <?php
-
-
-          if (!empty($sch_name)) {
-          }else{
+          if (empty($sch_name))
+          {
             $sch_name = "";
             $sch_address = "";
             $sch_contact = "";
@@ -47,6 +45,7 @@
                           </div>
                           <div class="form-goup">
                             <div class="col-sm-12">
+                                <a href="/add_school" class="btn btn-info">Cancel</a>
                                 <button type="submit" class = "btn btn-success pull-right" name="button">Save</button>
                             </div>
                             <br /> <br />

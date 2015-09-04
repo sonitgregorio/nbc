@@ -67,3 +67,5 @@ $route['insert_faculty']        =   'common/insert_faculty';
 $route['save_school']           =   'common/save_school';
 $route['edit/(:any)']           =   'common/edit_school/$1';
 $route['delete/(:any)']         =   'common/delete_school/$1';
+$route['delete_faculty/(:any)'] =   'common/delete_faculty/$1';
+$route['edit_faculty/(:any)']   =   'common/edit_faculty/$1';
