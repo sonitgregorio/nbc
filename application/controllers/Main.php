@@ -5,7 +5,7 @@
       {
           if($this->session->has_userdata('id'))
           {
-
+              $this->home();
           }
           else
           {
@@ -23,13 +23,27 @@
 
           if($this->form_validation->run() === FALSE)
           {
+              $d['error'] = '';
               $this->load->view('include/header');
-              $this->load->view('index');
+              $this->load->view('index', $d);
               $this->load->view('include/footer');
           }
           else
           {
-              // set session login
+              $this->load->model('userreg');
+              $r = $this->userreg->login();
+              if(is_numeric($r))
+              {
+                  $this->session->set_userdata('id', $r);
+                  redirect(base_url());
+              }
+              else
+              {
+                  $d['error'] = '<div class="alert alert-danger">Authentication Failed</div>';
+                  $this->load->view('include/header');
+                  $this->load->view('index', $d);
+                  $this->load->view('include/footer');
+              }
           }
 
       }

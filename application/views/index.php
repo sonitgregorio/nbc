@@ -3,6 +3,7 @@
         <div class="panel-heading" style="background: rgb(157, 90, 71)"><h3 class="panel-title" style="color:white; font-size:30px;">User Login</h3></div>
           <div class="panel-body">
               <form class="form-horizontal" action="/" method="post">
+                  <?php echo $error ?>
                   <div class="form-group">
                       <label for="" class="col-sm-3 control-label">Username</label>
                       <div class="col-sm-9">
