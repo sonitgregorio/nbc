@@ -1,5 +1,5 @@
 <div id="page-content-wrapper">
-  <a href="#menu-toggle" id="menu-toggle" class="btn btn-info" style="margin-left:-23px;margin-top:-25px; height:40px;background: #B22222;">Menu</a>
+  <a href="#menu-toggle" id="menu-toggle" class="btn btn-info" style="">Menu</a>
     <div class="col-md-12">
       <?php
               if (empty($firstname))
@@ -15,10 +15,10 @@
                 $fid = "";
               }
        ?>
-          <div class="container-fluid">
-              <div class="row">
-                  <div class="col-lg-12">
-                        <div class="panel panel-default" style="box-shadow: 0px 0px 20px rgb(49, 49, 49)">
+          <div class="container-fluid padding_zero">
+              <div class="row"  style="padding:0" >
+                  <div class="col-lg-12 padding_zero">
+                        <div class="panel panel-default" style="box-shadow: 0px 0px 20px rgb(49, 49, 49);" >
                         <div class="panel-heading" style="background: rgb(157, 90, 71)" >
                           <h1 class="panel-title" style="color:white">Faculty Registration</h1>
                         </div>

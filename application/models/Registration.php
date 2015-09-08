@@ -119,4 +119,38 @@ class Registration extends CI_Model
           $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'Succesfully Deleted.</div>');
           redirect('/user_registration');
       }
+      function insert_criteria($data)
+      {
+          $this->db->insert('tbl_cce', $data);
+          $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'Criteria Added.</div>');
+          redirect('/add_criteria');
+      }
+      function getAllcce()
+      {
+          return $this->db->get('tbl_cce')->result_array();
+      }
+      function delete_cce($id)
+      {
+          $this->db->where('id', $id);
+          $this->db->delete('tbl_cce');
+          $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'Criteria Deleted.</div>');
+          redirect('/add_criteria');
+      }
+      function edit_cce($id)
+      {
+          $this->db->where('id', $id);
+          return $this->db->get('tbl_cce')->row_array();
+      }
+      function update_cce($data, $id)
+      {
+          $this->db->where('id', $id);
+          $this->db->update('tbl_cce', $data);
+          $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'Criteria Updated.</div>');
+          redirect('/add_criteria');
+      }
+      function checkif($criteria)
+      {
+          $this->db->where('description', $criteria);
+          return $this->db->get('tbl_cce')->num_rows();
+      }
 }

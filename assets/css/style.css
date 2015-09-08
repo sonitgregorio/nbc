@@ -11,3 +11,14 @@ body
     float: none;
     margin: 0 auto;
 }
+.padding_zero
+{
+  padding:0;
+}
+#menu-toggle
+{
+  margin-left:-23px;
+  margin-top:-25px;
+  height:40px;
+  background: #B22222;
+}

@@ -1,7 +1,7 @@
   <div id="page-content-wrapper">
-    <a href="#menu-toggle" id="menu-toggle" class="btn btn-info" style="margin-left:-30px;margin-top:-30px; height:40px;background: #B22222;">Menu</a>
-      <div class="container-fluid">
-          <div class="row">
+    <a href="#menu-toggle" id="menu-toggle" class="btn btn-info">Menu</a>
+      <div class="container-fluid padding_zero">
+          <div class="row padding_zero">
               <div class="col-lg-12">
                     <div class="panel panel-default">
                     <div class="panel-heading" style="background: rgb(157, 90, 71)" >
