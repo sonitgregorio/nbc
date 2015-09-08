@@ -33,7 +33,7 @@
           }
 
       }
-      function verifylogin()
+      function home()
       {
         $this->load->view('include/header');
         $this->load->view('include/nav');
