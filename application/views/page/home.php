@@ -3,7 +3,7 @@
       <div class="container-fluid padding_zero">
           <div class="row padding_zero">
               <div class="col-lg-12">
-                    <div class="panel panel-default">
+                    <!-- <div class="panel panel-default">
                     <div class="panel-heading" style="background: rgb(157, 90, 71)" >
                       <h1 class="panel-title" style="color:white">Hello World</h1>
                     </div>
@@ -14,7 +14,7 @@
                           </div>
                         </form>
                     </div>
-                  </div>
+                  </div> -->
               </div>
           </div>
       </div>
