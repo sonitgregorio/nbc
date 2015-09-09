@@ -83,4 +83,10 @@
         $this->load->view('page/add_cce');
         $this->load->view('include/footer');
       }
+
+      function logout()
+      {
+          $this->session->unset_userdata('id');
+          redirect('/');
+      }
     }

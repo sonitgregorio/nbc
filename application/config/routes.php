@@ -59,6 +59,7 @@ $route['faculty_registration']  =   'main/fac_reg';
 $route['add_school']            =   'main/add_school';
 $route['user_registration']     =   'main/user_reg';
 $route['add_criteria']          =   'main/add_criteria';
+$route['logout']                =   'main/logout';
 
 //Faculty Data Management Routes
 $route['insert_faculty']        =   'common/insert_faculty';

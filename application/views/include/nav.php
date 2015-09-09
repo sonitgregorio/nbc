@@ -31,6 +31,9 @@
             <li>
                 <a href="#" style="color:white">Reports</a>
             </li>
+            <li>
+                <a href="/logout" style="color:white">Logout</a>
+            </li>
         </ul>
     </div>
     <!-- /#sidebar-wrapper -->
