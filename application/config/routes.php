@@ -80,3 +80,6 @@ $route['delete_users/(:any)']   =   'common/delete_users/$1';
 $route['insert_criteria']       =   'common/insert_criteria';
 $route['delete_cce/(:any)']     =   'common/delete_cce/$1';
 $route['edit_cce/(:any)']       =   'common/edit_cce/$1';
+
+//CCE
+$route['cce']                   =   'cce/show_instruc';

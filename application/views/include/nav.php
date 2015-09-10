@@ -26,7 +26,7 @@
                 <a href="#" style="color:white">QCE</a>
             </li>
             <li>
-                <a href="#" style="color:white">CCE</a>
+                <a href="/cce" style="color:white">CCE</a>
             </li>
             <li>
                 <a href="#" style="color:white">Reports</a>
