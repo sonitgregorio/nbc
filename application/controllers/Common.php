@@ -77,17 +77,18 @@ class Common extends CI_Controller
     }
     function user_reg()
     {
-        $data = array('firstname'     => $this->input->post('firstname'),
-                      'middlename'    => $this->input->post('middlename'),
-                      'lastname'      => $this->input->post('lastname'),
-                      'emailaddress'  => $this->input->post('emailaddress'),
-                      'address'       => $this->input->post('address'),
-                      'contact'       => $this->input->post('contact'),
-                      'username'      => $this->input->post('username'),
-                      'password'      => $this->input->post('password'),
-                      'usertype'      => $this->input->post('usertype'),
+        $data = array(
+                        'firstname'     => $this->input->post('firstname'),
+                        'middlename'    => $this->input->post('middlename'),
+                        'lastname'      => $this->input->post('lastname'),
+                        'emailaddress'  => $this->input->post('emailaddress'),
+                        'address'       => $this->input->post('address'),
+                        'contact'       => $this->input->post('contact'),
+                        'username'      => $this->input->post('username'),
+                        'password'      => $this->input->post('password'),
+                        'usertype'      => $this->input->post('usertype'),
                     );
-          echo $this->input->post('uid');
+                    
           if ($this->input->post('password') != $this->input->post('confirmpassword'))
           {
             $this->session->set_flashdata('data', $data);
