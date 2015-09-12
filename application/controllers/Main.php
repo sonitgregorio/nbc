@@ -55,7 +55,10 @@ class Main extends CI_Controller
     {
         $this->load->view('include/header');
         $this->load->view('include/nav');
-        $this->load->view('page/home');
+        if($this->session->userdata('type') == 1)
+            $this->load->view('page/home');
+        else
+            $this->load->view('student/home');
         $this->load->view('include/footer');
     }
 
@@ -93,7 +96,8 @@ class Main extends CI_Controller
 
     function logout()
     {
-        $this->session->unset_userdata('id');
+        $array = array('id', 'type');
+        $this->session->unset_userdata($array);
         redirect('/');
     }
 }
