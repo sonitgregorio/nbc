@@ -44,10 +44,10 @@ class Common extends CI_Controller
     function insert_faculty()
     {
         $data = array(
-                        'firstname'       => $this->input->post('firstname'),
-                        'middlename'      => $this->input->post('middlename'),
-                        'lastname'        => $this->input->post('lastname'),
-                        'address'         => $this->input->post('address'),
+                        'firstname'       => ucwords($this->input->post('firstname')),
+                        'middlename'      => ucwords($this->input->post('middlename')),
+                        'lastname'        => ucwords($this->input->post('lastname')),
+                        'address'         => ucwords($this->input->post('address')),
                         'emailaddress'    => $this->input->post('emailaddress'),
                         'contact'         => $this->input->post('contact'),
                         'position'        => $this->input->post('position'),
