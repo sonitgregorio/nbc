@@ -88,28 +88,27 @@ class Common extends CI_Controller
                         'password'      => $this->input->post('password'),
                         'usertype'      => $this->input->post('usertype'),
                     );
-                    
-          if ($this->input->post('password') != $this->input->post('confirmpassword'))
-          {
+
+        if ($this->input->post('password') != $this->input->post('confirmpassword'))
+        {
             $this->session->set_flashdata('data', $data);
             $data2 =  array('uid' => $this->input->post('uid'));
             $this->session->set_flashdata('ids', $data2);
             $this->session->set_flashdata('message', $this->failedMessage() .  'Please Confirm Password.</div>');
-          }
-          else
-          {
+        }
+        else
+        {
             if ($this->input->post('uid') == "")
             {
                 $this->registration->insert_user($data);
             }
             else
             {
-                    $this->registration->update_users($data, $this->input->post('uid'));
+                $this->registration->update_users($data, $this->input->post('uid'));
             }
-
-          }
-              $this->session->set_flashdata('data', $data);
-              redirect('/user_registration');
+        }
+        $this->session->set_flashdata('data', $data);
+        redirect('/user_registration');
 
     }
     function edit_users($id)
