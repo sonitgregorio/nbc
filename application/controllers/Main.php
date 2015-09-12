@@ -34,7 +34,10 @@
               $r = $this->userreg->login();
               if(is_numeric($r))
               {
-                  $this->session->set_userdata('id', $r);
+                  $this->db->where('id', $r);
+                  $us = $this->db->get('tbl_userreg')->row_array();
+                  $array = array('id' => $r,'type' => $us['usertype']);
+                  $this->session->set_userdata($array);
                   redirect(base_url());
               }
               else
