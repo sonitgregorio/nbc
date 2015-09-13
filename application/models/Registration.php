@@ -88,6 +88,12 @@ class Registration extends CI_Model
       function insert_user($data)
       {
           $this->db->insert('tbl_userreg', $data);
+          if($data['usertype'] == 2)
+          {
+              $d['student']     = $this->db->insert_id();
+              $d['instructor']  = $this->session->userdata('id');
+              $this->db->insert('tbl_student_eval', $d);
+          }
           $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'User Added  .</div>');
           redirect('/user_registration');
       }
