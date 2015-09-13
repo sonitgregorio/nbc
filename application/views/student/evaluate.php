@@ -46,7 +46,7 @@
                                     <td><?php echo $instruc['address'] ?></td>
                                     <td><?php echo $instruc['contact']; ?></td>
                                     <td>
-                                        <a href="/instructor_eval/<?php echo $instruc['id'] ?>" class="btn btn-info">Evaluate</a>
+                                        <a href="/instructor_eval/<?php echo $instruc['id'] ?>" class="btn btn-info btn-block">Evaluate</a>
                                     </td>
                                 </tr>
                             <?php } ?>
