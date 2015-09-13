@@ -83,3 +83,6 @@ $route['edit_cce/(:any)']       =   'common/edit_cce/$1';
 
 //CCE
 $route['cce']                   =   'cce/show_instruc';
+
+$route['evaluate']              =   'student/evaluate';
+$route['instructor_eval/(:num)']=   'student/ins_eval/$1';
