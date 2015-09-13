@@ -31,7 +31,7 @@
                   <div class="col-lg-12 padding_zero">
                         <div class="panel panel-default" style="box-shadow: 0px 0px 20px rgb(49, 49, 49)">
                         <div class="panel-heading" style="background: rgb(157, 90, 71)" >
-                          <h1 class="panel-title" style="color:white">User Registration</h1>
+                          <h1 class="panel-title" style="color:white">User Registration <?php echo $this->session->userdata('type') == 1 ? '(For Instructor)': '' ?></h1>
                         </div>
                         <div class="panel-body">
 
@@ -145,6 +145,8 @@
                                 </thead>
                                 <tbody>
                                   <?php
+                                  if($this->session->userdata('type') == 0)
+                                  {
                                     foreach ($this->registration->getAllusers() as $key => $values):
                                     extract($values);
                                   ?>
@@ -158,8 +160,39 @@
                                           <a href="/delete_users/<?php echo $id ?>" class="label label-danger" onclick="return confirm('Do you sure?')">Delete&nbsp;&nbsp;<span class="glyphicon glyphicon-trash"></span></a>
                                         </td>
                                       </tr>
-                                  <?php endforeach; ?>
-
+                                  <?php
+                                        endforeach;
+                                    }
+                                    else
+                                    {
+                                        $this->db->where('instructor', $this->session->userdata('id'));
+                                        $u = $this->db->get('tbl_student_eval')->result_array();
+                                        foreach($u as $student)
+                                        {
+                                            $info = $this->db->get_where('tbl_userreg', array('id' => $student['student_id']))->row_array();
+                                            ?>
+                                            <tr>
+                                                <td>
+                                                    <?php echo $info['firstname'].' '.$info['lastname'] ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $info['emailaddress'] ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $info['contact'] ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $info['address'] ?>
+                                                </td>
+                                                <td>
+                                                    <a href="/edit_users/<?php echo $info['id'] ?>" class="label label-info">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-pencil"></span></a>
+                                                    <a href="/delete_users/<?php echo $info['id'] ?>" class="label label-danger" onclick="return confirm('Do you sure?')">Delete&nbsp;&nbsp;<span class="glyphicon glyphicon-trash"></span></a>
+                                                </td>
+                                            </tr>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
                                 </tbody>
                               </table>
                             </div>
