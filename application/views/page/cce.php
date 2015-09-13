@@ -9,14 +9,14 @@
                         <h1 class="panel-title" style="color:white">CCE</h1>
                     </div>
                     <div class="panel-body">
-                        <table class="table">
-                            <tr>
-                                <td>Name</td>
-                                <td>Current Position</td>
-                                <td>School</td>
-                                <td>Address</td>
-                                <td>Contact</td>
-                                <td>Action</td>
+                        <table class="table table-bordered">
+                            <tr class="navbar-inverse text-center">
+                                <td style="color:#fff">Name</td>
+                                <td style="color:#fff">Current Position</td>
+                                <td style="color:#fff">School</td>
+                                <td style="color:#fff">Address</td>
+                                <td style="color:#fff">Contact</td>
+                                <td style="color:#fff">Action</td>
                             </tr>
 
                         <?php
@@ -47,7 +47,7 @@
                                     <?php echo $faculty['contact'] ?>
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-info btn-sm">View</a>
+                                    <a href="#" class="btn btn-info btn-sm btn-block">View</a>
                                 </td>
                             </tr>
                         <?php
