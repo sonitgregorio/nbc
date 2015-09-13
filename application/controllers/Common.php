@@ -9,18 +9,18 @@ class Common extends CI_Controller
     {
         if ($this->input->post('shid') != "")
         {
-          $data = array('id' => $this->input->post('shid'),
-                        'sch_name' => $this->input->post('sch_name'),
-                        'sch_address' => $this->input->post('sch_address'),
-                        'sch_contact'=> $this->input->post('sch_contact')
+          $data = array('id'            => $this->input->post('shid'),
+                        'sch_name'      => $this->input->post('sch_name'),
+                        'sch_address'   => $this->input->post('sch_address'),
+                        'sch_contact'   => $this->input->post('sch_contact')
                       );
           $this->registration->edit_school($data, $this->input->post('shid'));
         }
         else
         {
-          $data = array('sch_name' => $this->input->post('sch_name'),
-                        'sch_address' => $this->input->post('sch_address'),
-                        'sch_contact'=> $this->input->post('sch_contact')
+          $data = array('sch_name'      => $this->input->post('sch_name'),
+                        'sch_address'   => $this->input->post('sch_address'),
+                        'sch_contact'   => $this->input->post('sch_contact')
                       );
           $this->registration->add_school($data);
         }
