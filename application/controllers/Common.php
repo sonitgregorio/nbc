@@ -86,7 +86,7 @@ class Common extends CI_Controller
                         'contact'       => $this->input->post('contact'),
                         'username'      => $this->input->post('username'),
                         'password'      => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
-                        'usertype'      => $this->input->post('usertype'),
+                        'usertype'      => $this->input->post('usertype')
                     );
 
         if ($this->input->post('password') != $this->input->post('confirmpassword'))
