@@ -21,17 +21,32 @@
                             </thead>
                             <tbody>
                             <?php
-                                foreach ($this->registration->getallfaculty() as $key => $value){
-                                extract($value);
+                                $this->db->where('student_id', $this->session->userdata('id'));
+                                $i = $this->db->get('tbl_student_eval')->result_array();
+                                foreach($i as $ins)
+                                {
+                                    $instruc = $this->db->get_where('tbl_faculty', array('id' => $ins['instructor']))->row_array();
                             ?>
                                 <tr>
-                                    <td><?php echo $fullname; ?></td>
-                                    <td><?php echo $position; ?></td>
-                                    <td><?php echo $sch; ?></td>
-                                    <td><?php echo $address ?></td>
-                                    <td><?php echo $contact; ?></td>
+                                    <td><?php echo $instruc['firstname'].' '.$instruc['lastname']; ?></td>
                                     <td>
-                                        <a href="/instructor_eval/<?php echo $fid ?>" class="btn btn-info">Evaluate</a>
+                                        <?php
+                                            $this->db->where('id', $instruc['position']);
+                                            $pos = $this->db->get('position')->row_array();
+                                            echo $pos['description'];
+                                         ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                            $this->db->where('id', $instruc['school']);
+                                            $sch = $this->db->get('tbl_school')->row_array();
+                                            echo $sch['sch_name'];
+                                         ?>
+                                    </td>
+                                    <td><?php echo $instruc['address'] ?></td>
+                                    <td><?php echo $instruc['contact']; ?></td>
+                                    <td>
+                                        <a href="/instructor_eval/<?php echo $instruc['id'] ?>" class="btn btn-info">Evaluate</a>
                                     </td>
                                 </tr>
                             <?php } ?>
