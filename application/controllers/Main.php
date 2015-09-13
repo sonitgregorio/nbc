@@ -57,8 +57,11 @@ class Main extends CI_Controller
         $this->load->view('include/nav');
         if($this->session->userdata('type') == 1)
             $this->load->view('page/home');
-        else
+        elseif($this->session->userdata('type') == 2)
             $this->load->view('student/home');
+        else
+            //temporary
+            $this->load->view('page/home');
         $this->load->view('include/footer');
     }
 

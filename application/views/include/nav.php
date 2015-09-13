@@ -15,15 +15,6 @@
                 <a href="/user_registration" style="color:#fff">User Registration</a>
             </li>
             <li>
-                <a href="/faculty_registration" style="color:#fff">Faculty Registration</a>
-            </li>
-            <li>
-                <a href="/add_criteria" style="color:#fff">ADD Common CCE</a>
-            </li>
-            <li>
-                <a href="/add_school" style="color:#fff">Add School</a>
-            </li>
-            <li>
                 <a href="#" style="color:#fff">QCE</a>
             </li>
             <li>
@@ -31,6 +22,19 @@
             </li>
             <li>
                 <a href="#" style="color:#fff">Reports</a>
+            </li>
+            <?php } elseif($this->session->userdata('type') == 0) { ?>
+            <li>
+                <a href="/user_registration" style="color:#fff">User Registration</a>
+            </li>
+            <li>
+                <a href="/faculty_registration" style="color:#fff">Faculty Registration</a>
+            </li>
+            <li>
+                <a href="/add_criteria" style="color:#fff">ADD Common CCE</a>
+            </li>
+            <li>
+                <a href="/add_school" style="color:#fff">Add School</a>
             </li>
             <?php } else { ?>
             <li>
