@@ -163,8 +163,7 @@ class Registration extends CI_Model
       {
           $x = $this->session->userdata('id');
           return $this->db->query("SELECT * FROM tbl_userreg WHERE id NOT IN(SELECT student_id FROM tbl_student_eval WHERE instructor = $x)")->result_array();
-          // $this->db->where('instructor !=', $this->session->userdata('id'));
-          // return $this->db->get('tbl_userreg')->result_array();
+
       }
       function insert_eval($id)
       {
