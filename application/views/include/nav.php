@@ -37,10 +37,14 @@
                 <a href="/add_school" style="color:#fff">Add School</a>
             </li>
             <?php } else { ?>
+
             <li>
                 <a href="/evaluate" style="color:#fff;">Evaluate</a>
             </li>
             <?php } ?>
+            <li>
+                  <a href="/list_evaluate" style="color:white">List of Evaluators</a>
+            </li>
             <li>
                 <a href="/logout" style="color:white">Logout</a>
             </li>

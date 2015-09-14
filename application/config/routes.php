@@ -82,7 +82,8 @@ $route['delete_cce/(:any)']     =   'common/delete_cce/$1';
 $route['edit_cce/(:any)']       =   'common/edit_cce/$1';
 
 //CCE
-$route['cce']                   =   'cce/show_instruc';
-
-$route['evaluate']              =   'student/evaluate';
-$route['instructor_eval/(:num)']=   'student/ins_eval/$1';
+$route['cce']                     =   'cce/show_instruc';
+$route['evaluate']                =   'student/evaluate';
+$route['instructor_eval/(:num)']  =   'student/ins_eval/$1';
+$route['list_evaluate']           =   'common/list_evaluate';
+$route['add_evaluators/(:num)']   =   'common/add_evaluators/$1';
