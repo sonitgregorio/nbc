@@ -258,6 +258,14 @@
                                     <td> <input type="radio" name="dname" value=""><?php echo $i ?></td>
                                 <?php } ?>
                             </tr>
+                            <tr>
+                                <td  class="text-right">
+                                    <strong>Total Score</strong>
+                                </td>
+                                <td colspan="5">
+
+                                </td>
+                            </tr>
                         </table>
                     </div>
               </div>
