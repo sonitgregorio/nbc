@@ -223,7 +223,7 @@
                                     1.	Creates opportunities for intensive and/or extensive contribution of students in the class activities (e.g. breaks class into dyads, triads or buzz/task groups).
                                 </td>
                                 <?php for($i = 5; $i >= 1; $i--){ ?>
-                                    <td> <input type="radio" name="name" value=""><?php echo $i ?></td>
+                                    <td> <input type="radio" name="dname" value=""><?php echo $i ?></td>
                                 <?php } ?>
                             </tr>
                             <tr>
@@ -231,7 +231,7 @@
                                     2.	Assumes roles as facilitator, resource person, coach, inquisitor, integrator, referee in drawing students to contribute to knowledge and understanding of the concepts at hands.
                                 </td>
                                 <?php for($i = 5; $i >= 1; $i--){ ?>
-                                    <td> <input type="radio" name="name" value=""><?php echo $i ?></td>
+                                    <td> <input type="radio" name="dname" value=""><?php echo $i ?></td>
                                 <?php } ?>
                             </tr>
                             <tr>
@@ -239,7 +239,7 @@
                                     3.	Designs and implements learning conditions and experience that promotes healthy exchange and/or confrontations.
                                 </td>
                                 <?php for($i = 5; $i >= 1; $i--){ ?>
-                                    <td> <input type="radio" name="name" value=""><?php echo $i ?></td>
+                                    <td> <input type="radio" name="dname" value=""><?php echo $i ?></td>
                                 <?php } ?>
                             </tr>
                             <tr>
@@ -247,7 +247,7 @@
                                     4.	Structures/re-structures learning and teaching–learning context to enhance attainment of collective learning objectives.
                                 </td>
                                 <?php for($i = 5; $i >= 1; $i--){ ?>
-                                    <td> <input type="radio" name="name" value=""><?php echo $i ?></td>
+                                    <td> <input type="radio" name="dname" value=""><?php echo $i ?></td>
                                 <?php } ?>
                             </tr>
                             <tr>
@@ -255,7 +255,7 @@
                                     5.	Use of Instructional Materials ((audio/video materials: fieldtrips, film showing, computer aided instruction and etc.) to reinforces learning processes.
                                 </td>
                                 <?php for($i = 5; $i >= 1; $i--){ ?>
-                                    <td> <input type="radio" name="name" value=""><?php echo $i ?></td>
+                                    <td> <input type="radio" name="dname" value=""><?php echo $i ?></td>
                                 <?php } ?>
                             </tr>
                         </table>
