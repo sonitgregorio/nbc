@@ -20,15 +20,9 @@
                         <h4 class="text-center">Instruction: Please evaluate the faculty using the scale below. Select your rating.</h4>
                         <table class="table table-bordered center-block" style="max-width:700px;">
                             <tr class="text-center">
-                                <td style="width:10%">
-                                    Scale
-                                </td>
-                                <td style="width:40%">
-                                    Descriptive Rating
-                                </td>
-                                <td style="width:50%">
-                                    Qualitative Description
-                                </td>
+                                <td style="width:10%">Scale</td>
+                                <td style="width:40%">Descriptive Rating</td>
+                                <td style="width:50%">Qualitative Description</td>
                             </tr>
                             <tr class="text-center">
                                 <td>5</td>
@@ -41,30 +35,22 @@
                             <tr class="text-center">
                                 <td>4</td>
                                 <td>Very Satisfactory</td>
-                                <td>
-                                    The  performance meets and often exceeds the job requirements
-                                </td>
+                                <td>The  performance meets and often exceeds the job requirements</td>
                             </tr>
                             <tr class="text-center">
                                 <td>3</td>
                                 <td>Satisfactory</td>
-                                <td>
-                                    The performance meets job requirements
-                                </td>
+                                <td>The performance meets job requirements</td>
                             </tr>
                             <tr class="text-center">
                                 <td>2</td>
                                 <td>Fair</td>
-                                <td>
-                                    The performance needs some development to meet job requirements.
-                                </td>
+                                <td>The performance needs some development to meet job requirements.</td>
                             </tr>
                             <tr class="text-center">
                                 <td>1</td>
                                 <td>Poor</td>
-                                <td>
-                                    The faculty fails to meet job requirements
-                                </td>
+                                <td>The faculty fails to meet job requirements</td>
                             </tr>
                         </table>
 
