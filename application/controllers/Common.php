@@ -160,5 +160,15 @@ class Common extends CI_Controller
         $this->load->view('page/add_cce', $data);
         $this->load->view('include/footer');
     }
-
+    function list_evaluate()
+    {
+      $this->load->view('include/header');
+      $this->load->view('include/nav');
+      $this->load->view('page/list_evaluators');
+      $this->load->view('include/footer');
+    }
+    function add_evaluators($id)
+    {
+      $this->registration->insert_eval($id);
+    }
 }
