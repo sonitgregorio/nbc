@@ -18,7 +18,7 @@
                         <h5 class="text-center">Name of Faculty: <?php echo $instructor['firstname'].' '.$instructor['lastname'] ?> &nbsp;&nbsp;&nbsp;Academic Rank : <?php echo $pos['description'] ?></h5>
                         <br>
                         <h4 class="text-center">Instruction: Please evaluate the faculty using the scale below. Select your rating.</h4>
-                        <form action="index.html" method="post">
+                        <form action="/submit_evaluate" method="post">
                             <input type="hidden" name="ins_id" value="<?php echo $instructor['id'] ?>">
                             <table class="table table-bordered center-block" style="max-width:700px;">
                                 <tr class="text-center">

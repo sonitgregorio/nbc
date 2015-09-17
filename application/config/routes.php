@@ -87,3 +87,5 @@ $route['evaluate']                =   'student/evaluate';
 $route['instructor_eval/(:num)']  =   'student/ins_eval/$1';
 $route['list_evaluate']           =   'common/list_evaluate';
 $route['add_evaluators/(:num)']   =   'common/add_evaluators/$1';
+
+$route['submit_evaluate']         =   'evaluate/eval';
