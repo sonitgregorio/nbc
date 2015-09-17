@@ -140,7 +140,7 @@
               {
                   $aname11 = $dname1.val();
               }
-              $dname2 = $('input[name=bname2]:checked');
+              $dname2 = $('input[name=aname2]:checked');
 
               if($dname2.length > 0)
               {
