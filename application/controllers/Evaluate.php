@@ -2,7 +2,7 @@
 
 class Evaluate extends CI_Controller
 {
-    function eval()
+    function evaluation()
     {
         $data['group1'] = 0;
         for($i = 1;$i <= 5; $i++)
