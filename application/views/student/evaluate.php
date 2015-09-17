@@ -46,7 +46,14 @@
                                     <td><?php echo $instruc['address'] ?></td>
                                     <td><?php echo $instruc['contact']; ?></td>
                                     <td>
-                                        <a href="/instructor_eval/<?php echo $instruc['id'] ?>" class="btn btn-info btn-block">Evaluate</a>
+                                        <?php
+                                            $this->db->where('evaluator', session('id'));
+                                            $c = $this->db->count_all_results('tbl_evaluation');
+                                            $style = '';
+                                            if($c > 0)
+                                                $style = 'disabled';
+                                         ?>
+                                        <a href="/instructor_eval/<?php echo $instruc['id'] ?>" <?php echo $style ?> class="btn btn-info btn-block">Evaluate</a>
                                     </td>
                                 </tr>
                             <?php } ?>
