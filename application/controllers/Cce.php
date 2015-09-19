@@ -57,5 +57,20 @@ class Cce extends CI_Controller
             $c = $this->db->get_where('tbl_cce', array('id' => $cce['criteria']))->row_array();
             $sum += $c['point'];
         }
+        return $sum;
+    }
+
+    //calculate total evaluation of instructor for student
+    function student_eval($id)
+    {
+        $e = $this->db->get_where('tbl_evaluation', array('to_evaluate' => $id))->result_array();
+        $sum = 0;
+        foreach ($e as $evaluate) {
+            $this->db->where('id', $evaluate['evaluator'])->where('usertype', 2);
+            $c = $this->db->count_all_results('tbl_userreg');
+            if($c > 0)
+                $sum = $sum + ($evaluate['group1'] + $evaluate['group2'] + $evaluate['group3'] + $evaluate['group4']);
+        }
+        return $sum * STUDENT_SUPERVISOR;
     }
 }
