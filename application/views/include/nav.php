@@ -15,7 +15,7 @@
                 <a href="/user_registration" style="color:#fff">User Registration</a>
             </li>
             <li>
-                <a href="#" style="color:#fff">QCE</a>
+                <a href="/qce" style="color:#fff">QCE</a>
             </li>
             <li>
                 <a href="/cce" style="color:#fff">CCE</a>

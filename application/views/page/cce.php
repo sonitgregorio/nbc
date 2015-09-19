@@ -9,51 +9,54 @@
                         <h1 class="panel-title" style="color:white">CCE</h1>
                     </div>
                     <div class="panel-body">
-                        <table class="table table-bordered">
-                            <tr class="navbar-inverse text-center">
-                                <td style="color:#fff">Name</td>
-                                <td style="color:#fff">Current Position</td>
-                                <td style="color:#fff">School</td>
-                                <td style="color:#fff">Address</td>
-                                <td style="color:#fff">Contact</td>
-                                <td style="color:#fff">Action</td>
-                            </tr>
+                        <div style="max-width:400px;" class="center-block">
+                            <div class="well well-lg">
+                                <?php echo $error ?>
+                                <form action="/show_instruc" method="post" enctype="multipart/form-data">
+                                    <label>Criteria</label>
+                                    <select class="form-control" name="criteria">
+                                        <?php
+                                            $c = $this->db->get('tbl_cce')->result_array();
+                                            foreach($c as $cce)
+                                            {
+                                             ?>
+                                             <option value="<?php echo $cce['id'] ?>"><?php echo $cce['description']; ?></option>
+                                        <?php
+                                            }
+                                         ?>
+                                    </select>
+                                    <br>
+                                    <div class="fileUpload btn btn-primary btn-block">
+                                        <span class="glyphicon glyphicon-paperclip"></span>
+                                        <input type="file" name="userfile" class="upload" />
+                                        Attach a file
+                                    </div>
 
-                        <?php
-                            $r = $this->faculty->all();
-                            foreach($r as $faculty)
-                            {
-                            ?>
-                            <tr>
-                                <td>
-                                    <?php echo $faculty['firstname'].' '.$faculty['middlename'].' '.$faculty['lastname'] ?>
-                                </td>
-                                <td>
-                                    <?php
-                                        $pos = $this->db->get_where('position', array('id' => $faculty['position']))->row_array();
-                                        echo $pos['description'];
-                                     ?>
-                                </td>
-                                <td>
-                                    <?php
-                                        $school = $this->db->get_where('tbl_school', array('id' => $faculty['school']))->row_array();
-                                        echo $school['sch_name'];
-                                     ?>
-                                </td>
-                                <td>
-                                    <?php echo $faculty['address'] ?>
-                                </td>
-                                <td>
-                                    <?php echo $faculty['contact'] ?>
-                                </td>
-                                <td>
-                                    <a href="#" class="btn btn-info btn-sm btn-block">View</a>
-                                </td>
-                            </tr>
-                        <?php
-                            }
-                         ?>
-                        </table>
+                                    <br>
+                                    <input type="submit" class="btn btn-primary pull-right" name="name" value="Submit">
+                                    <span class="clearfix"></span>
+                                </form>
+                            </div>
+                            <table class="table table-bordered">
+                                <tr class="navbar-inverse">
+                                    <td style="color:#fff" class="text-center">
+                                        Criteria
+                                    </td>
+                                    <td class="text-center" style="color:#fff">
+                                        Attachment
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
