@@ -14,8 +14,6 @@
                                     <td style="color:#fff" class="text-center">Name</td>
                                     <td style="color:#fff" class="text-center">Current Position</td>
                                     <td style="color:#fff" class="text-center">School</td>
-                                    <td style="color:#fff" class="text-center">Address</td>
-                                    <td style="color:#fff" class="text-center">Contact</td>
                                     <td style="color:#fff" class="text-center">Action</td>
                                 </tr>
                             </thead>
@@ -43,8 +41,6 @@
                                             echo $sch['sch_name'];
                                          ?>
                                     </td>
-                                    <td><?php echo $instruc['address'] ?></td>
-                                    <td><?php echo $instruc['contact']; ?></td>
                                     <td>
                                         <?php
                                             $this->db->where('evaluator', session('id'));
