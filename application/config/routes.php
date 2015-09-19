@@ -65,6 +65,8 @@ $route['logout']                =   'main/logout';
 $route['insert_faculty']        =   'common/insert_faculty';
 $route['delete_faculty/(:any)'] =   'common/delete_faculty/$1';
 $route['edit_faculty/(:any)']   =   'common/edit_faculty/$1';
+$route['add_fac_user/(:any)']   =   'common/add_fac_user/$1';
+
 
 //School Data Management Routes
 $route['save_school']           =   'common/save_school';

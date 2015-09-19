@@ -104,16 +104,21 @@
                                   <label class="col-sm-4 control-label">Position</label>
                                   <div class="col-sm-8">
                                     <select class="form-control" name="usertype">
-                                        <?php
-                                          foreach ($this->registration->getAlltype() as $key => $value):
-                                          extract($value);
-                                        ?>
-                                        <?php if ($id == $usertype): ?>
-                                            <option value="<?php echo $id ?>" selected><?php echo $description ?></option>
+
+                                        <?php if ($this->session->userdata('type') == 0): ?>
+                                          <?php
+                                                foreach ($this->registration->getAlltype() as $key => $value):
+                                                extract($value);
+                                              ?>
+                                              <?php if ($id == $usertype): ?>
+                                                  <option value="<?php echo $id ?>" selected><?php echo $description ?></option>
+                                              <?php else: ?>
+                                                    <option value="<?php echo $id ?>"><?php echo $description ?></option>
+                                              <?php endif; ?>
+                                            <?php endforeach; ?>
                                         <?php else: ?>
-                                              <option value="<?php echo $id ?>"><?php echo $description ?></option>
+                                                <option value="2">Student</option>
                                         <?php endif; ?>
-                                      <?php endforeach; ?>
 
                                     </select>
                                   </div>

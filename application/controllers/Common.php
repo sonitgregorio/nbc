@@ -171,4 +171,9 @@ class Common extends CI_Controller
     {
       $this->registration->insert_eval($id);
     }
+    function add_fac_user($id)
+    {
+      $this->load->model('faculty');
+      $this->faculty->add_fac_user($id);
+    }
 }

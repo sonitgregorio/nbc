@@ -7,21 +7,24 @@
                   <img src="../assets/images/EVSU.jpg" alt="x" width="40" style="border-radius:20px"/> EVSU
                 </a>
             </li>
-            <li>
-                <a href="#" style="color:white">Home</a>
-            </li>
             <?php if($this->session->userdata('type') == 1) { ?>
             <li>
-                <a href="/user_registration" style="color:#fff">User Registration</a>
+                <a href="/user_registration" style="color:#fff">Student Registration</a>
             </li>
             <li>
                 <a href="/qce" style="color:#fff">QCE</a>
+            </li>
+            <li>
+                <a href="/evaluate" style="color:#fff;">Evaluate</a>
             </li>
             <li>
                 <a href="/cce" style="color:#fff">CCE</a>
             </li>
             <li>
                 <a href="#" style="color:#fff">Reports</a>
+            </li>
+            <li>
+                  <a href="/list_evaluate" style="color:white">List of Evaluators</a>
             </li>
             <?php } elseif($this->session->userdata('type') == 0) { ?>
             <li>
@@ -42,9 +45,6 @@
                 <a href="/evaluate" style="color:#fff;">Evaluate</a>
             </li>
             <?php } ?>
-            <li>
-                  <a href="/list_evaluate" style="color:white">List of Evaluators</a>
-            </li>
             <li>
                 <a href="/logout" style="color:white">Logout</a>
             </li>
