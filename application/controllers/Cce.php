@@ -46,4 +46,16 @@ class Cce extends CI_Controller
 
         $this->load->view('include/footer');
     }
+
+    // calculate total cce points of instructor
+    function cce_instruc($id)
+    {
+        $r = $this->db->get_where('attachment', array('instructor' => $id))->result_array();
+        $sum = 0;
+        foreach($r as $cce)
+        {
+            $c = $this->db->get_where('tbl_cce', array('id' => $cce['criteria']))->row_array();
+            $sum += $c['point'];
+        }
+    }
 }

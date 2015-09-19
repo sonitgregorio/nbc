@@ -46,14 +46,23 @@
                                         Attachment
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="text-center">
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                </tr>
+                                <?php
+                                    $this->db->where('instructor', session('id'));
+                                    $c = $this->db->get('attachment')->result_array();
+                                    foreach($c as $criteria)
+                                    {
+                                        ?>
+                                        <tr>
+                                            <td>
+                                                <?php
+                                                    $e = $this->db->get_where('tbl_cce', array('id', $criteria['criteria']))->row_array();
+                                                    echo $e['description'];
+                                                 ?>
+                                            </td>
+                                        </tr>
+                                <?php
+                                    }
+                                 ?>
 
                             </table>
                         </div>
