@@ -37,7 +37,7 @@ class Main extends CI_Controller
               {
                   $this->db->where('id', $r);
                   $us = $this->db->get('tbl_userreg')->row_array();
-                  $array = array('id' => $r,'type' => $us['usertype']);
+                  $array = array('id' => $r,'type' => $us['usertype'], 'fid' => $us['fid']);
                   $this->session->set_userdata($array);
                   redirect(base_url());
               }

@@ -124,8 +124,6 @@
                                     <td>Current Position</td>
                                     <td>School</td>
                                     <td>Address</td>
-                                    <td>Contact</td>
-                                    <td>Action</td>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -136,10 +134,9 @@
                                       <td><?php echo $fullname; ?></td>
                                       <td><?php echo $position; ?></td>
                                       <td><?php echo $sch; ?></td>
-                                      <td><?php echo $address ?></td>
-                                      <td><?php echo $contact; ?></td>
                                       <td>
                                         <a href="/edit_faculty/<?php echo $fid?>" class="label label-info">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-pencil"></span></a>
+                                        <a href="/add_fac_user/<?php echo $fid?>" class="label label-info">Add As User&nbsp;&nbsp;<span class="glyphicon glyphicon-user"></span></a>
                                         <a href="/delete_faculty/<?php echo $fid?>" class="label label-danger" onclick="return confirm('Do you sure?')">Delete&nbsp;&nbsp;<span class="glyphicon glyphicon-trash"></span></a>
                                       </td>
                                     </tr>

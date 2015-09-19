@@ -161,13 +161,12 @@ class Registration extends CI_Model
       }
       function list_evaluate()
       {
-          $x = $this->session->userdata('id');
+         $x = $this->session->userdata('fid');
           return $this->db->query("SELECT * FROM tbl_userreg WHERE id NOT IN(SELECT student_id FROM tbl_student_eval WHERE instructor = $x)")->result_array();
-
       }
       function insert_eval($id)
       {
-          $data = array('student_id' => $id, 'instructor' => $this->session->userdata('id'));
+          $data = array('student_id' => $id, 'instructor' => $this->session->userdata('fid'));
           $this->db->insert('tbl_student_eval', $data);
           $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'Succesfully Added.</div>');
           redirect('/list_evaluate');
