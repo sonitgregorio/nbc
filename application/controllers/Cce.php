@@ -17,7 +17,7 @@ class Cce extends CI_Controller
         if($this->form_validation->run() === FALSE)
         {
             $d['error'] = '';
-            $this->load->view('page/cce');
+            $this->load->view('page/cce', $d);
         }
         else
         {
