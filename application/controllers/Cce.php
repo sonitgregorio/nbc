@@ -86,4 +86,11 @@ class Cce extends CI_Controller
         }
         return $sum * PEER_SELF;
     }
+
+    function self_eval($id)
+    {
+        $e = $this->db->get_where('tbl_evaluation', array('to_evaluate' => $id, 'evaluator' => $id))->row_array();
+        $sum = $e['group1'] + $e['group2'] + $e['group3'] + $e['group4'];
+        return $sum * PEER_SELF;
+    }
 }
