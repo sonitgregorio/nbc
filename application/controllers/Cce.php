@@ -73,4 +73,17 @@ class Cce extends CI_Controller
         }
         return $sum * STUDENT_SUPERVISOR;
     }
+
+    function peer_eval($id)
+    {
+        $e = $this->db->get_where('tbl_evaluation', array('to_evaluate' => $id))->result_array();
+        $sum = 0;
+        foreach ($e as $evaluate) {
+            $this->db->where('id', $evaluate['evaluator'])->where('usertype', 1);
+            $c = $this->db->count_all_results('tbl_userreg');
+            if($c > 0)
+                $sum = $sum + ($evaluate['group1'] + $evaluate['group2'] + $evaluate['group3'] + $evaluate['group4']);
+        }
+        return $sum * PEER_SELF;
+    }
 }
