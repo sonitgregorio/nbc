@@ -173,6 +173,12 @@ class Registration extends CI_Model
       }
       function get_fs()
       {
-          return $this->db->query("SELECT a.* FROM `tbl_faculty` a, tbl_userreg b WHERE b.fid = a.id")->result_array();
+          return $this->db->query("SELECT a.*, c.sch_name FROM `tbl_faculty` a, tbl_userreg b, tbl_school c WHERE b.fid = a.id AND a.school = c.id ")->result_array();
+      }
+      function getPo($id)
+      {
+        $this->db->where('id', $id);
+        $x = $this->db->get('position')->row_array();
+        return $x['description'];
       }
 }

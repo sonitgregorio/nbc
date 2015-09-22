@@ -31,10 +31,14 @@
                           <tbody>
                             <?php
                              foreach ($this->registration->get_fs() as $key => $value):
-                              
+                              $x = $this->api->rank($value['id']);
                              ?>
                                <tr>
-                                
+                                 <td><?php echo $value['firstname'] ?></td>
+                                 <td><?php echo $value['sch_name'] ?></td>  
+                                 <td><?php echo $x['qce'] ?></td>  
+                                 <td><?php echo $x['cce'] ?></td>  
+                                 <td><?php echo $this->registration->getPo($x['position']) ?></td>  
                                </tr>
                             <?php endforeach ?>
                            
