@@ -26,7 +26,7 @@ class Cce extends CI_Controller
             // check if the attachment belongs to image/document/spreadsheet
             $config['allowed_types']        = 'jpg|png|jpeg|doc|docx|pdf|xlsx';
             $config['max_size']             = 2048;
-            $config['encrypt_name']         = TRUE;
+            //$config['encrypt_name']         = TRUE;
             $this->load->library('upload', $config);
 
             if($this->upload->do_upload())

@@ -12,7 +12,7 @@
                         <div style="max-width:400px;" class="center-block">
                             <div class="well well-lg">
                                 <?php echo $error ?>
-                                <form action="/show_instruc" method="post" enctype="multipart/form-data">
+                                <form action="/cce" method="post" enctype="multipart/form-data">
                                     <label>Criteria</label>
                                     <select class="form-control" name="criteria">
                                         <?php
@@ -58,6 +58,9 @@
                                                     $e = $this->db->get_where('tbl_cce', array('id', $criteria['criteria']))->row_array();
                                                     echo $e['description'];
                                                  ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $criteria['file'] ?>
                                             </td>
                                         </tr>
                                 <?php
