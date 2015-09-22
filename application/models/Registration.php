@@ -90,7 +90,7 @@ class Registration extends CI_Model
           $this->db->insert('tbl_userreg', $data);
           if($data['usertype'] == 2)
           {
-              $d['student']     = $this->db->insert_id();
+              $d['student_id']     = $this->db->insert_id();
               $d['instructor']  = $this->session->userdata('id');
               $this->db->insert('tbl_student_eval', $d);
           }
