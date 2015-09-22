@@ -138,14 +138,14 @@
                             <div class="col-md-12">
 
                               <hr style="border: 1px solid brown;" />
-                              <table class="table table-bordered">
+                              <table id="example" class="table table-bordered">
                                 <thead>
-                                  <tr>
-                                    <td>Name</td>
-                                    <td>Email Address</td>
-                                    <td>Contact</td>
-                                    <td>Address</td>
-                                    <td>Action</td>
+                                  <tr class="navbar-inverse">
+                                    <td style="color:white;text-align:center">Name</td>
+                                    <td style="color:white;text-align:center">Email Address</td>
+                                    <td style="color:white;text-align:center">Contact</td>
+                                    <td style="color:white;text-align:center">Address</td>
+                                    <td style="color:white;text-align:center">Action</td>
                                   </tr>
                                 </thead>
                                 <tbody>

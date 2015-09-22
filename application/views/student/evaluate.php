@@ -44,6 +44,7 @@
                                     <td>
                                         <?php
                                             $this->db->where('evaluator', session('id'));
+                                            $this->db->where('to_evaluate', $ins['instructor']);
                                             $c = $this->db->count_all_results('tbl_evaluation');
                                             $style = '';
                                             if($c > 0)

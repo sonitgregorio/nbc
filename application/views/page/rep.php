@@ -9,22 +9,22 @@
                     <h1 class="panel-title" style="color:white">QCE and CCE</h1>
                   </div>
                   <div class="panel-body">
-                      <table class="table table-bordered table-striped">
+                      <table id="example" class="table table-bordered table-striped">
                         <thead>
-                          <tr>
-                            <td>
+                          <tr class="navbar-inverse">
+                            <td style="color:white;text-align:center">
                               Name
                             </td>
-                            <td>
+                            <td style="color:white;text-align:center">
                               School
                             </td>
-                            <td>
+                            <td style="color:white;text-align:center">
                               QCE Result
                             </td>
-                            <td>
+                            <td style="color:white;text-align:center">
                               CC Result
                             </td>
-                            <td>
+                            <td style="color:white;text-align:center">
                               Position
                             </td>
                           </tr>

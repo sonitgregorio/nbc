@@ -50,12 +50,12 @@
                       <div class="col-md-12">
 
                         <hr style="border: 1px solid brown;" />
-                        <table class="table table-bordered table-hover table-striped">
+                        <table id="example"class="table table-bordered table-hover table-striped">
                           <thead>
-                            <tr>
-                              <td>Criteria</td>
-                              <td width="300">Point System</td>
-                              <td width="150">Action</td>
+                            <tr class="navbar-inverse">
+                              <td style="color:white;text-align:center">Criteria</td>
+                              <td width="300" style="color:white;text-align:center">Point System</td>
+                              <td width="150" style="color:white;text-align:center">Action</td>
                             </tr>
                           </thead>
                           <tbody>

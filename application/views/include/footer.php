@@ -3,6 +3,9 @@
 </div>
   <script src="/assets/js/jquery.js"></script>
   <script src="/assets/js/bootstrap.js"></script>
+  <script src="/assets/js/jquery.dataTables.min.js"></script>
+
+
       <script>
       $(document).ready(function (){
           var $dname11  = 0
@@ -164,6 +167,7 @@
               $total = Number($aname11) + Number($aname21) + Number($aname31) + Number($aname41) + Number($aname51);
               $total_aname.html($total);
           });
+        $('#example').DataTable();
       });
       </script>
   </body>

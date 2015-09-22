@@ -8,6 +8,7 @@
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/css/simple-sidebar.css" rel="stylesheet">
     <link href="/assets/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="/assets/css/jquery.dataTables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="icon" type="image/png" href="../assets/images/background/ico.png" sizes="128x128" />
     <title>NBC</title>

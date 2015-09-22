@@ -117,13 +117,13 @@
                             <div class="col-md-12">
 
                               <hr style="border: 1px solid brown;" />
-                              <table class="table table-bordered">
+                              <table id="example" class="table table-bordered">
                                 <thead>
-                                  <tr>
-                                    <td>Name</td>
-                                    <td>Current Position</td>
-                                    <td>School</td>
-                                    <td>Address</td>
+                                  <tr class="navbar-inverse">
+                                    <td style="color:white;text-align:center">Name</td>
+                                    <td style="color:white;text-align:center">Current Position</td>
+                                    <td style="color:white;text-align:center">School</td>
+                                    <td style="color:white;text-align:center">Address</td>
                                   </tr>
                                 </thead>
                                 <tbody>

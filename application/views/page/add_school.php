@@ -57,13 +57,13 @@
                       <div class="col-md-12">
 
                         <hr style="border: 1px solid brown;" />
-                        <table class="table table-bordered">
+                        <table id="example" class="table table-bordered">
                           <thead>
-                            <tr>
-                              <td>School</td>
-                              <td>Address</td>
-                              <td>Contact</td>
-                              <td width="150">Action</td>
+                            <tr class="navbar-inverse">
+                              <td style="color:white;text-align:center">School</td>
+                              <td style="color:white;text-align:center">Address</td>
+                              <td style="color:white;text-align:center">Contact</td>
+                              <td style="color:white;text-align:center" width="150">Action</td>
                             </tr>
                           </thead>
                           <tbody>
