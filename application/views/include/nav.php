@@ -35,6 +35,9 @@
             </li>
             <li>
                 <a href="/add_criteria" style="color:#fff">ADD Common CCE</a>
+            </li> 
+            <li>
+                <a href="/reports_all" style="color:#fff">Reports</a>
             </li>
             <li>
                 <a href="/add_school" style="color:#fff">Add School</a>

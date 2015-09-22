@@ -171,4 +171,8 @@ class Registration extends CI_Model
           $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'Succesfully Added.</div>');
           redirect('/list_evaluate');
       }
+      function get_fs()
+      {
+          return $this->db->query("SELECT a.* FROM `tbl_faculty` a, tbl_userreg b WHERE b.fid = a.id")->result_array();
+      }
 }

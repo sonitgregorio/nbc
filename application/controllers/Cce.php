@@ -151,7 +151,7 @@ class Cce extends CI_Controller
                 }
             }
         }
-
+        return array('qce' => ,  $qce, 'cce' => $cce, 'position' => $position);
         // update the instructor rank if the rank is change
     }
 }

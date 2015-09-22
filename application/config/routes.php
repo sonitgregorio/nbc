@@ -93,3 +93,8 @@ $route['add_evaluators/(:num)']   =   'common/add_evaluators/$1';
 $route['submit_evaluate']         =   'evaluate/evaluation';
 
 $route['cce']                     = 'cce/show_instruc';
+
+
+//Reports
+
+$route['reports_all']			  = 'reports/view_all_rep';
