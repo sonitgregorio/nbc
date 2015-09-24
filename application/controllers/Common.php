@@ -176,4 +176,8 @@ class Common extends CI_Controller
       $this->load->model('faculty');
       $this->faculty->add_fac_user($id);
     }
+    function ccevalue()
+    {
+        echo $this->api->qce_instruc(11);
+    }
 }
