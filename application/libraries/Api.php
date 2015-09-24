@@ -59,7 +59,7 @@ class Api
 
     function super_eval($id)
     {
-        $e = $this->CI->db->query("SELECT * FROM tbl_evaluation a, tbl_userreg b WHERE a.to_evaluate = $id AND b.position = 3")->result_array();
+        $e = $this->CI->db->query("SELECT * FROM tbl_evaluation a, tbl_userreg b, tbl_faculty c WHERE a.to_evaluate = $id AND b.fid = c.id  AND c.position = 3 AND a.to_evaluate = b.id")->result_array();
         $sum = 0;
         foreach($e as $ee)
         {
@@ -70,9 +70,9 @@ class Api
 
     function rank($id)
     {
-        $qce            = $this->qce_instruc($id);
+        $cce            = $this->qce_instruc($id);
         // just add the supervisor eval
-        $cce            = $this->self_eval($id) + $this->peer_eval($id) + $this->student_eval($id);
+        $qce            = $this->self_eval($id) + $this->peer_eval($id) + $this->student_eval($id) + $this->super_eval($id) ;
         $based_point    = ($qce > $cce) ? 'cce' : 'qce';
         $e              = $this->CI->db->query("SELECT * FROM tbl_userreg, tbl_faculty, tbl_school WHERE tbl_userreg.id = $id AND tbl_faculty.id = tbl_userreg.fid AND tbl_school.id = tbl_faculty.school")->row_array();
         $position       = $e['position'];
@@ -93,7 +93,7 @@ class Api
                     if($key['position'] > $position)
                     {
                         //increment position then break
-                        $positon++;
+                        $position++;
                         break;
                     }
                 }
@@ -126,7 +126,10 @@ class Api
                 }
             }
         }
-          return array('qce' =>  $qce, 'cce' => $cce, 'position' => $position, 'school' => $school);
+          return array('qce' =>  $qce,
+                       'cce' => $cce,
+                       'position' => $position,
+                       'school' => $school);
         // update the instructor rank if the rank is change
     }
 }

@@ -22,7 +22,7 @@
                               QCE Result
                             </td>
                             <td style="color:white;text-align:center">
-                              CC Result
+                              CCE Result
                             </td>
                             <td style="color:white;text-align:center">
                               Position
@@ -31,12 +31,12 @@
                           <tbody>
                             <?php
                              foreach ($this->registration->get_fs() as $key => $value):
-                              $x = $this->api->rank($value['id']);
+                              $x = $this->api->rank($value['userid']);
                              ?>
                                <tr>
                                  <td><?php echo $value['firstname'] ?></td>
                                  <td><?php echo $value['sch_name'] ?></td>  
-                                 <td><?php echo $x['qce'] ?></td>  
+                                 <td><?php echo  $this->api->self_eval($value['facid']) + $this->api->peer_eval($value['facid']) + $this->api->student_eval($value['facid']) + $this->api->super_eval($value['facid']) ?></td>  
                                  <td><?php echo $x['cce'] ?></td>  
                                  <td><?php echo $this->registration->getPo($x['position']) ?></td>  
                                </tr>
