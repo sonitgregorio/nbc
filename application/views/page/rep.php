@@ -9,7 +9,7 @@
                     <h1 class="panel-title" style="color:white">QCE and CCE</h1>
                   </div>
                   <div class="panel-body">
-                      <table id="example" class="table table-bordered table-striped">
+                      <table id="example" class="table table-bordered table-striped responsive">
                         <thead>
                           <tr class="navbar-inverse">
                             <td style="color:white;text-align:center">
@@ -17,6 +17,18 @@
                             </td>
                             <td style="color:white;text-align:center">
                               School
+                            </td>
+                            <td style="color:white;text-align:center">
+                              Student
+                            </td>
+                            <td style="color:white;text-align:center">
+                              Self
+                            </td>
+                            <td style="color:white;text-align:center">
+                              Peer
+                            </td>
+                            <td style="color:white;text-align:center">
+                              Supervisor
                             </td>
                             <td style="color:white;text-align:center">
                               QCE Result
@@ -35,7 +47,11 @@
                              ?>
                                <tr>
                                  <td><?php echo $value['firstname'] ?></td>
-                                 <td><?php echo $value['sch_name'] ?></td>  
+                                 <td><?php echo $value['sch_name'] ?></td> 
+                                 <td><?php echo $this->api->student_eval($value['facid']) ?></td> 
+                                 <td><?php echo $this->api->self_eval($value['facid']) ?></td>
+                                 <td><?php echo $this->api->peer_eval($value['facid']) ?></td>
+                                 <td><?php echo $this->api->super_eval($value['facid']) ?></td>
                                  <td><?php echo  $this->api->self_eval($value['facid']) + $this->api->peer_eval($value['facid']) + $this->api->student_eval($value['facid']) + $this->api->super_eval($value['facid']) ?></td>  
                                  <td><?php echo $x['cce'] ?></td>  
                                  <td><?php echo $this->registration->getPo($x['position']) ?></td>  

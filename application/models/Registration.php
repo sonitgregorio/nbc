@@ -162,7 +162,7 @@ class Registration extends CI_Model
       function list_evaluate()
       {
          $x = $this->session->userdata('fid');
-          return $this->db->query("SELECT * FROM tbl_userreg WHERE id NOT IN(SELECT student_id FROM tbl_student_eval WHERE instructor = $x)")->result_array();
+         return $this->db->query("SELECT * FROM tbl_userreg WHERE id NOT IN(SELECT student_id FROM tbl_student_eval WHERE instructor = $x) AND usertype != 0")->result_array();
       }
       function insert_eval($id)
       {

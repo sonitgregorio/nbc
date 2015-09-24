@@ -32,11 +32,27 @@
                                 <td><?php echo $emailaddress ?></td>
                                 <td><?php echo $contact; ?></td>
                                 <td>
-                                    <a href="/add_evaluators/<?php echo $id ?>" class="btn btn-info btn-sm">Add As My Evaluator&nbsp;&nbsp;<span class="glyphicon glyphicon-pencil"></span></a>
+                                  <?php 
+                                      if ($fid == $this->session->userdata('fid')) 
+                                      {
+                                        $evs = 'Self';
+                                      } 
+                                      elseif ($usertype == 3) 
+                                      {
+                                        $evs = 'Supervisor';
+                                      } 
+                                      elseif ($usertype == 1)
+                                      {
+                                        $evs = 'Peer';
+                                      }
+                                      else{
+                                        $evs = 'Student';
+                                      }
+                                    ?>
+                                    <a href="/add_evaluators/<?php echo $id ?>" class="btn btn-info btn-sm">Add As My <?php echo $evs ?> Evaluator&nbsp;&nbsp;<span class="glyphicon glyphicon-pencil"></span></a>
                                 </td>
                               </tr>
                             <?php endforeach; ?>
-
                           </tbody>
                         </table>
                       </div>
