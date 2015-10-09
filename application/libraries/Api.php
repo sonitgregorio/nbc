@@ -52,11 +52,11 @@ class Api
 
     function self_eval($id)
     {
-        $e = $this->CI->db->get_where('tbl_evaluation', array('to_evaluate' => $id, 'evaluator' => $id))->row_array();
+        $e = $this->CI->db->query("SELECT * FROM tbl_evaluation WHERE to_evaluate = $id AND tbl_evaluation.evaluator = (SELECT id FROM tbl_userreg WHERE fid = $id)")->row_array();
         $sum = $e['group1'] + $e['group2'] + $e['group3'] + $e['group4'];
+ 
         return $sum * PEER_SELF;
     }
-
     function super_eval($id)
     {
         $e = $this->CI->db->query("SELECT * FROM tbl_evaluation a, tbl_userreg b, tbl_faculty c WHERE a.to_evaluate = $id AND b.fid = c.id  AND c.position = 3 AND a.to_evaluate = b.id")->result_array();
@@ -67,7 +67,6 @@ class Api
         }
         return $sum * STUDENT_SUPERVISOR;
     }
-
     function rank($id)
     {
         $cce            = $this->qce_instruc($id);
@@ -78,7 +77,6 @@ class Api
         $position       = $e['position'];
         $school         = $e['sch_name'];
         $pos            = $this->CI->db->get('points_allocation')->result_array();
-
 
         foreach ($pos as $key)
         {
