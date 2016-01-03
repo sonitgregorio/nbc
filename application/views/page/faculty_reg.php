@@ -13,6 +13,7 @@
                 $schid = "";
                 $pid = "";
                 $fid = "";
+                $dates ="";
               }
        ?>
           <div class="container-fluid padding_zero">
@@ -68,9 +69,15 @@
                                   </div>
                                 </div>
                                 <div class="form-group">
+                                  <label class="col-sm-3 control-label">Date Hired</label>
+                                  <div class="col-sm-9">
+                                    <input type="date" name="dates" value="<?php echo $dates ?>" class="form-control" placeholder="Contact">
+                                  </div>
+                                </div>
+                                <div class="form-group">
                                   <label class="col-sm-3 control-label">Current Position</label>
                                   <div class="col-sm-9">
-                                    <select class="form-control" name="position">
+                                    <select class="js-example-basic-single form-control" name="position">
                                         <?php
                                           foreach ($this->registration->Allposition() as $key => $v):
                                           extract($v);

@@ -46,5 +46,51 @@ class Cce extends CI_Controller
 
         $this->load->view('include/footer');
     }
+    function insert_this_cce()
+    {
+        $cycle = $this->registration->get_cycle_end();
+        $fid = $this->session->userdata('fid');
+        $ch = $this->registration->check_cce_res();
+        foreach ($this->registration->load_cce() as $key => $value) 
+        {
+            if ($this->input->post($value['id']) == "") 
+            {
+                $vals = 0;
+            } 
+            else
+            {
+                $vals = $this->input->post($value['id']);
+            }
+            
+            $data = array('cid' => $value['id'] , 'fid' => $fid,  'point' =>  $vals, 'cycle' => $cycle);
+            if ($ch > 0) 
+            {
+                $this->registration->update_cce_res($data, $value['id']);
+            }
+            else
+            {
+                $this->registration->insert_cces($data);
+            }
+            
+        }
+        redirect('/cce');
+    }
+    function set_cycle()
+    {
+        $this->load->view('include/header');
+        $this->load->view('include/nav');
+        $this->load->view('page/add_cycle');
+        $this->load->view('include/footer');
+    }
+    function insert_cycle()
+    {
+        $descrip = $this->input->post('descrip');
+        $from = $this->input->post('date_from');
+        $to = $this->input->post('date_to');
+        $data = array('description' => $descrip, 'date_from' => $from, 'date_to' => $to);
+        $this->registration->insert_cycle($data);
+        redirect('/set_cycle');
+       // echo $descrip . "|" . $from . "|" . $to;
+    }
 
 }

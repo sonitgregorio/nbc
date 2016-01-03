@@ -10,49 +10,47 @@
                     </div>
                     <div class="panel-body">
                         <table class="table table-bordered">
-                            <tr class="navbar-inverse text-center">
-                                <td style="color:#fff">Name</td>
-                                <td style="color:#fff">Current Position</td>
-                                <td style="color:#fff">School</td>
-                                <td style="color:#fff">Address</td>
-                                <td style="color:#fff">Contact</td>
-                                <td style="color:#fff">Action</td>
-                            </tr>
+                        <thead class="navbar-inverse">
+                           <tr >
+                            
+                            <td style="color:white;text-align:center">
+                              Cycle
+                            </td>
+                            <td style="color:white;text-align:center">
+                              Student 30%
+                            </td>
+                            <td style="color:white;text-align:center">
+                              Self 20%
+                            </td>
+                            <td style="color:white;text-align:center">
+                              Peer 20%
+                            </td>
+                            <td style="color:white;text-align:center">
+                              Supervisor 30%
+                            </td>
+                            <td style="color:white;text-align:center">
+                              QCE Result
+                            </td>
+                           <td style="color:white;text-align:center">
+                              Summary
+                            </td>
+                          </tr>
+                        </thead>
+                          <tbody>
+                            <?php foreach ($this->db->get('tbl_cycle')->result_array() as $key => $value): ?>
+                                 <tr>
+                                 <td><?php echo $value['description'] ?></td>  
+                                 <td><?php echo $std = $this->registration->student_result($this->session->userdata('fid'), $value['id'], 2, .30) ?></td> 
+                                 <td><?php echo $self = $this->registration->self_result($this->session->userdata('fid'), $value['id'], 1, .20)  ?></td>
+                                 <td><?php echo $peer = $this->registration->peer_result($this->session->userdata('fid'), $value['id'], 1, .20) ?></td>
+                                 <td><?php echo $super = $this->registration->supervisor_result($this->session->userdata('fid'), $value['id'], 3, .30) ?></td>
+                                 <td><?php echo $std + $self + $peer + $super ?></td>  
+                                  <td style="text-align:right"><a href="/view_summary/<?php echo $value['id'] ?>" class="btn btn-info">View Summary</a></td>  
+                                 
+                               </tr>
+                            <?php endforeach ?>
 
-                        <?php
-                            $r = $this->faculty->all();
-                            foreach($r as $faculty)
-                            {
-                            ?>
-                            <tr>
-                                <td>
-                                    <?php echo $faculty['firstname'].' '.$faculty['middlename'].' '.$faculty['lastname'] ?>
-                                </td>
-                                <td>
-                                    <?php
-                                        $pos = $this->db->get_where('position', array('id' => $faculty['position']))->row_array();
-                                        echo $pos['description'];
-                                     ?>
-                                </td>
-                                <td>
-                                    <?php
-                                        $school = $this->db->get_where('tbl_school', array('id' => $faculty['school']))->row_array();
-                                        echo $school['sch_name'];
-                                     ?>
-                                </td>
-                                <td>
-                                    <?php echo $faculty['address'] ?>
-                                </td>
-                                <td>
-                                    <?php echo $faculty['contact'] ?>
-                                </td>
-                                <td>
-                                    <a href="#" class="btn btn-info btn-sm btn-block">View</a>
-                                </td>
-                            </tr>
-                        <?php
-                            }
-                         ?>
+                          </tbody>
                         </table>
                     </div>
                 </div>

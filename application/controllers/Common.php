@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * Common Controller
  */
 class Common extends CI_Controller
 {
@@ -51,7 +51,8 @@ class Common extends CI_Controller
                         'emailaddress'    => $this->input->post('emailaddress'),
                         'contact'         => $this->input->post('contact'),
                         'position'        => $this->input->post('position'),
-                        'school'          => $this->input->post('school')
+                        'school'          => $this->input->post('school'),
+                        'dates'           => $this->input->post('dates')
                     );
         if ($this->input->post('fid') != "")
         {
@@ -86,7 +87,7 @@ class Common extends CI_Controller
                         'contact'       => $this->input->post('contact'),
                         'username'      => $this->input->post('username'),
                         'password'      => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
-                        'usertype'      => $this->input->post('usertype')
+                        'usertype'      => $this->input->post('usertype'),
                     );
 
         if ($this->input->post('password') != $this->input->post('confirmpassword'))
@@ -130,6 +131,9 @@ class Common extends CI_Controller
       $checking = $this->registration->checkif($criteria);
       if ($checking >= 1)
       {
+         $data = array('description' => $criteria,
+                        'point' =>  $this->input->post('points'));
+          $this->registration->insert_criteria($data);
           $this->session->set_flashdata('message', $this->failedMessage() .  'Criteria Already Exist.</div>');
           redirect('/add_criteria');
       }
@@ -173,11 +177,25 @@ class Common extends CI_Controller
     }
     function add_fac_user($id)
     {
-      $this->load->model('faculty');
-      $this->faculty->add_fac_user($id);
+
+      $x = $this->registration->check_facs($id);
+      if ($x <= 0) 
+      {
+        $this->load->model('faculty');
+        $this->faculty->add_fac_user($id);    
+      }
+      else
+      {
+        $this->session->set_flashdata('message', $this->failedMessage() . 'This Faculty Already Exist.</div>');
+      }
+      redirect('/faculty_registration');
+      
+    
     }
     function ccevalue()
     {
         echo $this->api->qce_instruc(11);
     }
+
+
 }

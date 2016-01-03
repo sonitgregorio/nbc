@@ -1,3 +1,6 @@
+<?php 
+    
+ ?>
 <div id="page-content-wrapper">
   <a href="#menu-toggle" id="menu-toggle" class="btn btn-info">Menu</a>
     <div class="container-fluid padding_zero">
@@ -12,15 +15,46 @@
                             <thead>
                                 <tr class="navbar-inverse">
                                     <td style="color:#fff" class="text-center">Name</td>
-                                    <td style="color:#fff" class="text-center">Current Position</td>
-                                    <td style="color:#fff" class="text-center">School</td>
+                                    <td style="color:#fff" class="text-center">Subject</td>
                                     <td style="color:#fff" class="text-center">Action</td>
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php
+                            <?php foreach ($this->facultymod->get_mylist_eval($this->session->userdata('id')) as $key => $value): ?>
+                                <tr>
+                                    <td><?php echo $value['names'] ?></td>
+                                    <td><?php echo $value['description'] ?></td>
+                                    <td>
+                                        <?php
+                                            $this->db->where('evaluator', session('id'));
+                                            $this->db->where('subject', $value['subject']);
+                                            $this->db->where('cycle', $this->registration->get_cycle_end());
+                                            $this->db->where('to_evaluate', $value['fid']);
+                                            $c = $this->db->count_all_results('tbl_evaluation');
+                                            $style = '';
+                                            if($c > 0){
+                                                $style = 'disabled';
+                                                $class = 'class="btn btn-danger"';
+                                                $descr = 'Done';
+                                            }
+                                            else{
+                                                $class = 'class="btn btn-info btn-block"';
+                                                $descr = 'Evaluate';
+                                            }
+                                         ?>
+                                        <a href="/instructor_eval/<?php echo $value['fid'] .'/'. $value['subject'] ?>" <?php echo $style ?> <?php echo $class ?>><?php echo $descr ?></a>
+
+                                     </td>
+                                </tr>   
+                            <?php endforeach ?>
+
+
+
+
+                      <!--       <?php
                                 $this->db->where('student_id', $this->session->userdata('id'));
-                                $i = $this->db->get('tbl_student_eval')->result_array();
+                                $this->db->where('cycle', $this->registration->get_cycle_end());
+                                 $i = $this->db->get('tbl_student_eval')->result_array();
                                 foreach($i as $ins)
                                 {
                                     $instruc = $this->db->get_where('tbl_faculty', array('id' => $ins['instructor']))->row_array();
@@ -44,16 +78,24 @@
                                     <td>
                                         <?php
                                             $this->db->where('evaluator', session('id'));
+                                            $this->db->where('cycle', $this->registration->get_cycle_end());
                                             $this->db->where('to_evaluate', $ins['instructor']);
                                             $c = $this->db->count_all_results('tbl_evaluation');
                                             $style = '';
-                                            if($c > 0)
+                                            if($c > 0){
                                                 $style = 'disabled';
+                                                $class = 'class="btn btn-danger"';
+                                                $descr = 'Done';
+                                            }
+                                            else{
+                                                $class = 'class="btn btn-info btn-block"';
+                                                $descr = 'Evaluate';
+                                            }
                                          ?>
-                                        <a href="/instructor_eval/<?php echo $instruc['id'] ?>" <?php echo $style ?> class="btn btn-info btn-block">Evaluate</a>
+                                        <a href="/instructor_eval/<?php echo $instruc['id'] ?>" <?php echo $style ?> <?php echo $class ?>><?php echo $descr ?></a>
                                     </td>
                                 </tr>
-                            <?php } ?>
+                            <?php } ?> -->
                             </tbody>
                         </table>
                     </div>

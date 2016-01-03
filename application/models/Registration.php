@@ -103,7 +103,7 @@ class Registration extends CI_Model
       }
       function getAllusers()
       {
-          return $this->db->get('tbl_userreg')->result_array();
+          return $this->db->query("SELECT *, tbl_userreg.id as uid FROM tbl_userreg, tbl_usertype WHERE tbl_userreg.usertype = tbl_usertype.id")->result_array();
       }
       function getUser($id)
       {
@@ -161,12 +161,14 @@ class Registration extends CI_Model
       }
       function list_evaluate()
       {
-         $x = $this->session->userdata('fid');
-         return $this->db->query("SELECT * FROM tbl_userreg WHERE id NOT IN(SELECT student_id FROM tbl_student_eval WHERE instructor = $x) AND usertype != 0")->result_array();
+          $x = $this->session->userdata('fid');
+          $cycle = $this->get_cycle_end();
+          return $this->db->query("SELECT * FROM tbl_userreg WHERE id NOT IN(SELECT student_id FROM tbl_student_eval WHERE instructor = '$x' AND cycle = '$cycle') AND usertype != 0")->result_array();
       }
       function insert_eval($id)
       {
-          $data = array('student_id' => $id, 'instructor' => $this->session->userdata('fid'));
+          $cycle = $this->get_cycle_end();
+          $data = array('student_id' => $id, 'instructor' => $this->session->userdata('fid'), 'cycle' => $cycle);
           $this->db->insert('tbl_student_eval', $data);
           $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'Succesfully Added.</div>');
           redirect('/list_evaluate');
@@ -177,8 +179,235 @@ class Registration extends CI_Model
       }
       function getPo($id)
       {
+          $this->db->where('id', $id);
+          $x = $this->db->get('position')->row_array();
+          return $x['description'];
+      }
+      function load_cce()
+      {
+          return $this->db->get('tbl_cce')->result_array();
+      }
+      function info()
+      {
+          return $this->db->get_where('tbl_faculty', array('id' => $this->session->userdata('fid')))->row_array();
+      }
+      function get_pos($id)
+      {
+         $this->db->where('id', $id);
+         $x = $this->db->get('position')->row_array();
+         return $x['description'];
+      }
+      function sch_per($id)
+      {
         $this->db->where('id', $id);
-        $x = $this->db->get('position')->row_array();
-        return $x['description'];
+        $x = $this->db->get('tbl_school')->row_array();
+        return $x['sch_name'];
+      }
+      function get_all_cycle()
+      {
+        return $this->db->get('tbl_cycle')->result_array();
+      }
+      function insert_cycle($data)
+      {
+        $this->db->insert('tbl_cycle', $data);
+
+        $this->db->query("UPDATE tbl_faculty SET ident = 0");
+      }
+      function get_cycle_end()
+      {
+          $x = $this->db->query("SELECT id FROM tbl_cycle ORDER BY id DESC LIMIT 1")->row_array();
+          return $x['id'];
+      }
+      function insert_cces($data)
+      {
+          $this->db->insert('tbl_cce_res', $data);
+      }
+      function get_cce_points($id)
+      {
+          $this->db->where('cid', $id);
+          $this->db->where('fid', $this->session->userdata('fid'));
+          $this->db->where('cycle', $this->get_cycle_end());
+          $x = $this->db->get('tbl_cce_res')->row_array();
+          return $x['point'];
+      }
+      function check_cce_res()
+      {
+          $this->db->where('fid', $this->session->userdata('fid'));
+          $this->db->where('cycle', $this->get_cycle_end());
+          return $this->db->get('tbl_cce_res')->num_rows();
+      }
+      function update_cce_res($data, $id)
+      {
+          $this->db->where('fid', $this->session->userdata('fid'));
+          $this->db->where('cid', $id);
+          $this->db->where('cycle', $this->get_cycle_end());
+          $this->db->update('tbl_cce_res', $data);
+      }
+      function get_total_cce()
+      {
+        $fid = $this->session->userdata('fid');
+        $cycle = $this->registration->get_cycle_end();
+        $x = $this->db->query("SELECT SUM(point) as p FROM tbl_cce_res WHERE cycle = '$cycle' AND fid = '$fid'")->row_array();
+        return $x['p'];
+      }
+      function student_result($fid, $cycle, $usertype, $types)
+      {
+        $x = $this->db->query("SELECT sum(group1) +  sum(group2) + sum(group3) + sum(group4)  as grp, count(*) as grp2
+                              FROM `tbl_evaluation`, tbl_userreg 
+                              WHERE tbl_evaluation.evaluator = tbl_userreg.id 
+                              AND tbl_userreg.usertype = '$usertype' 
+                              AND to_evaluate = '$fid' 
+                              AND cycle = '$cycle' LIMIT 30")->row_array();
+
+        if ($x['grp2'] == 0) {
+          return  0;
+        } else {
+           return $x['grp'] / $x['grp2'] * $types;
+        }
+        
+       
+      }
+      function self_result($fid, $cycle, $usertype, $types)
+      {
+         $x = $this->db->query("SELECT sum(group1) +  sum(group2) + sum(group3) + sum(group4) as grp
+                              FROM `tbl_evaluation`, tbl_userreg 
+                              WHERE tbl_evaluation.evaluator = tbl_userreg.id 
+                              AND tbl_userreg.usertype = '$usertype' 
+                              AND to_evaluate = '$fid' 
+                              AND cycle = '$cycle' AND tbl_userreg.fid = '$fid' LIMIT 1")->row_array();
+        return $x['grp'] * $types;
+      }
+      function peer_result($fid, $cycle, $usertype, $types)
+      {
+        $x = $this->db->query("SELECT sum(group1) +  sum(group2) + sum(group3) + sum(group4) as grp, count(*) as grp2
+                              FROM `tbl_evaluation`, tbl_userreg 
+                              WHERE tbl_evaluation.evaluator = tbl_userreg.id 
+                              AND tbl_userreg.usertype = '$usertype' 
+                              AND to_evaluate = '$fid' 
+                              AND cycle = '$cycle' AND tbl_userreg.fid != '$fid' LIMIT 5")->row_array();
+        if ($x['grp2'] == 0) {
+          return 0;
+        } else {
+          return $x['grp'] / $x['grp2'] * $types;
+      
+        }
+        
+      }
+      function supervisor_result($fid, $cycle, $usertype, $types)
+      {
+          $x = $this->db->query("SELECT sum(group1) +  sum(group2) + sum(group3) + sum(group4) as grp
+                                FROM `tbl_evaluation`, tbl_userreg 
+                                WHERE tbl_evaluation.evaluator = tbl_userreg.id 
+                                AND tbl_userreg.usertype = '$usertype' 
+                                AND to_evaluate = '$fid' 
+                                AND cycle = '$cycle' AND tbl_userreg.fid != '$fid' LIMIT 1")->row_array();
+          return $x['grp'] * $types;
+      }
+      function get_cce_results($fid, $cycle)
+      {
+        $x = $this->db->query("SELECT sum(`point`) as p from tbl_cce_res where cycle = '$cycle' AND fid = '$fid'")->row_array();
+        return $x['p'];
+      }
+      function get_all_points()
+      {
+          return $this->db->get('points_allocation')->result_array();
+      }
+      function get_ranked($id)
+      {
+          $alloc = $this->get_all_points();
+          $qce =  $this->student_result($id, $this->get_cycle_end(), 2, .30) + $this->self_result($id, $this->get_cycle_end(), 1, .20) + $this->peer_result($id, $this->get_cycle_end(), 1, .20) + $this->supervisor_result($id, $this->get_cycle_end(), 3, .30);
+          $cce = $this->get_cce_results($id, $this->get_cycle_end());
+          $position = 0;
+          if ($qce < $cce) 
+          {
+              foreach ($alloc as $key => $value) 
+              {
+
+                $c = $value['qce_points'];
+                if ($c == "") {
+                  $c = "0-0";
+                } 
+                
+                $a = explode('-', $c);
+
+                if (count($a) == 1) 
+                {
+                    if ($qce == $a) 
+                    {
+                      $post = $value['position']; 
+                      break;
+                    }                    
+                } 
+                else
+                {
+                  if($qce >= $a[0] AND $qce <= $a[1])
+                    {
+                        $post = $value['position']; 
+                        break; 
+                    }
+                  elseif($qce <= 80)
+                    {
+                        $post = 1;
+                        break;
+                    }
+                }
+              }
+          }
+          else
+          {
+            foreach ($alloc as $key => $value) {
+                $c = $value['cce_points'];
+                $a = explode('-', $c);
+                if ($cce >= $a[0] AND $cce <= $a[1]) {
+                   $post = $value['position']; 
+                   break;
+                }
+                else
+                {
+                    $post = 0;
+                }
+            }
+          } 
+         
+          $this->db->where('id', $id);
+          $pos = $this->db->get('tbl_faculty')->row_array();
+          $currpos = $pos['position'];
+          if ($currpos > $post) 
+          {
+            $updatedposition = $currpos;
+          }
+          else
+          {
+            $updatedposition = $currpos + 1;
+            $this->db->where('id', $id);
+            $this->db->where('ident', 0);
+            $data = array('position' => $updatedposition, 'ident' => 1);
+            $this->db->update('tbl_faculty', $data);
+
+
+          }
+
+          return $updatedposition;
+
+
+
+          // foreach ($alloc as $key => $value) 
+          // {
+          //     $a = explode('-', $value['cc_points']);
+
+              
+              
+          // }
+      } 
+      function get_positions($id)
+      {
+          $this->db->where('id', $id);
+          $x = $this->db->get('position')->row_array();
+          return $x['description'];
+      }
+      function check_facs($id)
+      {
+        $this->db->where('fid', $id);
+        return $this->db->get('tbl_userreg')->num_rows();
       }
 }

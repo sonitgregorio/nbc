@@ -22,7 +22,8 @@
               $usertype = "";
               $id = "";
               $password = "";
-            }
+              $dates = "";
+                      }
           }
 
        ?>
@@ -81,6 +82,19 @@
                                     <input type="text" name="contact" value="<?php echo $contact ?>" class="form-control" placeholder="Contact" required>
                                   </div>
                                 </div>
+
+                                <?php if ($this->session->userdata('type') == 1): ?>
+                                  <input type="hidden" name="dates" value="">
+                                <?php else: ?>
+                                <!--   <div class="form-group">
+                                  <label class="col-sm-4 control-label">Date Hired</label>
+                                  <div class="col-sm-8">
+                                    <input type="date" name="dates" value="<?php echo $dates ?>" class="form-control">
+                                  </div>
+                                </div> -->
+                                <?php endif; ?>
+
+
                                 <div class="form-group">
                                   <label class="col-sm-4 control-label">Username</label>
                                   <div class="col-sm-8">
@@ -138,13 +152,40 @@
                             <div class="col-md-12">
 
                               <hr style="border: 1px solid brown;" />
-                              <table id="example" class="table table-bordered">
+                              <div>
+                                <!-- <form class="form-horizontal" method="post">
+                                  <div class="col-md-5">
+                                    <div class="form-group">
+                                      <label class="col-sm-3 control-label">Position</label>
+                                      <div class="col-sm-8">
+                                        <select class="form-control" id="category" name="cat">
+                                          <option>All</option>
+                                          <option></option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-5">
+                                    <div class="form-group">
+                                      <label class="col-sm-3 control-label">Name</label>
+                                      <div class="col-sm-8">
+                                        <input type="text" class="form-control" name="searchedname" id="searching">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-2">
+                                    <button type="submit" class="btn btn-success">Search</button>
+                                  </div>
+                                </form> -->
+                              </div>
+                              <table  id="example" class="table table-bordered ">
                                 <thead>
                                   <tr class="navbar-inverse">
                                     <td style="color:white;text-align:center">Name</td>
                                     <td style="color:white;text-align:center">Email Address</td>
                                     <td style="color:white;text-align:center">Contact</td>
                                     <td style="color:white;text-align:center">Address</td>
+                                    <td style="color:white;text-align:center">User Type</td>
                                     <td style="color:white;text-align:center">Action</td>
                                   </tr>
                                 </thead>
@@ -160,9 +201,10 @@
                                         <td><?php echo $emailaddress ?></td>
                                         <td><?php echo $contact ?></td>
                                         <td><?php echo $address ?></td>
+                                        <td><?php echo $description ?></td>
                                         <td>
-                                          <a href="/edit_users/<?php echo $id ?>" class="label label-info">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-pencil"></span></a>
-                                          <a href="/delete_users/<?php echo $id ?>" class="label label-danger" onclick="return confirm('Do you sure?')">Delete&nbsp;&nbsp;<span class="glyphicon glyphicon-trash"></span></a>
+                                          <a href="/edit_users/<?php echo $uid ?>" class="label label-info">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-pencil"></span></a>
+                                          <a href="/delete_users/<?php echo $uid ?>" class="label label-danger" onclick="return confirm('Do you sure?')">Delete&nbsp;&nbsp;<span class="glyphicon glyphicon-trash"></span></a>
                                         </td>
                                       </tr>
                                   <?php

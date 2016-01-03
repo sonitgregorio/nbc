@@ -19,16 +19,16 @@
                               School
                             </td>
                             <td style="color:white;text-align:center">
-                              Student
+                              Student 30%
                             </td>
                             <td style="color:white;text-align:center">
-                              Self
+                              Self 20%
                             </td>
                             <td style="color:white;text-align:center">
-                              Peer
+                              Peer 20%
                             </td>
                             <td style="color:white;text-align:center">
-                              Supervisor
+                              Supervisor 30%
                             </td>
                             <td style="color:white;text-align:center">
                               QCE Result
@@ -48,13 +48,17 @@
                                <tr>
                                  <td><?php echo $value['firstname'] ?></td>
                                  <td><?php echo $value['sch_name'] ?></td> 
-                                 <td><?php echo $this->api->student_eval($value['facid']) ?></td> 
-                                 <td><?php echo $this->api->self_eval($value['facid']) ?></td>
-                                 <td><?php echo $this->api->peer_eval($value['facid']) ?></td>
-                                 <td><?php echo $this->api->super_eval($value['facid']) ?></td>
-                                 <td><?php echo  $this->api->self_eval($value['facid']) + $this->api->peer_eval($value['facid']) + $this->api->student_eval($value['facid']) + $this->api->super_eval($value['facid']) ?></td>  
-                                 <td><?php echo $x['cce'] ?></td>  
-                                 <td><?php echo $this->registration->getPo($x['position']) ?></td>  
+                                 <td><?php echo $std = $this->registration->student_result($value['facid'], $this->registration->get_cycle_end(), 2, .30) ?></td> 
+                                 <td><?php echo $self = $this->registration->self_result($value['facid'], $this->registration->get_cycle_end(), 1, .20)  ?></td>
+                                 <td><?php echo $peer = $this->registration->peer_result($value['facid'], $this->registration->get_cycle_end(), 1, .20) ?></td>
+                                 <td><?php echo $super = $this->registration->supervisor_result($value['facid'], $this->registration->get_cycle_end(), 3, .30) ?></td>
+                                 <td><?php echo $std + $self + $peer + $super ?></td>  
+                                 <td><?php echo $cce_res = $this->registration->get_cce_results($value['facid'], $this->registration->get_cycle_end()) ?></td>  
+                                 <td>
+                                  <?php
+                                  echo $this->registration->get_positions( $this->registration->get_ranked($value['facid']))
+                                  
+                                    ?></td>  
                                </tr>
                             <?php endforeach ?>
                            

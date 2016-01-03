@@ -26,7 +26,7 @@ class Api
     //calculate total evaluation of instructor for student
     function student_eval($id)
     {
-        $e = $this->CI->db->get_where('tbl_evaluation', array('to_evaluate' => $id))->result_array();
+        $e = $this->CI->db->get_where('tbl_evaluation', array('to_evaluate' => $id,  'cycle' => $this->CI->registration->get_cycle_end()))->result_array();
         $sum = 0;
         foreach ($e as $evaluate) {
             $this->CI->db->where('id', $evaluate['evaluator'])->where('usertype', 2);
@@ -39,7 +39,8 @@ class Api
 
     function peer_eval($id)
     {
-        $e = $this->CI->db->get_where('tbl_evaluation', array('to_evaluate' => $id))->result_array();
+
+        $e = $this->CI->db->get_where('tbl_evaluation', array('to_evaluate' => $id, 'cycle' => $this->CI->registration->get_cycle_end()))->result_array();
         $sum = 0;
         foreach ($e as $evaluate) {
             $this->CI->db->where('id', $evaluate['evaluator'])->where('usertype', 1);
@@ -52,14 +53,14 @@ class Api
 
     function self_eval($id)
     {
-        $e = $this->CI->db->query("SELECT * FROM tbl_evaluation WHERE to_evaluate = $id AND tbl_evaluation.evaluator = (SELECT id FROM tbl_userreg WHERE fid = $id)")->row_array();
+        $e = $this->CI->db->query("SELECT * FROM tbl_evaluation WHERE to_evaluate = $id AND tbl_evaluation.evaluator = (SELECT id FROM tbl_userreg WHERE fid = $id) GROUP by cycle")->row_array();
         $sum = $e['group1'] + $e['group2'] + $e['group3'] + $e['group4'];
  
         return $sum * PEER_SELF;
     }
     function super_eval($id)
     {
-        $e = $this->CI->db->query("SELECT * FROM tbl_evaluation a, tbl_userreg b, tbl_faculty c WHERE a.to_evaluate = $id AND b.fid = c.id  AND c.position = 3 AND a.to_evaluate = b.id")->result_array();
+        $e = $this->CI->db->query("SELECT * FROM tbl_evaluation a, tbl_userreg b, tbl_faculty c WHERE a.to_evaluate = $id AND b.fid = c.id  AND c.position = 3 AND a.to_evaluate = b.id GROUP by cycle")->result_array();
         $sum = 0;
         foreach($e as $ee)
         {
@@ -78,7 +79,7 @@ class Api
         $school         = $e['sch_name'];
         $pos            = $this->CI->db->get('points_allocation')->result_array();
 
-        foreach ($pos as $key)
+        foreach ($pos as $key) 
         {
             if($based_point == 'cce')
             {
@@ -129,5 +130,6 @@ class Api
                        'position' => $position,
                        'school' => $school);
         // update the instructor rank if the rank is change
+          
     }
 }

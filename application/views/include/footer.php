@@ -3,10 +3,12 @@
 </div>
   <script src="/assets/js/jquery.js"></script>
   <script src="/assets/js/bootstrap.js"></script>
+  <script src="/assets/js/select2.full.min.js"></script>
   <script src="/assets/js/jquery.dataTables.min.js"></script>
 
 
       <script>
+  
       $(document).ready(function (){
           var $dname11  = 0
           var $dname21  = 0;
@@ -167,8 +169,61 @@
               $total = Number($aname11) + Number($aname21) + Number($aname31) + Number($aname41) + Number($aname51);
               $total_aname.html($total);
           });
+
+          $('.77').change(function(){
+            $val1 = $('.77').val();
+
+           $total_calc = $val1 * .6;
+
+           if ($total_calc > 3) {
+            $total_calc = 3;
+           };
+           document.getElementById('77').value = Number($total_calc).toFixed(2);
+
+           document.getElementById('77-1').value = Number($total_calc).toFixed(2);
+          });
+
+
+           $('.78').change(function(){
+            $val1 = $('.78').val();
+
+           $total_calc = $val1 * .4;
+
+           if ($total_calc > 2) {
+            $total_calc = 2;
+           };
+           document.getElementById('78').value = Number($total_calc).toFixed(2);
+           document.getElementById('78-1').value = Number($total_calc).toFixed(2);
+          });
+
+           $('.79').change(function(){
+            $val1 = $('.79').val();
+
+           $total_calc = $val1 * .2;
+
+           if ($total_calc > 1) {
+            $total_calc = 1;
+           };
+           document.getElementById('79').value = Number($total_calc).toFixed(2);
+           document.getElementById('79-1').value = Number($total_calc).toFixed(2);
+          });
+
+           $(".js-example-basic-single").select2();
+
+
+           $(".js-example-theme-single").select2({
+            theme: "classic"
+          });
+           
+
+
         $('#example').DataTable();
+
+       
+
+
       });
       </script>
+
   </body>
 </html>
