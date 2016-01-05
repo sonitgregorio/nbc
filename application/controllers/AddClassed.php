@@ -208,6 +208,6 @@
 			}
 
 			$this->session->set_flashdata('message', $this->successMessage() . 'Successfuly Generated.</div>');
-			//redirect('/add_faculty_evaluator/'.$id);
+			redirect('/add_faculty_evaluator/'.$id);
 		}
 	}

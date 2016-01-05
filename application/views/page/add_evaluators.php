@@ -12,8 +12,13 @@
                     <div class="panel-body">
                        <div class="col-md-12">
                        	<?php echo $this->session->flashdata('message') ?>
-
-                        <center><a href="/generate_eval/<?php echo $id ?>" class="btn btn-success btn-lg">Generate Evaluators</a></center>
+                        <?php 
+                              $chec_if = $this->facultymod->cheked($id);
+                         ?>
+                         <?php if ($chec_if == 0): ?>
+                            <center><a href="/generate_eval/<?php echo $id ?>" class="btn btn-success btn-lg">Generate Evaluators</a></center>
+                         <?php endif ?>
+                       
 
                        	<form class="form" action="/insert_faculty_evaluator" method="post">
                        		<!-- <input type="hidden" value="<?php echo $id ?>" name="uid">

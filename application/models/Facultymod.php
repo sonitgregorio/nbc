@@ -21,12 +21,14 @@
 	    }
 	    function get_evaluators($id)
 	    {
+	    	$get_active = $this->db->query("SELECT id FROM tbl_sy WHERE status = 1")->row_array();
+	    	$sy = $get_active['id'];
 	    	$cycle = $this->registration->get_cycle_end();
 	    	return $this->db->query("SELECT concat(firstname, ' ', lastname) as names, tbl_student_eval.id as eid, tbl_subject.description 
 	    					 		 FROM tbl_student_eval, tbl_userreg, tbl_subject WHERE instructor = $id 
 	    							 AND tbl_student_eval.student_id = tbl_userreg.id 
 	    							 AND tbl_student_eval.subject = tbl_subject.id 
-	    							 AND tbl_student_eval.cycle = $cycle")->result_array();
+	    							 AND tbl_student_eval.cycle = $cycle AND sy = $sy")->result_array();
 	    }
 	    function delete_evaluators($id)
 	    {
@@ -77,5 +79,14 @@
 	    {
 	    	$x = $this->db->query("SELECT description FROM tbl_student_eval, tbl_sy WHERE cycle = $id AND tbl_sy.id = tbl_student_eval.sy LIMIT 1")->row_array();
 	    	return $x['description'];
+	    }
+	    function cheked($id)
+	    {
+	    	$get_active = $this->db->query("SELECT id FROM tbl_sy WHERE status = 1")->row_array();
+	    	$sy = $get_active['id'];
+
+	    	$this->db->where('instructor', $id);
+	    	$this->db->where('sy', $sy);
+	    	return $this->db->get('tbl_student_eval')->num_rows();
 	    }
 	}
