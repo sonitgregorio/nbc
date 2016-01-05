@@ -50,8 +50,16 @@
 
                          ?>
                         <br>
-                        <h4 class="text-center">Instruction: Please evaluate the faculty using the Score below. Select your rating.</h4>
+                        <?php
+
+                             $ds = $this->facultymod->get_sy($id); 
+                             $xtra = explode(' - ', $ds);
+
+                        ?>
+                        <h4 class="text-center">Note. The highlited Part is lowest Points in your Evaluation</h4>
+                        <center><b>School Year:&nbsp;&nbsp;<?php echo $xtra[0] ?>&nbsp;&nbsp;&nbsp;Semester:&nbsp;&nbsp;<?php echo $xtra[1] ?></b></center>
                         <form action="/submit_evaluate" method="post">
+                        
                             <table class="table table-bordered center-block" style="max-width:700px;">
                                 <tr class="text-center">
                                     <td style="width:10%">Score</td>

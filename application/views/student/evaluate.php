@@ -20,33 +20,66 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($this->facultymod->get_mylist_eval($this->session->userdata('id')) as $key => $value): ?>
-                                <tr>
-                                    <td><?php echo $value['names'] ?></td>
-                                    <td><?php echo $value['description'] ?></td>
-                                    <td>
-                                        <?php
-                                            $this->db->where('evaluator', session('id'));
-                                            $this->db->where('subject', $value['subject']);
-                                            $this->db->where('cycle', $this->registration->get_cycle_end());
-                                            $this->db->where('to_evaluate', $value['fid']);
-                                            $c = $this->db->count_all_results('tbl_evaluation');
-                                            $style = '';
-                                            if($c > 0){
-                                                $style = 'disabled';
-                                                $class = 'class="btn btn-danger"';
-                                                $descr = 'Done';
-                                            }
-                                            else{
-                                                $class = 'class="btn btn-info btn-block"';
-                                                $descr = 'Evaluate';
-                                            }
-                                         ?>
-                                        <a href="/instructor_eval/<?php echo $value['fid'] .'/'. $value['subject'] ?>" <?php echo $style ?> <?php echo $class ?>><?php echo $descr ?></a>
+                            <?php if ($this->session->userdata('type') == 2): ?>
+                                <?php foreach ($this->facultymod->get_mylist_eval($this->session->userdata('id')) as $key => $value): ?>
+                                    <tr>
+                                        <td><?php echo $value['names'] ?></td>
+                                        <td><?php echo $value['description'] ?></td>
+                                        <td>
+                                            <?php
+                                                $this->db->where('evaluator', session('id'));
+                                                $this->db->where('subject', $value['subject']);
+                                                $this->db->where('cycle', $this->registration->get_cycle_end());
+                                                $this->db->where('to_evaluate', $value['fid']);
+                                                $c = $this->db->count_all_results('tbl_evaluation');
+                                                $style = '';
+                                                if($c > 0){
+                                                    $style = 'disabled';
+                                                    $class = 'class="btn btn-danger"';
+                                                    $descr = 'Done';
+                                                }
+                                                else{
+                                                    $class = 'class="btn btn-info btn-block"';
+                                                    $descr = 'Evaluate';
+                                                }
+                                             ?>
+                                            <a href="/instructor_eval/<?php echo $value['fid'] .'/'. $value['subject'] ?>" <?php echo $style ?> <?php echo $class ?>><?php echo $descr ?></a>
 
-                                     </td>
-                                </tr>   
-                            <?php endforeach ?>
+                                         </td>
+                                    </tr>   
+                                <?php endforeach ?>
+                            <?php else: ?>
+                                <?php foreach ($this->facultymod->list_instruct($this->session->userdata('id')) as $key => $value): ?>
+                                    <tr>
+                                        <td><?php echo $value['names'] ?></td>
+                                        <td><?php echo '' ?></td>
+                                        <td>
+                                            <?php
+                                                $this->db->where('evaluator', session('id'));
+                                                $this->db->where('subject', 0);
+                                                $this->db->where('cycle', $this->registration->get_cycle_end());
+                                                $this->db->where('to_evaluate', $value['fid']);
+                                                $c = $this->db->count_all_results('tbl_evaluation');
+                                                $style = '';
+                                                if($c > 0){
+                                                    $style = 'disabled';
+                                                    $class = 'class="btn btn-danger"';
+                                                    $descr = 'Done';
+                                                }
+                                                else{
+                                                    $class = 'class="btn btn-info btn-block"';
+                                                    $descr = 'Evaluate';
+                                                }
+                                             ?>
+                                            <a href="/instructor_eval/<?php echo $value['fid'] .'/0' ?>" <?php echo $style ?> <?php echo $class ?>><?php echo $descr ?></a>
+
+                                         </td>
+                                    </tr>  
+                                <?php endforeach ?> 
+                                
+                            <?php endif ?>
+                           
+
 
 
 

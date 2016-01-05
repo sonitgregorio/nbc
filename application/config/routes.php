@@ -134,3 +134,7 @@ $route['insert_student']					= 'addClassed/insert_student';
 $route['set_sy']							= 'addClassed/set_sy';
 $route['insert_sy']							= 'addClassed/insert_sy';
 $route['set_active/(:num)']					= 'addClassed/set_active/$1';
+
+
+//Generate Evaluators
+$route['generate_eval/(:any)']				= 'addClassed/generate_eval/$1';

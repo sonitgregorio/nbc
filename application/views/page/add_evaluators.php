@@ -12,8 +12,11 @@
                     <div class="panel-body">
                        <div class="col-md-12">
                        	<?php echo $this->session->flashdata('message') ?>
+
+                        <center><a href="/generate_eval/<?php echo $id ?>" class="btn btn-success btn-lg">Generate Evaluators</a></center>
+
                        	<form class="form" action="/insert_faculty_evaluator" method="post">
-                       		<input type="hidden" value="<?php echo $id ?>" name="uid">
+                       		<!-- <input type="hidden" value="<?php echo $id ?>" name="uid">
                        		<div class="col-md-6">
                        			<label>Evaluator</label>
                        			<select class="form-control" name="evaluator">
@@ -31,11 +34,8 @@
 	                       			<button type="submit" class="btn btn-success">Save</button>
 	                       			<a href="/faculty_list" class="btn btn-info">Cancel</a>
 	                       		</div>
-                       		</div>
+                       		</div> -->
                        	</form>
-						  <br /><br /><br />
-						  <br /><br /><br />
-						  <br /><br /><br />
                           <hr style="border: 1px solid brown;"/>
                           <table id="example" class="table table-bordered">
                             <thead>

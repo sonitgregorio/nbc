@@ -42,6 +42,14 @@
 	    							 AND tbl_userreg.fid = tbl_faculty.id 
 	    							 AND tbl_student_eval.subject = tbl_subject.id")->result_array();
 	    }
+	    function list_instruct($id)
+	    {
+	    	return $this->db->query("SELECT concat(tbl_userreg.firstname, ' ', tbl_userreg.lastname) names, tbl_userreg.fid 
+	    							 FROM `tbl_student_eval`, tbl_userreg, tbl_faculty 
+	    							 WHERE student_id = $id 
+	    							 AND tbl_student_eval.instructor = tbl_faculty.id 
+	    							 AND tbl_userreg.fid = tbl_faculty.id")->result_array();
+	    }
 	    function get_points_qce($grp, $cat, $cycle)
 	    {
 	    	$fid = $this->session->userdata('fid');
@@ -64,5 +72,10 @@
 	    					  group by nums 
 	    					  order by p asc limit 1")->row_array();
 	    	return $x['p'];
+	    }
+	    function get_sy($id)
+	    {
+	    	$x = $this->db->query("SELECT description FROM tbl_student_eval, tbl_sy WHERE cycle = $id AND tbl_sy.id = tbl_student_eval.sy LIMIT 1")->row_array();
+	    	return $x['description'];
 	    }
 	}

@@ -54,7 +54,51 @@
 		}
 		function get_stud_class($classid)
 		{
-			return $this->db->query("SELECT tbl_class_stud.id as cid, tbl_userreg.* from tbl_class_stud, tbl_userreg WHERE student = tbl_userreg.id and classid = $classid")->result_array();
+			return $this->db->query("SELECT tbl_class_stud.id as cid, tbl_userreg.* 
+									 FROM tbl_class_stud, tbl_userreg WHERE student = tbl_userreg.id 
+									 AND classid = $classid")->result_array();
+		}
+		function get_active()
+		{
+			$x = $this->db->query("SELECT id FROM tbl_sy WHERE status = 1")->row_array();
+			return $x['id'];
+		}
+		function get_all_class($facid, $active_sy)
+		{
+			// $this->db->where('faculty', $facid);
+			// $this->db->where('semester', $active_sy);
+			// $this->db->select('id');
+			return $this->db->query("SELECT count(subject) as counts, subject, id 
+									FROM `tbl_class` where faculty = $facid 
+									AND semester = $active_sy GROUP BY subject")->result_array();
 		}	
-
+		function all_stud($id, $limit)
+		{
+			return $this->db->query("SELECT * FROM tbl_class_stud 
+									WHERE classid = $id ORDER BY RAND(), id ASC 
+									LIMIT $limit")->result_array();
+		}
+		function split_sub($facid, $active_sy, $subject)
+		{
+			return $this->db->query("SELECT id FROM tbl_class 
+									WHERE faculty = $facid 
+									AND subject = $subject 
+									AND semester = $active_sy 
+									ORDER BY RAND() LIMIT 2")->result_array();
+		}
+		function insert_stud_eval($data)
+		{
+			$this->db->insert('tbl_student_eval', $data);
+		}
+		function get_rand_inst($id, $type, $limit)
+		{
+			return $this->db->query("SELECT * FROM tbl_userreg WHERE usertype = $type AND fid != $id ORDER BY RAND() LIMIT $limit")->result_array();
+		}
+		function get_instruc_id($id)
+		{
+			$this->db->where('fid', $id);
+			$this->db->select('id');
+			$x = $this->db->get('tbl_userreg')->row_array();
+			return $x['id'];
+		}
 	}
