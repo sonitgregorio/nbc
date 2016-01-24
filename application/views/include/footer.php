@@ -221,6 +221,15 @@
 
        
 
+        $('.chekc').click(function(e){
+          x = $(this).data('param1');
+          $('input[name=fiddss]').val(x);
+          $('#cced').modal('show');
+          e.preventDefault();
+        });
+
+
+
 
       });
       </script>

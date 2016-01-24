@@ -145,6 +145,7 @@
                                         <a href="/edit_faculty/<?php echo $fid?>" class="label label-info">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-pencil"></span></a>
                                         <a href="/add_fac_user/<?php echo $fid?>" class="label label-info">Add As User&nbsp;&nbsp;<span class="glyphicon glyphicon-user"></span></a>
                                         <a href="/delete_faculty/<?php echo $fid?>" class="label label-danger" onclick="return confirm('Do you sure?')">Delete&nbsp;&nbsp;<span class="glyphicon glyphicon-trash"></span></a>
+                                        <a class="label label-info chekc" data-type="1" data-toggle="modal" data-target="#ccedd" data-param1="<?php echo $fid ?>">Add CCE</a>
                                       </td>
                                     </tr>
                                   <?php endforeach; ?>
@@ -157,3 +158,45 @@
               </div>
           </div>
 </div>
+
+
+
+
+
+
+<div class="modal" id="cced" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="margin-top:10%">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background: rgb(157, 90, 71)">
+          <button type="button" class="close backs" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title backs" id="myModalLabel" style="color:#FFFF00;"><strong><i class="fa fa-lock fa-fw"></i>&nbsp;Add CCE</strong></h4>
+        </div>
+            <div class="modal-body">
+            <form action="/insert_this_cce" method="POST">
+              <div class="panel-body" id="lo">
+                  <input type="hidden" name="fiddss" value="" id="fidds">
+                </div>
+                <div class="form-group">
+                  <label>Select CCE Type</label>
+                  <select class="form-control js-example-basic-single" name="ccetype" style="width:100%;">
+                    <?php foreach ($this->registration->get_cce_type() as $key => $value): ?>
+                        <option value="<?php echo $value['id'] ?>"><?php  echo $value['description'] ?></option>
+                    <?php endforeach ?>
+                  </select>
+                <div class="form-group">
+                    <label>Coressponding Points</label>
+                    <input type="text" class="form-control" name="points">
+                  
+
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-success" type="submit">Save</button>
+                </div>
+                </div>
+            </form>
+                
+            </div>
+        </div>
+      </div>
+    </div>
+

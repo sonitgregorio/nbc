@@ -8,7 +8,7 @@ class Faculty extends CI_Model
     }
     function add_fac_user($id)
     {
-        $password = array('password' => password_hash('welcome', 1));
+        $password = 'welcome';
         $this->db->query("INSERT INTO tbl_userreg (firstname, middlename, lastname, emailaddress, address, contact, username, fid, usertype)
                         SELECT firstname, middlename, lastname, emailaddress, address, contact, LOWER(CONCAT(firstname, '.', lastname)), id, 1
                         FROM tbl_faculty WHERE id = '$id'");

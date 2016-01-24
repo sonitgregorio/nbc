@@ -86,7 +86,7 @@ class Common extends CI_Controller
                         'address'       => ucwords($this->input->post('address')),
                         'contact'       => $this->input->post('contact'),
                         'username'      => $this->input->post('username'),
-                        'password'      => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
+                        'password'      => $this->input->post('password'),
                         'usertype'      => $this->input->post('usertype'),
                     );
 

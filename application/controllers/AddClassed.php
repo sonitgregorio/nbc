@@ -144,7 +144,6 @@
 					 					  'sy' => $active_sy);
 					 		$this->addclassmd->insert_stud_eval($data);
 					 	}
-					 
 					 } 
 				}
 				else
@@ -162,14 +161,12 @@
 
 					 		$this->addclassmd->insert_stud_eval($data);
 						}
-						
 				}
 			}
 	//-------------------------------------------------------------------------------------------------//
 	
 	//Randomize Instructor Evaluation for peer		
 	//------------------------------------------------------------------------------------------------//		
-			
 			$instruct = $this->addclassmd->get_rand_inst($id, 1, 5);
 			foreach ($instruct as $key => $value) {
 				$stud_id = $value['id'];
@@ -181,8 +178,6 @@
 
 					 		$this->addclassmd->insert_stud_eval($data);
 			}
-			echo $count;
-
 			//Self Evaluator
 			$get_id = $this->addclassmd->get_instruc_id($id);
 			$stud_id = $get_id;
@@ -193,7 +188,6 @@
 					 					  'sy' => $active_sy);
 			$this->addclassmd->insert_stud_eval($data);
 			$count = 0;
-
 			//Supervisor Evaluator
 			$sup = $this->addclassmd->get_rand_inst($id, 3, 1);
 			foreach ($sup as $key => $value) {
@@ -209,5 +203,122 @@
 
 			$this->session->set_flashdata('message', $this->successMessage() . 'Successfuly Generated.</div>');
 			redirect('/add_faculty_evaluator/'.$id);
+		}
+		function insert_this_cce()
+		{
+			$cid = $this->input->post('ccetype');
+			$fid = $this->input->post('fiddss');
+			$points = $this->input->post('points');
+			$active_cycle = $this->registration->get_cycle_end();
+			$data = array('cid' => $cid, 'fid' => $fid, 'point' => $points, 'cycle' => $active_cycle);
+
+			$x = $this->db->query("SELECT * FROM tbl_cce_res WHERE cid = $cid AND fid = $fid AND cycle = $active_cycle")->num_rows();
+			if ($x > 0) {
+				$this->db->where('cid', $cid);
+				$this->db->where('fid', $fid);
+				$this->db->update('tbl_cce_res', $data);
+			}else{
+				$this->db->insert('tbl_cce_res', $data);
+			}
+			redirect('/faculty_registration');
+		}
+		function generate_evaluators_input()
+		{
+			$this->load->model('addclassmd');
+			$facid = $this->input->post('facid');
+			$subject = $this->input->post('subject');
+			$limit = $this->input->post('limit');
+			$active_sy = $this->addclassmd->get_active();
+			$active_cycle = $this->registration->get_cycle_end();
+
+
+
+
+			//CHECKINF IF more than 2 subjects it will be spliited by subject
+			$check_if_two = $this->addclassmd->check_two_subject($facid, $subject, $active_sy);
+
+			if ($check_if_two >= 2) 
+			{
+				$limits = $limit / 2;
+				$split_subject = $this->addclassmd->split_sub($facid, $active_sy, $subject);
+					foreach ($split_subject as $splits => $splitsubs) {
+						//get all student by classid and limit
+						$count = 0;
+
+						$get_all_stud = $this->addclassmd->all_stud($splitsubs['id'], $limits, $active_sy, $subject, $facid);					 	
+					 	foreach ($get_all_stud as $st => $stud_lim) {
+					 		//Put in array All data;
+					 		$stud_id = $stud_lim['student'];
+					 		$subjs = $stud_lim['subject'];
+					 		$data = array('student_id' => $stud_id, 
+					 					  'instructor' => $facid, 
+					 					  'cycle' => $active_cycle, 
+					 					  'subject' => $subjs, 
+					 					  'sy' => $active_sy);
+					 		$this->addclassmd->insert_stud_eval($data);
+					 	}
+					 }
+			}
+			else
+			{
+				$get_classid = $this->addclassmd->classid_get($subject, $facid, $active_sy);
+				$get_all_stud = $this->addclassmd->all_stud($get_classid, $limit, $active_sy, $subject, $facid);					 	
+			 	foreach ($get_all_stud as $st => $stud_lim) {
+			 		//Put in array All data;
+			 		$stud_id = $stud_lim['student'];
+			 		$subjs = $stud_lim['subject'];
+			 		
+			 		$data = array('student_id' => $stud_id, 
+			 					  'instructor' => $facid, 
+			 					  'cycle' => $active_cycle, 
+			 					  'subject' => $subjs, 
+			 					  'sy' => $active_sy);
+			 		
+			 		$this->addclassmd->insert_stud_eval($data);
+			 	}
+			}
+
+			//Check if Instructor Supervisor is added
+			$check_instructors = $this->addclassmd->check_if_instructor($facid, $active_sy);
+			if ($check_instructors <= 0) {
+				//Randomize Instructor Evaluation for peer		
+				//------------------------------------------------------------------------------------------------//		
+				$instruct = $this->addclassmd->get_rand_inst($facid, 1, 5);
+				foreach ($instruct as $key => $value) {
+					$stud_id = $value['id'];
+					$data = array('student_id' => $stud_id, 
+						 					  'instructor' => $facid, 
+						 					  'cycle' => $active_cycle, 
+						 					  'subject' => 0, 
+						 					  'sy' => $active_sy);
+
+						 		$this->addclassmd->insert_stud_eval($data);
+				}
+				//Self Evaluator
+				$get_id = $this->addclassmd->get_instruc_id($facid);
+				$stud_id = $get_id;
+				$data = array('student_id' => $stud_id, 
+						 					  'instructor' => $facid, 
+						 					  'cycle' => $active_cycle, 
+						 					  'subject' => 0, 
+						 					  'sy' => $active_sy);
+				$this->addclassmd->insert_stud_eval($data);
+				$count = 0;
+				//Supervisor Evaluator
+				$sup = $this->addclassmd->get_rand_inst($facid, 3, 1);
+				foreach ($sup as $key => $value) {
+					$stud_id = $value['id'];
+					$count += 1;
+					$data = array('student_id' => $stud_id, 
+						 					  'instructor' => $facid, 
+						 					  'cycle' => $active_cycle, 
+						 					  'subject' => 0, 
+						 					  'sy' => $active_sy);
+					$this->addclassmd->insert_stud_eval($data);
+				}		
+			}
+			
+			$this->session->set_flashdata('message', $this->successMessage() . 'Successfuly Generated.</div>');
+			redirect('/add_faculty_evaluator/'.$facid);
 		}
 	}

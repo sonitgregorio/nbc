@@ -11,7 +11,7 @@ class Evaluate extends CI_Controller
                 $p = $this->input->post('aname'.$i);
                 $data['group1'] += $this->input->post('aname'.$i);
                 if ($p != 0 OR $p != '') {
-                     $data2 = array('groups' => 'group1', 'nums' => 'aname'.$i, 'points' => $this->input->post('aname'.$i), 'fid' => $this->input->post('ins_id'), 'cycle' => $this->registration->get_cycle_end());
+                     $data2 = array('groups' => 'group1', 'nums' => 'aname'.$i, 'points' => $this->input->post('aname'.$i), 'fid' => $this->input->post('ins_id'), 'cycle' => $this->registration->get_cycle_end(), 'subject' => $this->input->post('subject'));
                     $this->db->insert('tbl_qce_rate', $data2);
                 }
         }
@@ -23,7 +23,7 @@ class Evaluate extends CI_Controller
             if($this->input->post('bname'.$i))
                 $data['group2'] += $this->input->post('bname'.$i);
                 if ($p != 0 OR $p != '') {
-                     $data3 = array('groups' => 'group2', 'nums' => 'bname'.$i, 'points' => $this->input->post('bname'.$i), 'fid' => $this->input->post('ins_id'), 'cycle' => $this->registration->get_cycle_end());
+                     $data3 = array('groups' => 'group2', 'nums' => 'bname'.$i, 'points' => $this->input->post('bname'.$i), 'fid' => $this->input->post('ins_id'), 'cycle' => $this->registration->get_cycle_end(), 'subject' => $this->input->post('subject'));
                     $this->db->insert('tbl_qce_rate', $data3);
                 }
         }
@@ -35,7 +35,7 @@ class Evaluate extends CI_Controller
             if($this->input->post('cname'.$i))
                 $data['group3'] += $this->input->post('cname'.$i);
                 if ($p != 0 OR $p != '') {
-                    $data4 = array('groups' => 'group3', 'nums' => 'cname'.$i, 'points' => $this->input->post('cname'.$i), 'fid' => $this->input->post('ins_id'), 'cycle' => $this->registration->get_cycle_end());
+                    $data4 = array('groups' => 'group3', 'nums' => 'cname'.$i, 'points' => $this->input->post('cname'.$i), 'fid' => $this->input->post('ins_id'), 'cycle' => $this->registration->get_cycle_end(), 'subject' => $this->input->post('subject'));
                     $this->db->insert('tbl_qce_rate', $data4);
                 }
         }
@@ -47,7 +47,7 @@ class Evaluate extends CI_Controller
             if($this->input->post('dname'.$i))
                 $data['group4'] += $this->input->post('dname'.$i);
                  if ($p != 0 OR $p != '') {
-                        $data5 = array('groups' => 'group4', 'nums' => 'dname'.$i, 'points' => $this->input->post('dname'.$i), 'fid' => $this->input->post('ins_id'), 'cycle' => $this->registration->get_cycle_end());
+                        $data5 = array('groups' => 'group4', 'nums' => 'dname'.$i, 'points' => $this->input->post('dname'.$i), 'fid' => $this->input->post('ins_id'), 'cycle' => $this->registration->get_cycle_end(), 'subject' => $this->input->post('subject'));
                         $this->db->insert('tbl_qce_rate', $data5);
                     }
         }

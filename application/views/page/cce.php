@@ -16,12 +16,29 @@
 
 
                             <?php 
+
+
+
+
                                 $info = $this->registration->info();
 
-                                $datetime1 = new DateTime($info['dates']);
-                                $datetime2 = new DateTime(Date('Y-m-d'));
-                                $interval = $datetime1->diff($datetime2);
-                                echo $interval->format('%y');
+
+                                echo $info['dates'] - Date('Y-m-d');
+
+
+                                // $datetime1 = date_create($info['dates']);
+                                // $datetime2 = date_create(Date('Y-m-d'));
+                                
+                                // $interval = date_diff($datetime1, $datetime2);
+                                
+                                // echo $interval->format('%y');
+
+
+
+                                // $datetime1 = new DateTime($info['dates']);
+                                // $datetime2 = new DateTime(Date('Y-m-d'));
+                                // $interval = $datetime1->diff($datetime2);
+                               // echo $interval->format('%y');
 
                              ?>
                             <tr>

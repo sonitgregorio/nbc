@@ -72,10 +72,13 @@
 									FROM `tbl_class` where faculty = $facid 
 									AND semester = $active_sy GROUP BY subject")->result_array();
 		}	
-		function all_stud($id, $limit)
+		function all_stud($id, $limit, $active_sy, $subject, $facid)
 		{
 			return $this->db->query("SELECT * FROM tbl_class_stud 
-									WHERE classid = $id ORDER BY RAND(), id ASC 
+									WHERE classid = $id 
+									AND student != 0 
+									AND student NOT in(SELECT student_id FROM tbl_student_eval WHERE sy = $active_sy AND subject = $subject AND instructor = $facid)
+									ORDER BY RAND(), id ASC 
 									LIMIT $limit")->result_array();
 		}
 		function split_sub($facid, $active_sy, $subject)
@@ -92,13 +95,31 @@
 		}
 		function get_rand_inst($id, $type, $limit)
 		{
-			return $this->db->query("SELECT * FROM tbl_userreg WHERE usertype = $type AND fid != $id ORDER BY RAND() LIMIT $limit")->result_array();
+			$x = $this->db->query("SELECT * FROM tbl_userreg WHERE usertype = $type AND fid != $id ORDER BY RAND() LIMIT $limit")->result_array();
+			return $x;
 		}
 		function get_instruc_id($id)
 		{
 			$this->db->where('fid', $id);
 			$this->db->select('id');
 			$x = $this->db->get('tbl_userreg')->row_array();
+			return $x['id'];
+		}
+		function check_two_subject($facid, $subject, $active_sy)
+		{
+			$x = $this->db->query("SELECT * FROM tbl_class WHERE subject = $subject AND faculty = $facid AND semester = $active_sy")->num_rows();
+			return $x;
+		}
+		function check_if_instructor($facid, $active_sy)
+		{
+			return $this->db->query("SELECT * FROM tbl_student_eval 
+									 WHERE instructor = '$facid' 
+									 AND sy = '$active_sy' 
+									 AND subject = '0'")->num_rows();
+		}
+		function classid_get($subject, $facid, $active_sy)
+		{
+			$x = $this->db->query("SELECT * FROM tbl_class WHERE subject = $subject AND faculty = $facid AND semester = $active_sy")->row_array();
 			return $x['id'];
 		}
 	}

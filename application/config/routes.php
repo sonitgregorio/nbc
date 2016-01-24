@@ -98,6 +98,7 @@ $route['cce']                     			= 'cce/show_instruc';
 //Reports
 
 $route['reports_all']			  			= 'reports/view_all_rep';
+$route['rep_instruct']						= 'reports/rep_instruct';
 
 #insert cce routes
 $route['insert_this_cce']		  			= 'cce/insert_this_cce';
@@ -138,3 +139,9 @@ $route['set_active/(:num)']					= 'addClassed/set_active/$1';
 
 //Generate Evaluators
 $route['generate_eval/(:any)']				= 'addClassed/generate_eval/$1';
+$route['insert_this_cce']					= 'addClassed/insert_this_cce';
+
+//QCE Result Per Subject
+$route['qce_subject']						= 'qce/qce_subject';
+$route['view_summary_subject/(:any)/(:any)']= 'qce/view_summary_subject/$1/$2';
+$route['generate_evaluators_input']			= 'addClassed/generate_evaluators_input';

@@ -15,9 +15,37 @@
                         <?php 
                               $chec_if = $this->facultymod->cheked($id);
                          ?>
-                         <?php if ($chec_if == 0): ?>
-                            <center><a href="/generate_eval/<?php echo $id ?>" class="btn btn-success btn-lg">Generate Evaluators</a></center>
-                         <?php endif ?>
+                         <?php //if ($chec_if == 0): ?>
+                          <form class="form-horizontal" method="POST" action="/generate_evaluators_input">
+                            <input type="hidden" value="<?php echo $id ?>" name="facid">
+                            <div class="col-md-5">
+                              <div class="form-group">
+                                <label class="col-sm-3 control-label">Subject</label>
+                                <div class="col-sm-9" style="padding:0">
+                                  <select class="form-control" name="subject">
+                                      <?php foreach ($this->facultymod->get_subject_inclass($id) as $key => $value): ?>
+                                            <option value="<?php echo $value['id'] ?>"><?php echo $value['desc'] ?></option>                      
+                                      <?php endforeach ?>                                
+                                  </select>  
+                                </div>
+                              </div>  
+                            </div>
+                            <div class="col-md-5">
+                              <div class="form-group">
+                                <label class="col-sm-6 control-label">No. of Student</label>
+                                <div class="col-sm-6" style="padding:0">
+                                  <input type="number" class="form-control" placeholder="No. Of Student" name="limit"> 
+                                </div>
+                              </div>  
+                            </div>
+                            <div class="col-md-2">
+                            <button type="submit" class="btn btn-success">Generate</button>
+                            <!-- <a href="/generate_eval/<?php echo $id ?>" class="btn btn-success">Generate</a> -->
+                                                            
+                            </div>
+                          </form>
+                            
+                         <?php //endif ?>
                        
 
                        	<form class="form" action="/insert_faculty_evaluator" method="post">
@@ -41,6 +69,8 @@
 	                       		</div>
                        		</div> -->
                        	</form>
+                        <br />
+                        <br />
                           <hr style="border: 1px solid brown;"/>
                           <table id="example" class="table table-bordered">
                             <thead>

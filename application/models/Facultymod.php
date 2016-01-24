@@ -89,4 +89,48 @@
 	    	$this->db->where('sy', $sy);
 	    	return $this->db->get('tbl_student_eval')->num_rows();
 	    }
+	     function get_points_qce_subject($grp, $cat, $cycle, $subject)
+	    {
+	    	$fid = $this->session->userdata('fid');
+	    	//$cycle = $this->registration->get_cycle_end();
+	    	$x = $this->db->query("SELECT SUM(points) as p FROM tbl_qce_rate 
+	    					  WHERE groups = '$grp' 
+	    					  AND nums = '$cat' 
+	    					  AND fid = '$fid' 
+	    					  AND cycle = '$cycle'
+	    					  AND subject = '$subject'")->row_array();
+	    	return $x['p'];
+	    }
+	    function get_lowest_subject($grp, $cycle, $subject)
+	    {
+	    	$fid = $this->session->userdata('fid');
+	    	//$cycle = $this->registration->get_cycle_end();
+	    	$x = $this->db->query("SELECT SUM(points) as p FROM tbl_qce_rate 
+	    					  WHERE groups = '$grp' 
+	    					  AND fid = '$fid' 
+	    					  AND cycle = $cycle
+	    					  AND subject = '$subject' 
+	    					  group by nums 
+	    					  order by p asc limit 1")->row_array();
+	    	return $x['p'];
+	    }
+	    function get_subject_description($subject)
+	    {
+	    	$x = $this->db->query("SELECT CONCAT(code, '-', description) as sub FROM tbl_subject WHERE id = $subject")->row_array();
+	    	return $x['sub'];
+	    }
+	    function get_subject_inclass($id)
+	    {
+	    	$activ_sy = $this->get_actives();
+	    	$x = $this->db->query("SELECT DISTINCT(tbl_class.subject), CONCAT(tbl_subject.code, '-', tbl_subject.description) as `desc`, tbl_subject.id 
+	    						   FROM tbl_subject, tbl_class 
+	    						   WHERE faculty = $id 
+	    						   AND tbl_subject.id = tbl_class.subject AND semester = $activ_sy")->result_array();
+	    	return $x;
+	    }
+	    function get_actives()
+		{
+			$x = $this->db->query("SELECT id FROM tbl_sy WHERE status = 1")->row_array();
+			return $x['id'];
+		}
 	}

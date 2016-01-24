@@ -72,7 +72,7 @@ class Registration extends CI_Model
       function getFaculty($id)
       {
           return $this->db->query("SELECT a.id AS fid, a.firstname, a.middlename, a.lastname,
-                                    a.address, a.contact, a.emailaddress, b.id AS schid, c.id AS pid
+                                    a.address, a.contact, a.emailaddress, b.id AS schid, c.id AS pid,  dates
                                     FROM `tbl_faculty` a, tbl_school b, position c
                                     WHERE a.school = b.id
                                     AND c.id = a.position
@@ -410,4 +410,20 @@ class Registration extends CI_Model
         $this->db->where('fid', $id);
         return $this->db->get('tbl_userreg')->num_rows();
       }
+      function get_cce_type()
+      {
+        return $this->db->query("SELECT * FROM tbl_cce")->result_array();
+      }
+      function get_subject_qce($cycle)
+      {
+          $fid = $this->session->userdata('fid');
+          return $this->db->query("SELECT tbl_evaluation.subject, tbl_subject.description, tbl_subject.code 
+                                   FROM `tbl_evaluation`, tbl_subject 
+                                   WHERE to_evaluate = $fid 
+                                   AND cycle = $cycle 
+                                   AND subject != 0 
+                                   AND tbl_evaluation.subject = tbl_subject.id 
+                                   GROUP BY subject, cycle")->result_array();
+      }
 }
+

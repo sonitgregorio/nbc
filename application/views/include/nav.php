@@ -12,7 +12,10 @@
                 <a href="/user_registration" style="color:#fff">Student Registration</a>
             </li> -->
             <li>
-                <a href="/qce" style="color:#fff">QCE</a>
+                <a href="/qce_subject" style="color:#fff">QCE Result Per Subject</a>
+            </li>
+            <li>
+                <a href="/qce" style="color:#fff">QCE Result</a>
             </li>
             <li>
                 <a href="/evaluate" style="color:#fff;">Evaluate</a>
@@ -21,7 +24,7 @@
                 <a href="/cce" style="color:#fff">CCE</a>
             </li>
             <li>
-                <a href="#" style="color:#fff">Reports</a>
+                <a href="/rep_instruct" style="color:#fff">Reports</a>
             </li>
             <!-- <li>
                   <a href="/list_evaluate" style="color:white">List of Evaluators</a>
