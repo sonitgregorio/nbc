@@ -122,4 +122,15 @@
 			$x = $this->db->query("SELECT * FROM tbl_class WHERE subject = $subject AND faculty = $facid AND semester = $active_sy")->row_array();
 			return $x['id'];
 		}
+		function get_temp_sub()
+		{
+			return $this->db->query('SELECT a.id, CONCAT(b.code, " - ", b.description) as subs, c.description as sy, d.yrsec 
+									 FROM tbl_temp_sub a, tbl_subject b, tbl_sy c, tbl_sectionyear d 
+ 					  				 WHERE a.subid = b.id AND a.yrsec = d.id AND a.semester = c.id')->result_array();
+		}
+		function check_first($where)
+		{
+			$this->db->where($where);
+			return $this->db->get('tbl_temp_sub')->num_rows();
+		}
 	}

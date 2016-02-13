@@ -48,7 +48,6 @@ class Registration extends CI_Model
       {
           $this->db->insert('tbl_faculty', $data);
           $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'Inserted New Data.</div>');
-          redirect('/faculty_registration');
       }
       function getallfaculty()
       {

@@ -61,8 +61,20 @@ class Common extends CI_Controller
         else
         {
           $this->registration->insert_fac($data);
-        }
+          $i = $this->db->insert_id();
 
+          $x = $this->db->get('tbl_temp_sub')->result_array();
+         
+          foreach ($x as $key => $value) {
+            $cl = array('faculty' => $i, 'subject' => $value['subid'], 'yrsec' => $value['yrsec'], 'semester' => $value['semester']);
+            $this->db->insert('tbl_class', $cl);
+          }
+
+        $this->db->truncate('tbl_temp_sub');
+
+
+        }
+          redirect('/faculty_registration');
     }
     function delete_faculty($id)
     {
@@ -70,6 +82,7 @@ class Common extends CI_Controller
     }
     function edit_faculty($id)
     {
+      
         $data = $this->registration->getFaculty($id);
         $this->load->view('include/header');
         $this->load->view('include/nav');

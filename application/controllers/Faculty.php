@@ -14,6 +14,7 @@
 		}
 		function faculty_list()
 		{
+			
 			$this->load->view('include/header');
 			$this->load->view('include/nav');
 			$this->load->view('page/faculty_list');

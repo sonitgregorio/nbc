@@ -10,7 +10,7 @@
       <script>
   
       $(document).ready(function (){
-          var $dname11  = 0
+          var $dname11  = 0;
           var $dname21  = 0;
           var $dname31  = 0;
           var $dname41  = 0;
@@ -211,10 +211,11 @@
            $(".js-example-basic-single").select2();
 
 
-           $(".js-example-theme-single").select2({
-            theme: "classic"
-          });
+             $(".js-example-theme-single").select2({
+              theme: "classic"
+            });
            
+
 
 
         $('#example').DataTable();
@@ -228,8 +229,39 @@
           e.preventDefault();
         });
 
+        $('.add_subs').click(function(e){
+           
+          $('#subsshow').modal('show');
+        });
 
 
+        $('.delsub').click(function(){
+          x = $(this).data('param');
+              $.post('/addClassed/deletesubs', {x}, function(data){
+                $('.err').html("<div class='alert alert-success'>Class Successfully Deleted</div>")
+                $(".refretbl").html(data);
+            });
+
+          
+        });
+
+
+
+
+
+        $('.subsubmit').submit(function(){
+          $.post('/addClassed/insert_temp_sub', $(this).serialize(), function(data){
+            if (data == 1) {
+              $('.err').html("<div class='alert alert-danger'>Class Already Exist</div>")
+            }
+            else{
+              $('.err').html("<div class='alert alert-success'>Class Successfully Added</div>")
+              $(".refretbl").html(data);
+            };
+          });
+        });
+
+       $.fn.modal.Constructor.prototype.enforceFocus = function () {};
 
       });
       </script>

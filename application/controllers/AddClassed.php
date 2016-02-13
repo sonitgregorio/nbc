@@ -321,4 +321,43 @@
 			$this->session->set_flashdata('message', $this->successMessage() . 'Successfuly Generated.</div>');
 			redirect('/add_faculty_evaluator/'.$facid);
 		}
+		function insert_temp_sub()
+		{
+
+			$this->load->model('addclassmd');
+			$subject = $this->input->post('subject');
+			$yrsec = $this->input->post('yrsec');
+			$semester = $this->input->post('semester');
+			$check_first = $this->addclassmd->check_first(array('subid' => $subject, 'yrsec' => $yrsec, 'semester' => $semester));
+			if ($check_first > 0) {
+				echo 1;				
+			}else{
+				$this->db->insert('tbl_temp_sub', array('subid' => $subject, 'yrsec' => $yrsec, 'semester' => $semester));
+				$this->refstbl();
+
+			}
+		}
+		function refstbl()
+		{
+
+			$this->load->model('addclassmd');
+			$x = $this->addclassmd->get_temp_sub();
+
+			foreach ($x as $key => $value) {
+				echo "<tr>
+					 <td>" . $value['subs'] . "</td>
+					 <td>" . $value['yrsec'] . "</td>
+					 <td>" . $value['sy'] . "</td>
+					 <td><button class='btn btn-danger delsub' data-param=" . $value['id'] . "><span class='glyphicon glyphicon-trash'></span></a></button>
+					 </tr>";
+			}
+			$this->load->view('include/footer2');
+		}
+		function deletesubs()
+		{
+			$x = $this->input->post('x');
+			$this->db->where('id', $x);
+			$this->db->delete('tbl_temp_sub');
+			$this->refstbl();
+		}
 	}

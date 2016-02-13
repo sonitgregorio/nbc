@@ -67,6 +67,7 @@ class Main extends CI_Controller
 
     function fac_reg()
     {
+        $this->load->model('addclassmd');
         $this->load->view('include/header');
         $this->load->view('include/nav');
         $this->load->view('page/faculty_reg');

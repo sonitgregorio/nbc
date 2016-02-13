@@ -54,14 +54,14 @@
                                     <input type="text" name="address" value="<?php echo $address ?>" class="form-control" placeholder="Address">
                                   </div>
                                 </div>
-                              </div>
-                              <div class="col-md-7">
                                 <div class="form-group">
                                   <label class="col-sm-3 control-label">Email Address</label>
                                   <div class="col-sm-9">
                                     <input type="text" name="emailaddress" value="<?php echo $emailaddress ?>" class="form-control" placeholder="Email Address">
                                   </div>
                                 </div>
+                              </div>
+                              <div class="col-md-7">
                                 <div class="form-group">
                                   <label class="col-sm-3 control-label">Contact</label>
                                   <div class="col-sm-9">
@@ -77,7 +77,7 @@
                                 <div class="form-group">
                                   <label class="col-sm-3 control-label">Current Position</label>
                                   <div class="col-sm-9">
-                                    <select class="js-example-basic-single form-control" name="position">
+                                    <select class="form-control js-example-theme-single" name="position">
                                         <?php
                                           foreach ($this->registration->Allposition() as $key => $v):
                                           extract($v);
@@ -108,6 +108,17 @@
                                         <?php endif; ?>
                                       <?php endforeach; ?>
                                     </select>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="col-sm-3 control-label">Subject</label>
+                                  <div class="col-sm-9">
+                                    <div class="input-group">
+                                      <input type="text" class="form-control" placeholder="" disabled="">
+                                      <span class="input-group-btn">
+                                        <button class="btn btn-danger add_subs" type="button">Add Subject</button>
+                                      </span>
+                                    </div><!-- /input-group -->
                                   </div>
                                 </div>
                                 <div class="form-goup">
@@ -199,4 +210,86 @@
         </div>
       </div>
     </div>
+
+
+
+
+    <div class="modal bs-example-modal-lg" id="subsshow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background: rgb(157, 90, 71)">
+          <button type="button" class="close backs" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title backs" id="myModalLabel" style="color:#FFFF00;"><strong><i class="fa fa-lock fa-fw"></i>&nbsp;Add Subject Handled</strong></h4>
+        </div>
+            <div class="modal-body">
+                <form class="form-horizontal subsubmit" method="POST" onsubmit="return false">
+                  <div class="err">
+                    
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Subject</label>
+                    <div class="col-sm-9">
+                      <select class="form-control js-example-theme-single" style="width:100%" name="subject">
+                        <option value="0">Select Subject</option>
+                        <?php foreach ($this->addclassmd->get_subj() as $key => $value): ?>
+                          <option value="<?php echo $value['id'] ?>"><?php echo strtoupper($value['sname']) ?></option>
+                        <?php endforeach ?>
+                      </select>  
+                    </div>
+                  </div>
+                  <div class="form-group">
+
+                    <label class="col-sm-3 control-label">Year & Section</label>
+                    <div class="col-sm-9">
+                      <select class="form-control js-example-theme-single" style="width:100%" name="yrsec">
+                        <option value="0">Select Year & Section</option>
+                        <?php foreach ($this->addclassmd->yrsect() as $key => $value): ?>
+                          <option value="<?php echo $value['id'] ?>"><?php echo strtoupper($value['yrsec']) ?></option>
+                        <?php endforeach ?>
+                      </select>  
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">S.Y Semester</label>
+                    <div class="col-sm-9">
+                      <select class="form-control js-example-theme-single" style="width:100%" name="semester">
+                        <?php foreach ($this->addclassmd->get_sy() as $key => $value): ?>
+                          <option value="<?php echo $value['id'] ?>"><?php echo strtoupper($value['description']) ?></option>
+                        <?php endforeach ?>
+                      </select> 
+                      <br />
+                      <button class="btn btn-success pull-right" type="submit" style="margin-top:1%">Save</button>
+                    </div>
+                    
+                  </div>
+                </form>
+                <table class="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                      <td>Subject</td>
+                      <td>Section</td>
+                      <td>S.Y Semester</td>
+                      <td>Action</td>
+                    </tr>
+                  </thead>
+                  <tbody class="refretbl">
+                    <?php foreach ($this->addclassmd->get_temp_sub() as $key => $value): ?>
+                      <tr>
+                        <td><?= $value['subs'] ?></td>
+                        <td><?= $value['yrsec'] ?></td>
+                        <td><?= $value['sy'] ?></td>
+                        <td>
+                          <button class="btn btn-danger delsub" data-param=<?= $value['id']  ?> onclick="return confirm('Are You Sure?')"><span class="glyphicon glyphicon-trash"></span></button>
+                        </td>
+                      </tr>
+                    <?php endforeach ?>
+                  </tbody>
+                </table>
+                
+            </div>
+        </div>
+      </div>
+    </div>
+
+
 
