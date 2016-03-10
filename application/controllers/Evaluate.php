@@ -4,6 +4,7 @@ class Evaluate extends CI_Controller
 {
     function evaluation()
     {
+        $this->api->insert_log('Evaluation Submited');
         $data['group1'] = 0;
         for($i = 1;$i <= 5; $i++)
         {

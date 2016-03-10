@@ -7,6 +7,7 @@ class Common extends CI_Controller
 
     function save_school()
     {
+      $this->api->insert_log('Added School');
         if ($this->input->post('shid') != "")
         {
           $data = array('id'            => $this->input->post('shid'),
@@ -24,6 +25,7 @@ class Common extends CI_Controller
                       );
           $this->registration->add_school($data);
         }
+
     }
     function failedMessage()
     {
@@ -39,41 +41,62 @@ class Common extends CI_Controller
     }
     function delete_school($id)
     {
+      $this->api->insert_log('School Deleted');
         $this->registration->delete_school($id);
     }
     function insert_faculty()
     {
-        $data = array(
-                        'firstname'       => ucwords($this->input->post('firstname')),
-                        'middlename'      => ucwords($this->input->post('middlename')),
-                        'lastname'        => ucwords($this->input->post('lastname')),
-                        'address'         => ucwords($this->input->post('address')),
-                        'emailaddress'    => $this->input->post('emailaddress'),
-                        'contact'         => $this->input->post('contact'),
-                        'position'        => $this->input->post('position'),
-                        'school'          => $this->input->post('school'),
-                        'dates'           => $this->input->post('dates')
+      if ($this->input->post('types') == 1) {
+            $data = array(
+                            'firstname'       => ucwords($this->input->post('firstname')),
+                            'middlename'      => ucwords($this->input->post('middlename')),
+                            'lastname'        => ucwords($this->input->post('lastname')),
+                            'address'         => ucwords($this->input->post('address')),
+                            'emailaddress'    => $this->input->post('emailaddress'),
+                            'contact'         => $this->input->post('contact'),
+                            'position'        => $this->input->post('position'),
+                            'school'          => $this->input->post('school'),
+                            'dates'           => $this->input->post('dates')
+                        );
+            if ($this->input->post('fid') != "")
+            {
+              $this->registration->update_fac($data, $this->input->post('fid'));
+            }
+            else
+            {
+              $this->api->insert_log('Faculty Inserted');
+              $this->registration->insert_fac($data);
+              $i = $this->db->insert_id();
+
+              $x = $this->db->get('tbl_temp_sub')->result_array();
+             
+              foreach ($x as $key => $value) {
+                $cl = array('faculty' => $i, 'subject' => $value['subid'], 'yrsec' => $value['yrsec'], 'semester' => $value['semester']);
+                $this->db->insert('tbl_class', $cl);
+              }
+            $this->db->truncate('tbl_temp_sub');
+            }
+      }else{
+
+              $this->api->insert_log('Supervisor Inserted');
+          $x = preg_replace('/\s+/', '', $this->input->post('firstname'));
+          $username = strtolower($x. '.' . strtolower($this->input->post('lastname')));
+          $data = array(
+                        'firstname'     => ucwords($this->input->post('firstname')),
+                        'middlename'    => ucwords($this->input->post('middlename')),
+                        'lastname'      => ucwords($this->input->post('lastname')),
+                        'emailaddress'  => $this->input->post('emailaddress'),
+                        'address'       => ucwords($this->input->post('address')),
+                        'contact'       => $this->input->post('contact'),
+                        'username'      => $username,
+                        'password'      => 'welcome',
+                        'usertype'      => 3,
                     );
-        if ($this->input->post('fid') != "")
-        {
-          $this->registration->update_fac($data, $this->input->post('fid'));
-        }
-        else
-        {
-          $this->registration->insert_fac($data);
-          $i = $this->db->insert_id();
+          $this->db->insert('tbl_userreg', $data);
 
-          $x = $this->db->get('tbl_temp_sub')->result_array();
-         
-          foreach ($x as $key => $value) {
-            $cl = array('faculty' => $i, 'subject' => $value['subid'], 'yrsec' => $value['yrsec'], 'semester' => $value['semester']);
-            $this->db->insert('tbl_class', $cl);
-          }
-
-        $this->db->truncate('tbl_temp_sub');
+      }
 
 
-        }
           redirect('/faculty_registration');
     }
     function delete_faculty($id)
@@ -100,7 +123,7 @@ class Common extends CI_Controller
                         'contact'       => $this->input->post('contact'),
                         'username'      => $this->input->post('username'),
                         'password'      => $this->input->post('password'),
-                        'usertype'      => $this->input->post('usertype'),
+                        'usertype'      => 2,
                     );
 
         if ($this->input->post('password') != $this->input->post('confirmpassword'))
@@ -115,14 +138,25 @@ class Common extends CI_Controller
             if ($this->input->post('uid') == "")
             {
                 $this->registration->insert_user($data);
+                $ids = $this->db->insert_id();
+
+
+                $x = $this->db->get('tbl_class_temp')->result_array();
+
+                foreach ($x as $key => $value) {
+
+                  $cls = array('student' => $ids, 'subject' => $value['subject'], 'sy' => $value['semester'], 'classid' => $value['classid']); 
+                  $this->db->insert('tbl_class_stud', $cls);
+                }
+                $this->db->truncate('tbl_class_temp');
             }
             else
             {
                 $this->registration->update_users($data, $this->input->post('uid'));
             }
         }
-        $this->session->set_flashdata('data', $data);
-        redirect('/user_registration');
+          redirect('/user_registration');
+        // redirect('/user_registration');
 
     }
     function edit_users($id)
@@ -135,10 +169,12 @@ class Common extends CI_Controller
     }
     function delete_users($id)
     {
+      $this->api->insert_log('User Deleted');
         $this->registration->delete_users($id);
     }
     function insert_criteria()
     {
+      $this->api->insert_log('Criteria Inserted');
       $criteria = $this->input->post('criteria');
 
       $checking = $this->registration->checkif($criteria);
@@ -167,6 +203,7 @@ class Common extends CI_Controller
     }
     function delete_cce($id)
     {
+      $this->api->insert_log('CCE Deleted');
         $this->registration->delete_cce($id);
     }
     function edit_cce($id)
@@ -190,6 +227,7 @@ class Common extends CI_Controller
     }
     function add_fac_user($id)
     {
+      $this->api->insert_log('Added faculty user');
 
       $x = $this->registration->check_facs($id);
       if ($x <= 0) 
@@ -209,6 +247,5 @@ class Common extends CI_Controller
     {
         echo $this->api->qce_instruc(11);
     }
-
 
 }

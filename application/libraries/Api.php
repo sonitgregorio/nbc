@@ -22,6 +22,21 @@ class Api
         }
         return $sum;
     }
+    function insert_log($activity)
+    {
+        date_default_timezone_set('Asia/Manila');
+        $date = Date('Y-m-d');
+        $time = Date('h:i:s');
+        $uid = $this->CI->session->userdata('id');
+
+
+        $get_name = $this->CI->db->query("SELECT CONCAT(firstname, ' ', lastname) as na FROM tbl_userreg WHERE id = $uid")->row_array();
+
+        $name = $get_name['na'];
+        $data = array('names' => $name, 'activity' => $activity, 'date_log' => $date, 'time_log' => $time);
+
+        $this->CI->db->insert('tbl_logs', $data);
+    }
 
     //calculate total evaluation of instructor for student
     function student_eval($id)

@@ -38,3 +38,28 @@ body
     opacity: 0;
     filter: alpha(opacity=0);
 }
+.bor{
+  margin-top: 10px;
+  border: 1px solid black;
+  background-color: white;
+  margin-bottom: 30px;
+}
+@media print{
+  .hideprint{
+    display: none;
+    border-style: none;
+  }
+  .mar{
+    margin-top:-30px;
+    margin-bottom:30px;
+  }
+  @page{
+    margin-bottom:60px;
+  }
+  .bor{
+      margin-top: 0px;
+      border: none;
+      background-color: white;
+      margin-bottom: 30px;
+  }
+}

@@ -1,5 +1,5 @@
 <div id="page-content-wrapper">
-  <a href="#menu-toggle" id="menu-toggle" class="btn btn-info">Menu</a>
+  <a href="#menu-toggle" id="menu-toggle" class="btn btn-info" style="position:fixed">Menu</a>
     <div class="col-md-12">
       <?php
           if (!empty($this->session->flashdata('data')))
@@ -12,27 +12,27 @@
           else
           {
             if (empty($firstname)) {
-              $firstname = "";
-              $lastname = "";
-              $middlename = "";
-              $emailaddress = "";
-              $address = "";
-              $contact = "";
-              $username = "";
-              $usertype = "";
-              $id = "";
-              $password = "";
-              $dates = "";
-                      }
+                $firstname = "";
+                $lastname = "";
+                $middlename = "";
+                $emailaddress = "";
+                $address = "";
+                $contact = "";
+                $username = "";
+                $usertype = "";
+                $id = "";
+                $password = "";
+                $dates = "";
+              }
           }
 
        ?>
-          <div class="container-fluid padding_zero">
+          <div class="container-fluid padding_zero" style="margin-top:30px">
               <div class="row padding_zero">
                   <div class="col-lg-12 padding_zero">
                         <div class="panel panel-default" style="box-shadow: 0px 0px 20px rgb(49, 49, 49)">
                         <div class="panel-heading" style="background: rgb(157, 90, 71)" >
-                          <h1 class="panel-title" style="color:white">User Registration <?php echo $this->session->userdata('type') == 1 ? '(For Instructor)': '' ?></h1>
+                          <h1 class="panel-title" style="color:white">Student Registration <?php echo $this->session->userdata('type') == 1 ? '(For Instructor)': '' ?></h1>
                         </div>
                         <div class="panel-body">
 
@@ -114,10 +114,10 @@
                                   </div>
                                 </div>
 
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                   <label class="col-sm-4 control-label">Position</label>
                                   <div class="col-sm-8">
-                                    <select class="form-control" name="usertype">
+                                    <select class="form-control posi" name="usertype">
 
                                         <?php if ($this->session->userdata('type') == 0): ?>
                                           <?php
@@ -135,6 +135,17 @@
                                         <?php endif; ?>
 
                                     </select>
+                                  </div>
+                                </div> -->
+                                <div class="form-group showsinput">
+                                  <label class="col-sm-4 control-label">Select Subject</label>
+                                  <div class="col-sm-8">
+                                    <div class="input-group">
+                                      <input type="text" class="form-control" placeholder="" disabled="">
+                                      <span class="input-group-btn">
+                                        <button class="btn btn-danger stud_add_subs" type="button">Add Subject</button>
+                                      </span>
+                                    </div>
                                   </div>
                                 </div>
                                 <div class="form-goup">
@@ -243,11 +254,85 @@
                                 </tbody>
                               </table>
                             </div>
-
-
                         </div>
                       </div>
                   </div>
               </div>
           </div>
 </div>
+
+
+
+
+
+    <div class="modal bs-example-modal-lg" id="adddshow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background: rgb(157, 90, 71)">
+          <button type="button" class="close backs" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title backs" id="myModalLabel" style="color:#FFFF00;"><strong><i class="fa fa-lock fa-fw"></i>&nbsp;Add Subject Taken</strong></h4>
+        </div>
+            <div class="modal-body">
+                  <div class="err">
+                    
+                  </div>
+                <h3>List Of Subjects</h3>  
+                <table class="table table-bordered ex">
+                  <thead>
+                    <tr class="navbar-inverse">
+                      <td style="color:white;text-align:center">Instructor</td>
+                      <td style="color:white;text-align:center">Subject</td>
+                      <td style="color:white;text-align:center">Year & Section</td>
+                      <td style="color:white;text-align:center">Semester</td>
+                      <td style="color:white;text-align:center">Action</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <?php foreach ($this->addclassmd->get_classes_mod() as $key => $value): ?>
+                    <tr>
+                      <td><?= $value['facname'] ?></td>
+                      <td><?= $value['subs']?></td>
+                      <td><?= $value['yrsec']?></td>
+                      <td><?= $value['description']?></td>
+                      <td>
+                          <a href="#" class="btn btn-info btn-xs subadd" data-param="<?= $value['id'] ?>"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Add</a>
+                      </td>
+                    </tr>
+                  <?php endforeach ?>
+                  
+                  </tbody>
+                </table>
+
+                <br />
+                <h3>Subject Added</h3>
+                <table class="table table-bordered ex">
+                  <thead>
+                    <tr class="navbar-inverse">
+                      <td style="color:white;text-align:center">Instructor</td>
+                      <td style="color:white;text-align:center">Subject</td>
+                      <td style="color:white;text-align:center">Year & Section</td>
+                      <td style="color:white;text-align:center">Semester</td>
+                      <td style="color:white;text-align:center">Action</td>
+                    </tr>
+                  </thead>
+                  <tbody class="ref_tab">
+                    <?php foreach ($this->addclassmd->get_temp_cl() as $key => $value): ?>
+                      <?php $x = $this->addclassmd->get_spc_temp($value['classid'])  ?>
+                        <tr>
+                            <td><?= $x['facname'] ?></td>
+                            <td><?= $x['subs']?></td>
+                            <td><?= $x['yrsec']?></td>
+                            <td><?= $x['description']?></td>
+                            <td>
+                                <a href="#" class="btn btn-danger btn-xs deltempsub" data-param="<?= $value['id'] ?>"><span class="glyphicon glyphicon-remove-sign"></span>&nbsp;&nbsp;Remove</a>
+                            </td>
+                        </tr>
+                    <?php endforeach ?>
+                  
+                  
+                  </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+    </div>

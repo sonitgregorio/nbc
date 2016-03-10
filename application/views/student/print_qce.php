@@ -1,18 +1,18 @@
 <?php 
 
         $y = $this->db->query("SELECT date_from, date_to FROM tbl_cycle WHERE id = $cy")->row_array();
- ?>
-
-
+ ?>   
+ </div>
 <div id="page-content-wrapper">
-  <a href="#menu-toggle" id="menu-toggle" class="btn btn-info">Menu</a>
     <div class="container-fluid padding_zero">
+    <div>
+            <button class="btn btn-primary hideprint" onclick="window.print()"><span class="glyphicon glyphicon-print">&nbsp;Print</span></button>      
+    </div>
         <div class="row padding_zero">
             <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading" style="background: rgb(157, 90, 71)" >
-                        <h1 class="panel-title" style="color:white">Evaluate</h1>
-                    </div>
+                <br/>
+                <div class="panel panel-default mar">
+                    
                     <div class="panel-body">
                         <h4 class="text-center">The QCE of the NBC No. 461</h4>
                         <h4 class="text-center">Instrument for Instruction/Teaching Effectiveness</h4>
@@ -273,12 +273,6 @@
                                     </td>
                                     <td colspan="5">
                                         <span id="dname"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="6">
-                                        <a href="/print_qce/<?php echo $ids . '/' . $subject . '/' . $cy ?>" class="btn btn-success"><span class="glyphicon glyphicon-print"></span>&nbsp;Print</a>
-                                        <input type="submit" class="btn btn-primary btn-sm pull-right" name="name" value="Submit">
                                     </td>
                                 </tr>
                             </table>

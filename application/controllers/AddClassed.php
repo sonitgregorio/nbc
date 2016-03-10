@@ -33,6 +33,8 @@
 						  'yrsec' => $yrsec, 'semester' => $semester);
 			$this->db->insert('tbl_class', $data);
 			$this->session->set_flashdata('message', $this->successMessage() . 'Class Inserted.</div>');
+            $this->api->insert_log('Added Class');
+
 			redirect('/add_class');
 
 		}
@@ -62,6 +64,7 @@
 				$this->session->set_flashdata('message', $this->successMessage() . 'S.Y Added.</div>');
 							
 			}
+			$this->api->insert_log('School Year Set');
 			redirect('/set_sy');
 		}
 		function set_active($id)
@@ -71,6 +74,7 @@
 
 			$this->db->where('id', $id);
 			$this->db->update('tbl_sy', array('status' => 1));
+			$this->api->insert_log('Set Active S.Y');
 			redirect('/set_sy');
 		}
 		function add_stud($id)
@@ -101,6 +105,7 @@
 				$this->db->insert('tbl_class_stud', $data);
 				$this->session->set_flashdata('message', $this->successMessage() . 'Student Added.</div>');
 			}
+			$this->api->insert_log('Inserted Student');
 			redirect('/add_stud/'.$classid);
 		}
 		function delete_stud($id, $classid)
@@ -108,6 +113,7 @@
 			$this->db->where('id', $id);
 			$this->db->delete('tbl_class_stud');
 			$this->session->set_flashdata('message', $this->successMessage() . 'Successfuly Deleted.</div>');
+			$this->api->insert_log('Student Deleted');
 			redirect('/add_stud/'.$classid);
 		}
 		function generate_eval($id)
@@ -200,11 +206,11 @@
 					 					  'sy' => $active_sy);
 				$this->addclassmd->insert_stud_eval($data);
 			}
-
+			$this->api->insert_log('Generate Evaluation');
 			$this->session->set_flashdata('message', $this->successMessage() . 'Successfuly Generated.</div>');
 			redirect('/add_faculty_evaluator/'.$id);
 		}
-		function insert_this_cce()
+		function insert_this_cces()
 		{
 			$cid = $this->input->post('ccetype');
 			$fid = $this->input->post('fiddss');
@@ -212,7 +218,7 @@
 			$active_cycle = $this->registration->get_cycle_end();
 			$data = array('cid' => $cid, 'fid' => $fid, 'point' => $points, 'cycle' => $active_cycle);
 
-			$x = $this->db->query("SELECT * FROM tbl_cce_res WHERE cid = $cid AND fid = $fid AND cycle = $active_cycle")->num_rows();
+			$x = $this->db->query("SELECT * FROM tbl_cce_res WHERE cid =  $cid AND fid = $fid AND cycle = $active_cycle")->num_rows();
 			if ($x > 0) {
 				$this->db->where('cid', $cid);
 				$this->db->where('fid', $fid);
@@ -220,6 +226,7 @@
 			}else{
 				$this->db->insert('tbl_cce_res', $data);
 			}
+			$this->api->insert_log('Inserted CCE points');
 			redirect('/faculty_registration');
 		}
 		function generate_evaluators_input()
@@ -317,7 +324,7 @@
 					$this->addclassmd->insert_stud_eval($data);
 				}		
 			}
-			
+			$this->api->insert_log('Generated Evaluator');
 			$this->session->set_flashdata('message', $this->successMessage() . 'Successfuly Generated.</div>');
 			redirect('/add_faculty_evaluator/'.$facid);
 		}
@@ -360,4 +367,132 @@
 			$this->db->delete('tbl_temp_sub');
 			$this->refstbl();
 		}
+		function insert_stud_subj()
+		{
+			$classid = $this->input->post('x');
+
+			$x = $this->db->get_where('tbl_class', array('id' => $classid))->row_array();
+
+			$data = ['classid' => $x['id'], 'subject' => $x['subject'], 'semester' => $x['semester']];
+
+
+			$ch = $this->db->get_where('tbl_class_temp', $data)->num_rows();
+			if ($ch <= 0) {
+				$this->db->insert('tbl_class_temp', $data);
+			
+				$this->ref_tab();
+			}
+			else{
+				echo 2;
+			}
+			
+
+		}
+		function ref_tab()
+		{
+
+			$this->load->model('addclassmd');
+			foreach ($this->addclassmd->get_temp_cl() as $key => $value) {
+				$x = $this->addclassmd->get_spc_temp($value['classid']);
+				echo "<tr>
+						<td>" . $x['facname'] . "</td>
+                        <td>" . $x['subs'] . "</td>
+                        <td>" . $x['yrsec'] ."</td>
+                        <td>" . $x['description'] . "</td>
+                        <td>
+                                <a href='#' class='btn btn-danger btn-xs deltempsub' data-param=" . $value['id'] . "><span class='glyphicon glyphicon-remove-sign'></span>&nbsp;&nbsp;Remove</a>
+                        </td>
+					</tr>";
+			}
+			$this->load->view('include/footer2');
+		}
+		function deltemcla()
+		{
+			$x = $this->input->post('x');
+			$this->db->where('id', $x);
+			$this->db->delete('tbl_class_temp');
+			$this->ref_tab();
+		}
+		function delete_class($id)
+		{
+			$this->db->where('id', $id);
+			$this->db->delete('tbl_class');
+			$this->session->set_flashdata('message', $this->successMessage() . 'Successfuly Deleted.</div>');
+			redirect('/add_class');
+		}
+		function searchsub()
+		{
+			$ac = $this->db->query("SELECT id FROM tbl_sy WHERE status = 1")->row_array();
+             $active = $ac['id'];
+			$sub = $this->input->post('val');
+			$x =  $this->db->query("SELECT tbl_class.id, CONCAT(tbl_faculty.firstname, ' ', tbl_faculty.lastname) as fname,
+								     CONCAT(tbl_subject.code, '-', tbl_subject.description) as subdesc, tbl_sectionyear.yrsec,
+								     tbl_sy.description as semester FROM tbl_sy, tbl_class, tbl_subject,tbl_faculty,  tbl_sectionyear 
+								     WHERE tbl_class.faculty = tbl_faculty.id AND tbl_class.subject = tbl_subject.id 
+								     AND tbl_class.yrsec = tbl_sectionyear.id AND tbl_sy.id = tbl_class.semester AND tbl_sy.id = '$active' AND tbl_class.subject = $sub")->result_array();
+							foreach ($x as $key => $value) {
+								echo "<tr>
+	                                      <td>" . $value['fname'] . "</td>
+	                                      <td>" . $value['subdesc'] . "</td>
+	                                      <td>" . $value['yrsec'] . "</td>
+	                                      <td>" . $value['semester'] . "</td>
+	                                      <td>
+	                                        <a href='/add_stud/" . $value['id'] . "' class='btn btn-info btn-xs'>Add Student</a>
+	                                        <a href='/delete_class/" . $value['id'] . "' class='btn btn-danger btn-xs'>Delete</a>
+	                                      </td>
+                                    </tr>";
+							}
+								
+		}
+		function logs()
+		{
+			$this->load->model('addclassmd');
+			$this->load->view('include/header');
+			$this->load->view('include/nav');
+			$this->load->view('page/logs');
+			$this->load->view('include/footer');
+		}
+		function about()
+		{
+			$this->load->model('addclassmd');
+			$this->load->view('include/header');
+			$this->load->view('include/nav');
+			$this->load->view('page/about');
+			$this->load->view('include/footer');
+		}
+		function serachs()
+		{
+			$froms = $this->input->post('x');
+			$tos = date('Y-m-d');
+			$this->r($froms, $tos);
+		}
+		function serachss()
+		{
+			$froms = $this->input->post('x');
+			$tos = $this->input->post('y');
+			$this->r($froms, $tos);
+		}
+		function r($froms, $tos)
+		{
+			$x = $this->db->query("SELECT * FROM tbl_logs WHERE `date_log` BETWEEN '$froms' AND '$tos' ORDER BY tbl_logs.id DESC")->result_array();
+			foreach ($x as $key => $value) {
+				echo "<tr>
+			          <td>" . $value['names'] . "</td>
+			          <td>" . $value['activity'] . "</td>
+			          <td>" . $value['date_log'] . "</td>
+			          <td>" . $value['time_log'] . "</td>
+			        </tr>";
+			}
+		}
+		function help()
+		{
+			redirect(base_url().'assets/images/help.pdf');
+		}
+		function prints()
+		{
+	        $this->load->view('include/header');
+	        $this->load->view('page/print_cce');
+	        $this->load->view('include/footer');
+		}
+
 	}

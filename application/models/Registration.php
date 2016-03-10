@@ -89,12 +89,15 @@ class Registration extends CI_Model
           $this->db->insert('tbl_userreg', $data);
           if($data['usertype'] == 2)
           {
-              $d['student_id']     = $this->db->insert_id();
+            if ($this->session->userdata('type') != 0) {
+              $d['student_id']  = $this->db->insert_id();
               $d['instructor']  = $this->session->userdata('id');
               $this->db->insert('tbl_student_eval', $d);
+            }
+             
           }
           $this->session->set_flashdata('message', '<div class="alert alert-success">' . $this->successMessage() .  'User Added  .</div>');
-          redirect('/user_registration');
+        
       }
       function getAlltype()
       {
@@ -226,6 +229,26 @@ class Registration extends CI_Model
           $this->db->where('cid', $id);
           $this->db->where('fid', $this->session->userdata('fid'));
           $this->db->where('cycle', $this->get_cycle_end());
+          $x = $this->db->get('tbl_cce_res')->row_array();
+          return $x['point'];
+      }
+      function get_cce_points_prev($id)
+      {
+          $counted = 0;
+          $xy = $this->db->query("SELECT id FROM tbl_cycle ORDER by id DESC LIMIT 2")->result_array();
+          foreach ($xy as $key => $value) {
+            $va = $value ['id'];
+            $counted += 1;
+          }
+          if ($counted == 1) {
+            $va = 0;
+          }
+
+
+
+          $this->db->where('cid', $id);
+          $this->db->where('fid', $this->session->userdata('fid'));
+          $this->db->where('cycle', $va);
           $x = $this->db->get('tbl_cce_res')->row_array();
           return $x['point'];
       }
@@ -423,6 +446,15 @@ class Registration extends CI_Model
                                    AND subject != 0 
                                    AND tbl_evaluation.subject = tbl_subject.id 
                                    GROUP BY subject, cycle")->result_array();
+      }
+      function get_sum_points_cce($cycle, $cat)
+      {
+
+          $fid = $this->session->userdata('fid');
+          $x = $this->db->query("SELECT SUM(tbl_cce_res.point) as p FROM tbl_cce_res, tbl_cce 
+                            WHERE fid = $fid and tbl_cce.id = cid AND tbl_cce.cat = $cat 
+                            AND cycle = $cycle")->row_array();
+          return $x['p'];
       }
 }
 

@@ -42,7 +42,7 @@
 
                              ?>
                             <tr>
-                                <th colspan="2" style="text-align:center;color:white" class="navbar-inverse">COMON CRITERIA EVALUATION</th>
+                                <th colspan="2" style="text-align:center;color:white" class="navbar-inverse">COMMON CRITERIA EVALUATION</th>
                             </tr>
                             <tr>
                                 <td style="width:50%">Name of Faculty</td>
@@ -64,13 +64,14 @@
                         
                     </table>
 
-                <form class="form" method="post" action="/insert_this_cce">
+                <form class="form" method="post" action="/insert_this_cced">
                      <div style="max-height: 440px; overflow-y: auto;">
                     <table class="table table-bordered" style="height:10px" id="table-container">
                         <thead class="navbar-inverse" style="color:white;">
                             <th style="text-align:center">Components</th>
                             <th style="text-align:center">Point System</th>
-                            <td>No. Of Days</td>
+                            <!-- <td>No. Of Days</td> -->
+                            <th style="text-align:center">Previous</th>
                             <th style="text-align:center">Score</th>
                         </thead>
                         <tbody>
@@ -78,9 +79,25 @@
                                 <tr>
                                     <td><?php echo $value['description'] ?></td>
                                     <td><?php echo $value['point'] ?></td>
-                                    <td>
+                                   <!--  <td>
                                         <?php if ($value['id'] == 78 OR $value['id'] == 79 or $value['id'] == 77): ?>
                                             <input type="text" class="<?php echo $value['id'] ?> form-control"  name="daysss">
+                                        <?php endif ?>
+                                    </td> -->
+                                    <td>
+                                        <?php if ($value['point'] != ""): ?>
+                                            <?php
+                                                 $x = $this->registration->get_cce_points_prev($value['id']);
+                                                 if ($x == "") {
+                                                     $x = 0;
+                                                 } 
+                                             ?>
+                                             <?php if ($value['id'] == 78 OR $value['id'] == 79 or $value['id'] == 77): ?>
+                                               
+                                            <?php else: ?>
+                                            <input type="text" disabled  class="form-control" value="<?php echo $x ?>">
+
+                                             <?php endif ?>
                                         <?php endif ?>
                                     </td>
                                     <td>
@@ -110,7 +127,11 @@
                     </table>
                 </div>
                 <br/>
-                     <button type='submit' class="btn btn-success pull-right">Submit</button>
+                <div class="pull-right">
+                     <a href="/print_s" target="_blank" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span>&nbsp;Print</a>
+                     <button type='submit' class="btn btn-success">Submit</button>
+                </div>
+                    
              </form>
                 </div>
             </div>

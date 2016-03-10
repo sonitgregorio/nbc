@@ -32,6 +32,7 @@
 		}
 		function insert_faculty_evaluator()
 		{
+			$this->api->insert_log('Faculty Evaluator Added');
 			$this->load->model('facultymod');
 			$subid = $this->input->post('subid');
 			$uid = $this->input->post('uid');
@@ -52,6 +53,7 @@
 		}
 		function delete_evaluators($id, $id2)
 		{
+			$this->api->insert_log('Deleted Evaluators');
 			$this->load->model('facultymod');
 			$this->facultymod->delete_evaluators($id);
 			redirect('/add_faculty_evaluator/'.$id2);

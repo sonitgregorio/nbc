@@ -9,6 +9,11 @@
 			$this->db->select('CONCAT(firstname, " ", middlename, ". ", lastname) as fname, id');
 			return $this->db->get('tbl_faculty')->result_array();			
 		}
+		function get_active_sy()
+		{
+			$x = $this->db->query("SELECT id FROM tbl_sy WHERE status = 1")->row_array();
+			return $x['id'];
+		}
 		function get_subj()
 		{
 			$this->db->select('CONCAT(code, "-", description) as sname, id');
@@ -21,11 +26,12 @@
 		}
 		function get_classes()
 		{
+			$active = $this->get_active_sy();
 			return $this->db->query("SELECT tbl_class.id, CONCAT(tbl_faculty.firstname, ' ', tbl_faculty.lastname) as fname,
 								     CONCAT(tbl_subject.code, '-', tbl_subject.description) as subdesc, tbl_sectionyear.yrsec,
 								     tbl_sy.description as semester FROM tbl_sy, tbl_class, tbl_subject,tbl_faculty,  tbl_sectionyear 
 								     WHERE tbl_class.faculty = tbl_faculty.id AND tbl_class.subject = tbl_subject.id 
-								     AND tbl_class.yrsec = tbl_sectionyear.id AND tbl_sy.id = tbl_class.semester")->result_array();
+								     AND tbl_class.yrsec = tbl_sectionyear.id AND tbl_sy.id = tbl_class.semester AND tbl_sy.id = '$active'")->result_array();
 		}
 		function get_sy()
 		{
@@ -124,13 +130,46 @@
 		}
 		function get_temp_sub()
 		{
-			return $this->db->query('SELECT a.id, CONCAT(b.code, " - ", b.description) as subs, c.description as sy, d.yrsec 
+			return $this->db->query("SELECT a.id, CONCAT(b.code, ' - ', b.description) as subs, c.description as sy, d.yrsec 
 									 FROM tbl_temp_sub a, tbl_subject b, tbl_sy c, tbl_sectionyear d 
- 					  				 WHERE a.subid = b.id AND a.yrsec = d.id AND a.semester = c.id')->result_array();
+ 					  				 WHERE a.subid = b.id AND a.yrsec = d.id AND a.semester = c.id")->result_array();
 		}
 		function check_first($where)
 		{
 			$this->db->where($where);
 			return $this->db->get('tbl_temp_sub')->num_rows();
 		}
+		function get_classes_mod()
+		{
+			$active = $this->get_active_sy();
+			return $this->db->query("SELECT tbl_class.id, CONCAT(tbl_subject.code, ' - ', tbl_subject.description) as subs,
+							  CONCAT(tbl_faculty.firstname,' ' ,tbl_faculty.lastname) as facname,
+							  tbl_sectionyear.yrsec, tbl_sy.description FROM tbl_class, tbl_subject,
+							  tbl_sectionyear, tbl_sy, tbl_faculty WHERE tbl_faculty.id = tbl_class.faculty AND
+							  tbl_subject.id = tbl_class.subject AND tbl_sy.id = tbl_class.semester AND
+							  tbl_class.yrsec = tbl_sectionyear.id AND tbl_sy.id = '$active'")->result_array();
+		}
+		function get_temp_cl()
+		{
+			return $this->db->get('tbl_class_temp')->result_array();
+		}
+		function get_spc_temp($id)
+		{
+			return $this->db->query("SELECT tbl_class.id, CONCAT(tbl_subject.code, ' - ', tbl_subject.description) as subs,
+							  CONCAT(tbl_faculty.firstname,' ' ,tbl_faculty.lastname) as facname,
+							  tbl_sectionyear.yrsec, tbl_sy.description FROM tbl_class, tbl_subject,
+							  tbl_sectionyear, tbl_sy, tbl_faculty WHERE tbl_faculty.id = tbl_class.faculty AND
+							  tbl_subject.id = tbl_class.subject AND tbl_sy.id = tbl_class.semester AND
+							  tbl_class.yrsec = tbl_sectionyear.id AND tbl_class.id = $id")->row_array();
+		}
+		function get_distinct_sub()
+		{
+			$ac = $this->get_active_sy();
+			return $this->db->query("SELECT a.id, CONCAT(a.code, ' -  ',a.description) as subjects 
+									 FROM tbl_subject a, tbl_class b 
+									 WHERE a.id = b.subject 
+									 AND b.semester = $ac 
+									 GROUP BY b.subject")->result_array();
+		}
+		
 	}

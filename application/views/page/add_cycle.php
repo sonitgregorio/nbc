@@ -1,5 +1,5 @@
 <div id="page-content-wrapper">
-  <a href="#menu-toggle" id="menu-toggle" class="btn btn-info">Menu</a>
+  <a href="#menu-toggle" id="menu-toggle" class="btn btn-info" style="position:fixed">Menu</a>
     <?php
         if (empty($description)) {
           $description = "";
@@ -8,7 +8,7 @@
         }
 
      ?>
-    <div class="container-fluid padding_zero">
+    <div class="container-fluid padding_zero" style="margin-top:30px">
         <div class="row padding_zero">
             <div class="col-lg-12">
                   <div class="panel panel-default" style="box-shadow: 0px 0px 20px rgb(49, 49, 49)">

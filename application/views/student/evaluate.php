@@ -43,7 +43,7 @@
                                                     $descr = 'Evaluate';
                                                 }
                                              ?>
-                                            <a href="/instructor_eval/<?php echo $value['fid'] .'/'. $value['subject'] ?>" <?php echo $style ?> <?php echo $class ?>><?php echo $descr ?></a>
+                                            <a href="/instructor_eval/<?php echo $value['fid'] .'/'. $value['subject'] . '/' . $value['cycle'] ?>" <?php echo $style ?> <?php echo $class ?>><?php echo $descr ?></a>
 
                                          </td>
                                     </tr>   
@@ -71,7 +71,7 @@
                                                     $descr = 'Evaluate';
                                                 }
                                              ?>
-                                            <a href="/instructor_eval/<?php echo $value['fid'] .'/0' ?>" <?php echo $style ?> <?php echo $class ?>><?php echo $descr ?></a>
+                                            <a href="/instructor_eval/<?php echo $value['fid'] .'/0/' . $value['cycle'] ?>" <?php echo $style ?> <?php echo $class ?>><?php echo $descr ?></a>
 
                                          </td>
                                     </tr>  

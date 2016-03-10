@@ -5,11 +5,11 @@ $ctr = 0;
  ?>
 
 <div id="page-content-wrapper">
-  <a href="#menu-toggle" id="menu-toggle" class="btn btn-info" style="">Menu</a>
+  <a href="#menu-toggle" id="menu-toggle" class="btn btn-info" style="position:fixed">Menu</a>
     <div class="col-md-12">
-          <div class="container-fluid padding_zero">
+          <div class="container-fluid padding_zero" >
               <div class="row"  style="padding:0" >
-                  <div class="col-lg-12 padding_zero">
+                  <div class="col-lg-12 padding_zero" style="margin-top:30px">
                         <div class="panel panel-default" style="box-shadow: 0px 0px 20px rgb(49, 49, 49);" >
                         <div class="panel-heading" style="background: rgb(157, 90, 71)" >
                           <h1 class="panel-title" style="color:white">Add Student</h1>

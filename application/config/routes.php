@@ -86,7 +86,8 @@ $route['edit_cce/(:any)']       			=   'common/edit_cce/$1';
 //CCE
 $route['qce']                     			=   'qce/criteria';
 $route['evaluate']                			=   'student/evaluate';
-$route['instructor_eval/(:num)/(:num)']  	=   'student/ins_eval/$1/$2';
+$route['instructor_eval/(:num)/(:num)/(:num)']  	=   'student/ins_eval/$1/$2/$3';
+$route['print_qce/(:num)/(:num)/(:num)']  	=   'student/print_qce/$1/$2/$3';
 $route['list_evaluate']           			=   'common/list_evaluate';
 $route['add_evaluators/(:num)']   			=   'common/add_evaluators/$1';
 
@@ -101,7 +102,7 @@ $route['reports_all']			  			= 'reports/view_all_rep';
 $route['rep_instruct']						= 'reports/rep_instruct';
 
 #insert cce routes
-$route['insert_this_cce']		  			= 'cce/insert_this_cce';
+$route['insert_this_cced']		  			= 'cce/insert_this_cce';
 $route['set_cycle']				  			= 'cce/set_cycle';
 $route['insert_cycle']			  			= 'cce/insert_cycle';
 
@@ -139,9 +140,17 @@ $route['set_active/(:num)']					= 'addClassed/set_active/$1';
 
 //Generate Evaluators
 $route['generate_eval/(:any)']				= 'addClassed/generate_eval/$1';
-$route['insert_this_cce']					= 'addClassed/insert_this_cce';
+$route['insert_this_cce']					= 'addClassed/insert_this_cces';
 
 //QCE Result Per Subject
 $route['qce_subject']						= 'qce/qce_subject';
 $route['view_summary_subject/(:any)/(:any)']= 'qce/view_summary_subject/$1/$2';
 $route['generate_evaluators_input']			= 'addClassed/generate_evaluators_input';
+
+
+$route['delete_class/(:any)']				= 'addClassed/delete_class/$1';
+
+$route['logs']								= 'addClassed/logs';
+$route['about']								= 'addClassed/about';
+$route['help']								= 'addClassed/help';
+$route['print_s']							= 'addClassed/prints';

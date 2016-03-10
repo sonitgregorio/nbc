@@ -37,7 +37,7 @@
 	    }
 	    function get_mylist_eval($id)
 	    {
-	    	return $this->db->query("SELECT tbl_subject.id as subject, concat(tbl_userreg.firstname, ' ', tbl_userreg.lastname) names, tbl_userreg.fid, tbl_subject.description 
+	    	return $this->db->query("SELECT tbl_student_eval.cycle, tbl_subject.id as subject, concat(tbl_userreg.firstname, ' ', tbl_userreg.lastname) names, tbl_userreg.fid, tbl_subject.description 
 	    							 FROM `tbl_student_eval`, tbl_userreg, tbl_faculty, tbl_subject 
 	    							 WHERE student_id = $id 
 	    							 AND tbl_student_eval.instructor = tbl_faculty.id 
@@ -46,7 +46,7 @@
 	    }
 	    function list_instruct($id)
 	    {
-	    	return $this->db->query("SELECT concat(tbl_userreg.firstname, ' ', tbl_userreg.lastname) names, tbl_userreg.fid 
+	    	return $this->db->query("SELECT tbl_student_eval.cycle, concat(tbl_userreg.firstname, ' ', tbl_userreg.lastname) names, tbl_userreg.fid 
 	    							 FROM `tbl_student_eval`, tbl_userreg, tbl_faculty 
 	    							 WHERE student_id = $id 
 	    							 AND tbl_student_eval.instructor = tbl_faculty.id 

@@ -73,6 +73,7 @@ class Cce extends CI_Controller
             }
             
         }
+        $this->api->insert_log('Inserted CCE');
         redirect('/cce');
     }
     function set_cycle()
@@ -89,6 +90,7 @@ class Cce extends CI_Controller
         $to = $this->input->post('date_to');
         $data = array('description' => $descrip, 'date_from' => $from, 'date_to' => $to);
         $this->registration->insert_cycle($data);
+        $this->api->insert_log('New Cycle Inserted');
         redirect('/set_cycle');
        // echo $descrip . "|" . $from . "|" . $to;
     }

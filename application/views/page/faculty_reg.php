@@ -1,5 +1,5 @@
 <div id="page-content-wrapper">
-  <a href="#menu-toggle" id="menu-toggle" class="btn btn-info" style="">Menu</a>
+  <a href="#menu-toggle" id="menu-toggle" class="btn btn-info" style="position:fixed">Menu</a>
     <div class="col-md-12">
       <?php
               if (empty($firstname))
@@ -16,7 +16,7 @@
                 $dates ="";
               }
        ?>
-          <div class="container-fluid padding_zero">
+          <div class="container-fluid padding_zero" style="margin-top:30px">
               <div class="row"  style="padding:0" >
                   <div class="col-lg-12 padding_zero">
                         <div class="panel panel-default" style="box-shadow: 0px 0px 20px rgb(49, 49, 49);" >
@@ -30,6 +30,16 @@
                             <form class="form-horizontal" action="/insert_faculty" method="post">
                               <input type="hidden" name="fid" value="<?php echo $fid ?>">
                               <div class="col-md-5">
+                                <div class="form-group">
+                                  <label class="col-sm-3 control-label">Type</label>
+                                  <div class="col-sm-9">
+                                    <label for="fac">Faculty</label>
+                                    <input type="radio" id="fac" name="types" value="1">
+
+                                    <label for="sup">Supervisor</label>
+                                    <input type="radio" id="sup" name="types" value="3">
+                                  </div>
+                                </div>
                                 <div class="form-group">
                                   <label class="col-sm-3 control-label">First Name</label>
                                   <div class="col-sm-9">
@@ -183,7 +193,10 @@
           <h4 class="modal-title backs" id="myModalLabel" style="color:#FFFF00;"><strong><i class="fa fa-lock fa-fw"></i>&nbsp;Add CCE</strong></h4>
         </div>
             <div class="modal-body">
-            <form action="/insert_this_cce" method="POST">
+            <form class="subcce" action="/insert_this_cce" method="POST" onsubmit="return false">
+              <div class="mes">
+                
+              </div>
               <div class="panel-body" id="lo">
                   <input type="hidden" name="fiddss" value="" id="fidds">
                 </div>
@@ -201,6 +214,7 @@
 
                 </div>
                 <div class="form-group">
+                  <a href="/faculty_registration" class="btn btn-info">Done</a>
                   <button class="btn btn-success" type="submit">Save</button>
                 </div>
                 </div>

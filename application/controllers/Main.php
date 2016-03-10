@@ -39,6 +39,7 @@ class Main extends CI_Controller
                   $us = $this->db->get('tbl_userreg')->row_array();
                   $array = array('id' => $r,'type' => $us['usertype'], 'fid' => $us['fid']);
                   $this->session->set_userdata($array);
+                  $this->api->insert_log('User Log in');
                   redirect(base_url());
               }
               else
@@ -85,6 +86,7 @@ class Main extends CI_Controller
 
     function user_reg()
     {
+        $this->load->model('addclassmd');
         $this->load->view('include/header');
         $this->load->view('include/nav');
         $this->load->view('page/user_reg');
@@ -100,6 +102,7 @@ class Main extends CI_Controller
 
     function logout()
     {
+        $this->api->insert_log('User logged out');
         $array = array('id', 'type');
         $this->session->unset_userdata($array);
         redirect('/');

@@ -23,6 +23,7 @@
  	//Insertion for Subject.
  	function insert_subject()
  	{
+ 		$this->api->insert_log('Subject Inserted');
  		$this->load->model('subjectmod');
  		$id = $this->input->post('sid');
  		$code = strtoupper(strtolower($this->input->post('subcode')));
@@ -51,6 +52,7 @@
  	//Delete Subject
  	function delete_subject($id)
  	{
+ 		$this->api->insert_log('Subject Deleted');
  		$this->load->model('subjectmod');
  		$this->subjectmod->delete_subject($id);
  		$this->session->set_flashdata('message', $this->successMessage() . "Subject Deleted</div>");

@@ -31,22 +31,19 @@
             </li> -->
             <?php } elseif($this->session->userdata('type') == 0) { ?>
             <li>
-                <a href="/user_registration" style="color:#fff">User Registration</a>
+                <a href="/user_registration" style="color:#fff">Student Registration</a>
             </li>
             <li>
                 <a href="/faculty_registration" style="color:#fff">Faculty Registration</a>
             </li>
             <li>
-                <a href="/add_class" style="color:#fff">Add Class</a>
-            </li>
-            <li>
                 <a href="/faculty_list" style="color:#fff">Add Evaluator To Faculty</a>
             </li>
             <li>
-                <a href="/add_criteria" style="color:#fff">ADD Common CCE</a>
-            </li> 
+                <a href="/set_sy" style="color:#fff">Set Active S.Y/Semester</a>
+            </li>
             <li>
-                <a href="/reports_all" style="color:#fff">Reports</a>
+                <a href="/add_criteria" style="color:#fff">ADD Common CCE</a>
             </li>
             <li>
                 <a href="/add_subject" style="color:#fff">Add Subject</a>
@@ -55,13 +52,24 @@
                 <a href="/add_school" style="color:#fff">Add School</a>
             </li>
             <li>
+                <a href="/add_class" style="color:#fff">Add Class</a>
+            </li>
+            <li>
                 <a href="/set_cycle" style="color:#fff">Set Cycle</a>
             </li>
             <li>
-                <a href="/set_sy" style="color:#fff">Set Active S.Y/Semester</a>
+                <a href="/reports_all" style="color:#fff">Reports</a>
+            </li>
+            <li>
+                <a href="/help" target="_blank" style="color:#fff">Help</a>
+            </li>
+            <li>
+                <a href="/about" style="color:#fff">About</a>
+            </li>
+            <li>
+                <a href="/logs" style="color:#fff">Logs</a>
             </li>
             <?php } else { ?>
-
             <li>
                 <a href="/evaluate" style="color:#fff;">Evaluate</a>
             </li>

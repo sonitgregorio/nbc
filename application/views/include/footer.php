@@ -219,6 +219,7 @@
 
 
         $('#example').DataTable();
+        $('.ex').DataTable();
 
        
 
@@ -262,6 +263,70 @@
         });
 
        $.fn.modal.Constructor.prototype.enforceFocus = function () {};
+
+
+       $('.posi').change(function(){
+          if ($('.posi').val() == 2) {
+            $('.showsinput').show();
+          }else{
+            $('.showsinput').hide();
+          };
+       });
+
+       $('.stud_add_subs').click(function(){
+          $('#adddshow').modal('show');
+       });
+
+
+       $('.subadd').click(function(){
+         x = $(this).data('param');
+
+         $.post('/addClassed/insert_stud_subj', {x}, function(data){
+            if (data == 2) {
+              $('.err').html("<div class='alert alert-danger'>Subject Already Exist</div>");
+            }else{
+              $('.err').html("<div class='alert alert-success'>Subject Added</div>");
+
+              $('.ref_tab').html(data);
+            };
+         });
+        });
+
+       $('.deltempsub').click(function(){
+          x = $(this).data('param');
+          alert(x);
+          $.post('/addClassed/deltemcla', {x}, function(data){
+            $('.err').html("<div class='alert alert-success'>Subject Removed</div>");
+            $('.ref_tab').html(data); 
+          });
+       });
+
+       $('.searchsub').change(function(){
+          val = $(this).val();
+          $.post('/addClassed/searchsub', {val}, function(data){
+            $('.reposit').html(data);
+          });
+       });
+
+       $('.fr').change(function(){
+          x = $(this).val();
+          $.post('/addClassed/serachs', {x}, function(data){
+            $('.reft').html(data)
+          });
+       });
+       $('.tok').change(function(){
+        x = $('.fr').val();
+        y = $(this).val();
+          $.post('/addClassed/serachss', {x, y}, function(data){
+            $('.reft').html(data)
+          });
+       });
+
+       $('.subcce').submit(function(){
+          $.post('/insert_this_cce', $(this).serialize(), function(data){
+            $('.mes').html('<div class="alert alert-success">Successfully Added</div>')
+          });
+       });
 
       });
       </script>
